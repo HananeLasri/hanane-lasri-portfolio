@@ -4,7 +4,7 @@ body {
   line-height: 1.6;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #f9f7f1, #eae7de);
+  background: linear-gradient(135deg, #f7f6f2, #ffffff);
   background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
   background-repeat: repeat;
   background-size: 400px 400px;
@@ -22,21 +22,21 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* Motif géométrique discret façon "planche" */
+/* Motif géométrique discret */
 body::before {
   content: "";
   position: fixed;
   top: 0; left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: radial-gradient(#aaa 1px, transparent 1px);
+  background-image: radial-gradient(#d9d9d9 1px, transparent 1px);
   background-size: 60px 60px;
   opacity: 0.04;
   z-index: -1;
   pointer-events: none;
 }
 
-/* Canvas pour particules */
+/* Canvas */
 #particles-canvas {
   position: fixed;
   top: 0; left: 0;
@@ -62,12 +62,13 @@ body::before {
 
 /* ---------- HEADER ---------- */
 header {
-  background: #4ca1af;
+  background: #5f7a6b;
   color: white;
   text-align: center;
   padding: 40px 20px;
 }
 
+/* PHOTO */
 .intro img.photo-profil {
   max-width: 150px;
   border-radius: 50%;
@@ -76,7 +77,7 @@ header {
 }
 .intro img.photo-profil:hover {
   transform: rotateY(10deg) rotateX(5deg) scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 /* ---------- BOUTONS ---------- */
@@ -85,14 +86,14 @@ header {
   margin: 10px;
   padding: 10px 20px;
   background-color: white;
-  color: #4ca1af;
+  color: #5f7a6b;
   text-decoration: none;
   font-weight: bold;
   border-radius: 30px;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 .btn:hover {
-  background-color: #eee;
+  background-color: #f2f2f2;
   transform: translateY(-2px) scale(1.05);
 }
 
@@ -101,24 +102,23 @@ h2 {
   cursor: pointer;
   padding: 10px;
   background-color: #f1f1f1;
-  border-left: 4px solid #4ca1af;
+  border-left: 4px solid #5f7a6b;
   transition: background-color 0.3s, text-shadow 0.6s ease, color 0.6s ease;
 }
 h2:hover {
-  background-color: #e0e0e0;
+  background-color: #e8e8e8;
 }
 
-/* ---------- CONTENU DES SECTIONS (toggle fluide PC + mobile) ---------- */
+/* ---------- CONTENU ---------- */
 .toggle-content {
   max-height: 0;
   overflow: hidden;
   padding: 0 15px;
   margin-bottom: 0;
-  border-left: 4px solid #4ca1af;
+  border-left: 4px solid #5f7a6b;
   background-color: #fafafa;
   transition: max-height 0.4s ease, padding 0.4s ease, margin-bottom 0.4s ease;
 }
-
 .toggle-content.open {
   max-height: 1000px;
   padding: 10px 15px;
@@ -129,62 +129,46 @@ h2:hover {
 footer {
   text-align: center;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #f7f6f2;
   font-size: 0.9em;
 }
 
 /* ---------- MODE SOMBRE ---------- */
 body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
+  background-color: #0f1412;
+  color: #e6e6e6;
   background-image: none;
   animation: none;
-  transition: background-color 0.6s ease, color 0.6s ease;
 }
+
 body.dark-mode h2 {
-  background-color: #1e1e1e;
+  background-color: #1c1f1d;
   color: #f0f0f0;
-  text-shadow: 0 0 10px rgba(76,161,175,0.6), 0 0 20px rgba(76,161,175,0.4);
+  text-shadow: 0 0 10px rgba(201,169,110,0.3);
 }
+
 body.dark-mode .toggle-content {
-  background-color: #1a1a1a;
-  border-left-color: #4ca1af;
+  background-color: #161a18;
+  border-left-color: #c9a96e;
 }
+
 body.dark-mode::before {
-  background-image: radial-gradient(#555 1px, transparent 1px);
-  opacity: 0.06;
+  background-image: radial-gradient(#444 1px, transparent 1px);
+  opacity: 0.05;
 }
 
-/* ---------- ÉTOILES SCINTILLANTES EN DARK MODE ---------- */
-.star {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  opacity: 0;
-  animation: twinkle 3s infinite ease-in-out;
-}
-@keyframes twinkle {
-  0%, 100% { opacity: 0; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.2); }
-}
-
-/* ---------- CURSEUR PERSONNALISÉ ---------- */
+/* ---------- CURSEUR ---------- */
 .cursor {
   width: 20px;
   height: 20px;
-  border: 2px solid #4ca1af;
+  border: 2px solid #5f7a6b;
   border-radius: 50%;
   position: fixed;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  transition: transform 0.1s ease-out;
-  z-index: 10000;
 }
 
 /* ---------- BOUTON DARK MODE ---------- */
-#dark-mode-btn {
-  transition: transform 0.6s ease;
-}
 #dark-mode-btn.rotate {
   transform: rotate(360deg);
 }
@@ -194,215 +178,29 @@ body.dark-mode::before {
   header {
     padding: 20px 10px;
   }
-  .intro img.photo-profil {
-    max-width: 100px;
-    display: block;
-    margin: 20px auto;
-  }
+
   .btn {
-    display: block;
     width: 80%;
     margin: 10px auto;
-    font-size: 1rem;
-    text-align: center;
-  }
-  h1 {
-    font-size: 1.6rem;
-  }
-  h2 {
-    font-size: 1.2rem;
-  }
-  p, li {
-    font-size: 0.95rem;
-  }
-  .container {
-    padding: 10px;
+    display: block;
   }
 }
 
-/* ---------- MESSAGE DE BIENVENUE ---------- */
+/* ---------- WELCOME SCREEN ---------- */
 #welcome-message {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #4ca1af;
+  background-color: #5f7a6b;
   color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-  font-weight: bold;
-  z-index: 9999;
-  opacity: 1;
-  transition: opacity 1s ease;
-}
-#welcome-message.fade-out {
-  opacity: 0;
-  pointer-events: none;
 }
 
-/* ✅ Cette partie nécessite un script JS pour enlever l’écran d’intro */
-body > *:not(#welcome-message) {
-  display: none;
-}
-body.ready > *:not(#welcome-message) {
-  display: block;
-}
-
-/* ---------- CERTIFICATS PREMIUM MODERNES & SOBRES ---------- */
-.certificats-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  margin-top: 20px;
-  padding: 0 10px;
-}
-
+/* ---------- CERTIFICATS ---------- */
 .certificat-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(10px);
-  padding: 14px 20px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-  cursor: pointer;
-  animation: float 6s ease-in-out infinite;
+  background: rgba(255,255,255,0.85);
 }
-
-.certificat-item:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.15), 0 0 8px rgba(76,161,175,0.25);
-  background: rgba(255, 255, 255, 1);
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-3px); }
-}
-
-.certificat-item p {
-  margin: 0;
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #2c3e50;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
 .certificat-item:hover p {
-  color: #4ca1af;
-  text-shadow: 0 0 4px rgba(76,161,175,0.25);
+  color: #5f7a6b;
 }
 
-.certificat-item .btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255,255,255,0.9);
-  color: #4ca1af;
-  font-weight: 600;
-  font-size: 0.85rem;
-  padding: 6px 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(76,161,175,0.3);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.certificat-item .btn svg,
-.certificat-item .btn i {
-  font-size: 1rem;
-  transition: transform 0.25s ease;
-}
-
-.certificat-item .btn:hover {
-  transform: translateY(-2px) scale(1.05);
-  background: rgba(255,255,255,1);
-  color: #357a8f;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-}
-
-.certificat-item .btn:hover svg,
-.certificat-item .btn:hover i {
-  transform: rotate(15deg) scale(1.1);
-}
-
-@media (min-width: 768px) {
-  .certificats-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* ---------- H3 & CONTENU TOGGLE POUR LES CERTIFICATS ---------- */
-#certificats h3 {
-  cursor: pointer;
-  padding: 10px;
-  margin-top: 20px;
-  background-color: #f1f1f1;
-  border-left: 4px solid #4ca1af;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#certificats h3:hover {
-  background-color: #e0e0e0;
-}
-
-#certificats .toggle-content {
-  max-height: 0;
-  overflow: hidden;
-  padding: 0 15px;
-  margin-bottom: 0;
-  border-left: 4px solid #4ca1af;
-  background-color: #fafafa;
-  transition: max-height 0.4s ease, padding 0.4s ease, margin-bottom 0.4s ease;
-}
-
-#certificats .toggle-content.open {
-  max-height: 1000px;
-  padding: 10px 15px;
-  margin-bottom: 20px;
-}
-
-/* ---------- DARK MODE POUR LES SOUS-SECTIONS CERTIFICATS ---------- */
-body.dark-mode #certificats h3 {
-  background-color: #1e1e1e;
-  color: #f0f0f0;
-}
-
-body.dark-mode #certificats .toggle-content {
-  background-color: #1a1a1a;
-  border-left-color: #4ca1af;
-}
-
-/* ---------- MODE SOMBRE POUR CERTIFICATS ---------- */
+/* DARK CERTIFICATS */
 body.dark-mode .certificat-item {
-  background: rgba(40, 40, 40, 0.95);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
-}
-
-body.dark-mode .certificat-item p {
-  color: #e0f7fa;
-  text-shadow: 0 0 4px rgba(76,161,175,0.5);
-}
-
-body.dark-mode .certificat-item:hover p {
-  color: #4ca1af;
-  text-shadow: 0 0 6px rgba(76,161,175,0.7);
-}
-
-body.dark-mode .certificat-item .btn {
-  background: rgba(60,60,60,0.9);
-  color: #79c8d0;
-  border: 1px solid rgba(121,200,208,0.3);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-}
-
-body.dark-mode .certificat-item .btn:hover {
-  background: rgba(60,60,60,1);
-  color: #4ca1af;
-  box-shadow: 0 4px 12px rgba(121,200,208,0.35);
+  background: rgba(30,30,30,0.9);
 }
