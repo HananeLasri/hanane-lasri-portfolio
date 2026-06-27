@@ -24,7 +24,7 @@
 }
 
 /* =========================================================
-   RESET
+   RESET GLOBAL
 ========================================================= */
 * {
   margin: 0;
@@ -43,7 +43,6 @@ body {
   line-height: 1.8;
   overflow-x: hidden;
   position: relative;
-  transition: background 0.5s ease, color 0.5s ease;
 }
 
 /* texture background */
@@ -58,7 +57,7 @@ body::before {
 }
 
 /* =========================================================
-   CONTAINER
+   CONTAINER ANIMATION
 ========================================================= */
 .container {
   max-width: 1100px;
@@ -89,7 +88,6 @@ body::before {
   z-index: 99999;
   font-size: 2rem;
   font-weight: bold;
-  letter-spacing: 1px;
   transition: opacity 1s ease, transform 1s ease;
 }
 
@@ -100,7 +98,7 @@ body::before {
 }
 
 /* =========================================================
-   HEADER
+   HEADER HERO
 ========================================================= */
 header {
   min-height: 100vh;
@@ -140,7 +138,7 @@ header p {
 }
 
 /* =========================================================
-   PHOTO
+   PHOTO PROFILE
 ========================================================= */
 .photo-profil {
   width: 180px;
@@ -184,7 +182,7 @@ header p {
 }
 
 /* =========================================================
-   MAIN
+   MAIN STRUCTURE
 ========================================================= */
 main {
   padding: 60px 0;
@@ -222,7 +220,7 @@ h2:focus {
 }
 
 /* =========================================================
-   ACCORDION CONTENT
+   TOGGLE CONTENT
 ========================================================= */
 .toggle-content {
   max-height: 0;
@@ -233,7 +231,6 @@ h2:focus {
   border-radius: 0 0 var(--radius-md) var(--radius-md);
   box-shadow: var(--shadow-soft);
   transition: max-height 0.6s ease, padding 0.4s ease;
-  will-change: max-height;
 }
 
 .toggle-content.open {
@@ -291,7 +288,7 @@ footer {
 }
 
 /* =========================================================
-   STARS (DARK MODE)
+   STAR EFFECT
 ========================================================= */
 .star {
   position: fixed;
@@ -304,6 +301,44 @@ footer {
 @keyframes twinkle {
   0%,100% { opacity:0; transform:scale(.8); }
   50% { opacity:1; transform:scale(1.2); }
+}
+
+/* =========================================================
+   CERTIFICATES (GRID PREMIUM)
+========================================================= */
+.certificats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 20px;
+}
+
+.certificat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 14px 20px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: float 6s ease-in-out infinite;
+}
+
+.certificat-item:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-medium);
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.certificat-item .btn {
+  font-size: 0.85rem;
+  padding: 6px 12px;
 }
 
 /* =========================================================
@@ -400,11 +435,6 @@ body.dark-mode a {
 
   h2 {
     font-size: 1rem;
-    padding: 15px;
-  }
-
-  p, li {
-    font-size: .95rem;
   }
 
   #welcome-message {
