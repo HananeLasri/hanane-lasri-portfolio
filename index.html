@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -17,8 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Open+Sans:wght@400;600&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Open+Sans:wght@400;600&display=swap"
     rel="stylesheet" />
 
   <script defer src="script.js"></script>
@@ -26,12 +24,12 @@
 
 <body>
 
-  <!-- WELCOME SCREEN -->
+  <!-- ================= WELCOME SCREEN ================= -->
   <div id="welcome-message" aria-live="polite">
     <p>Welcome to my professional portfolio 👋</p>
   </div>
 
-  <!-- HEADER -->
+  <!-- ================= HEADER ================= -->
   <header>
     <div class="container">
       <div class="intro">
@@ -43,20 +41,16 @@
           import-export and supply chain
         </p>
 
-        <img
-          src="photo.jpg"
+        <img src="photo.jpg"
           alt="Photo professionnelle de Hanane Lasri"
           class="photo-profil"
-          loading="lazy"
-        />
+          loading="lazy" />
 
         <nav aria-label="Liens professionnels">
-          <a
-            href="https://www.linkedin.com/in/hanane-lasri-6663ba134/"
+          <a href="https://www.linkedin.com/in/hanane-lasri-6663ba134/"
             target="_blank"
             rel="noopener noreferrer"
-            class="btn"
-          >
+            class="btn">
             LinkedIn
           </a>
 
@@ -73,14 +67,18 @@
     </div>
   </header>
 
+  <!-- ================= MAIN ================= -->
   <main>
 
     <!-- ABOUT -->
     <section id="about">
       <div class="container">
-        <h2>👤 About Me</h2>
 
-        <div class="toggle-content">
+        <h2 tabindex="0" role="button" aria-expanded="false" aria-controls="about-content">
+          👤 About Me
+        </h2>
+
+        <div class="toggle-content" id="about-content">
 
           <p>
             My name is <strong>Hanane Lasri</strong>, a professional originally from Morocco.
@@ -90,24 +88,16 @@
 
           <p>
             My journey began in Agadir, where I completed my schooling before joining
-            <strong>ENCG Marrakech</strong>, specialized in
-            <strong>International Business</strong>.
+            <strong>ENCG Marrakech</strong>, specialized in <strong>International Business</strong>.
           </p>
 
           <p>
-            I then built my experience in supply chain through various roles related
-            to logistics coordination.
-            I am currently working as a
-            <strong>Production & Material Planner</strong>.
+            I am currently working as a <strong>Production & Material Planner</strong>,
+            focusing on supply chain optimization and industrial flows.
           </p>
 
           <p>
-            My skills cover international supply chain, import-export,
-            and industrial process optimization.
-          </p>
-
-          <p>
-            🎯 Goal: to grow in supply chain and contribute to high-performing supply chains.
+            🎯 Goal: to grow in supply chain and contribute to high-performing global operations.
           </p>
 
         </div>
@@ -117,67 +107,59 @@
     <!-- EDUCATION -->
     <section id="education">
       <div class="container">
-        <h2>🎓 Education</h2>
 
-        <div class="toggle-content">
+        <h2 tabindex="0" role="button" aria-expanded="false" aria-controls="education-content">
+          🎓 Education
+        </h2>
+
+        <div class="toggle-content" id="education-content">
           <ul>
-            <li>
-              <strong>2019–2021</strong> – ENCG Marrakech – Master’s in International Business
-            </li>
-
-            <li>
-              <strong>2017–2019</strong> – EST – Logistics, international trade and operations management
-            </li>
-
-            <li>
-              <strong>2016–2017</strong> – Al Idrissi Technical High School (Agadir) – Economics Baccalaureate
-            </li>
+            <li><strong>2019–2021</strong> – ENCG Marrakech – Master’s in International Business</li>
+            <li><strong>2017–2019</strong> – EST – Logistics & International Trade</li>
+            <li><strong>2016–2017</strong> – Al Idrissi High School (Agadir) – Economics Baccalaureate</li>
           </ul>
         </div>
+
       </div>
     </section>
 
     <!-- EXPERIENCE -->
     <section id="experience">
       <div class="container">
-        <h2>💼 Professional Experience</h2>
 
-        <div class="toggle-content">
+        <h2 tabindex="0" role="button" aria-expanded="false" aria-controls="experience-content">
+          💼 Professional Experience
+        </h2>
+
+        <div class="toggle-content" id="experience-content">
 
           <ul>
 
             <li>
               <p><strong>Production & Material Planner – Agadir (Current)</strong></p>
-              <p>Production planning and supply management.</p>
-
               <ul>
-                <li>Raw material requirements planning</li>
+                <li>Raw material planning</li>
                 <li>Inventory tracking</li>
-                <li>Production / purchasing / logistics coordination</li>
+                <li>Production & logistics coordination</li>
                 <li>Flow optimization</li>
               </ul>
             </li>
 
             <li>
-              <p><strong>Logistics & Supply Chain Internship – 2023–2024</strong></p>
-              <p>Import / Export and international flow management.</p>
-
+              <p><strong>Logistics Internship – 2023–2024</strong></p>
               <ul>
-                <li>Import/export shipment tracking</li>
-                <li>Freight forwarder coordination</li>
-                <li>Logistics documentation</li>
+                <li>Import/export tracking</li>
+                <li>Freight coordination</li>
+                <li>Documentation</li>
                 <li>Process improvement</li>
               </ul>
             </li>
 
             <li>
               <p><strong>Logistics Internship – 2021</strong></p>
-              <p>Introduction to industrial supply chain.</p>
-
               <ul>
                 <li>Goods flow management</li>
-                <li>Inventory management</li>
-                <li>Logistics operations</li>
+                <li>Inventory control</li>
               </ul>
             </li>
 
@@ -190,44 +172,29 @@
     <!-- PUBLICATIONS -->
     <section id="publications">
       <div class="container">
-        <h2>📚 Publications & Research</h2>
 
-        <div class="toggle-content">
+        <h2 tabindex="0" role="button" aria-expanded="false" aria-controls="publications-content">
+          📚 Publications & Research
+        </h2>
+
+        <div class="toggle-content" id="publications-content">
 
           <ul>
 
             <li>
-              <p>
-                <strong>Enhancing healthcare supply chain resilience through Industry 4.0 technologies</strong>
-              </p>
-
+              <strong>Enhancing healthcare supply chain resilience through Industry 4.0 technologies</strong>
               <p>Conference Paper – Nov 2025</p>
-
-              <p>Co-author: Hanane Lasri, Lhoussaine Ouabouch</p>
-
-              <a
-                href="https://www.researchgate.net/profile/Hanane-Lasri"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://www.researchgate.net/profile/Hanane-Lasri"
+                target="_blank" rel="noopener noreferrer">
                 View publication
               </a>
             </li>
 
             <li>
-              <p>
-                <strong>Disruptive Technologies and Healthcare Supply Chain Resilience (2015–2025)</strong>
-              </p>
-
+              <strong>Disruptive Technologies and Healthcare Supply Chain Resilience</strong>
               <p>Book Chapter – Nov 2025</p>
-
-              <p>Co-author: Hanane Lasri, Lhoussaine Ouabouch</p>
-
-              <a
-                href="https://www.researchgate.net/profile/Hanane-Lasri"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://www.researchgate.net/profile/Hanane-Lasri"
+                target="_blank" rel="noopener noreferrer">
                 View publication
               </a>
             </li>
@@ -238,28 +205,22 @@
       </div>
     </section>
 
-    <!-- ACADEMIC PROJECTS -->
+    <!-- PROJECTS -->
     <section id="projects">
       <div class="container">
-        <h2>📚 Academic Projects</h2>
 
-        <div class="toggle-content">
+        <h2 tabindex="0" role="button" aria-expanded="false" aria-controls="projects-content">
+          📊 Academic Projects
+        </h2>
 
-          <p>
-            <strong>Final Year Project – ENCG Marrakech</strong>
-          </p>
+        <div class="toggle-content" id="projects-content">
 
-          <p>
-            Impact of digitalization of customs services on the efficiency
-            of clearance procedures in Morocco.
-          </p>
+          <p><strong>Final Year Project – ENCG Marrakech</strong></p>
 
           <ul>
             <li>International trade analysis</li>
-            <li>Freight forwarder study</li>
-            <li>Digitalization of customs procedures</li>
-            <li>Qualitative and quantitative study</li>
-            <li>Cost and time optimization</li>
+            <li>Customs digitalization study</li>
+            <li>Cost & time optimization</li>
             <li>Strategic recommendations</li>
           </ul>
 
@@ -267,19 +228,21 @@
       </div>
     </section>
 
-    <!-- TECHNICAL SKILLS -->
+    <!-- SKILLS -->
     <section id="skills">
       <div class="container">
-        <h2>⚙️ Technical Skills</h2>
 
-        <div class="toggle-content">
+        <h2 tabindex="0" role="button" aria-expanded="false" aria-controls="skills-content">
+          ⚙️ Technical Skills
+        </h2>
+
+        <div class="toggle-content" id="skills-content">
 
           <ul>
-            <li><strong>Supply Chain:</strong> flow management, planning, inventory</li>
-            <li><strong>Import / Export:</strong> international coordination, documentation</li>
-            <li><strong>Analysis:</strong> advanced Excel, logistics KPIs</li>
-            <li><strong>Management:</strong> organization, planning</li>
-            <li><strong>Tools:</strong> ERP (basic knowledge), reporting</li>
+            <li><strong>Supply Chain:</strong> planning, inventory, logistics</li>
+            <li><strong>Import/Export:</strong> coordination, documentation</li>
+            <li><strong>Analysis:</strong> Excel, KPIs</li>
+            <li><strong>Tools:</strong> ERP, reporting</li>
           </ul>
 
         </div>
@@ -289,33 +252,35 @@
     <!-- ASSOCIATIVE LIFE -->
     <section id="associative-life">
       <div class="container">
-        <h2>🤝 Associative Life</h2>
 
-        <div class="toggle-content">
+        <h2 tabindex="0" role="button" aria-expanded="false" aria-controls="associative-content">
+          🤝 Associative Life
+        </h2>
+
+        <div class="toggle-content" id="associative-content">
           <ul>
-            <li>ENACTUS – ENCG</li>
+            <li>ENACTUS – ENCG Marrakech</li>
           </ul>
         </div>
+
       </div>
     </section>
 
     <!-- PASSIONS -->
     <section id="passions">
       <div class="container">
-        <h2>❤️ My Passions</h2>
 
-        <div class="toggle-content">
+        <h2 tabindex="0" role="button" aria-expanded="false" aria-controls="passions-content">
+          ❤️ My Passions
+        </h2>
+
+        <div class="toggle-content" id="passions-content">
+
+          <p>🌍 Supply chain optimization, 📊 process improvement, 📚 continuous learning</p>
 
           <p>
-            🌍 Supply Chain Optimization, 📊 Process Improvement, 📚 Continuous Learning
-          </p>
-
-          <p>
-            Passionate about global supply chains, I enjoy analyzing logistics flows,
-            improving operational efficiency, and understanding how international trade
-            connects economies.
-            I also like discovering new cultures through travel and continuously
-            developing my professional skills.
+            Passionate about global logistics and international trade,
+            I enjoy analyzing flows and improving operational performance.
           </p>
 
         </div>
@@ -325,26 +290,30 @@
     <!-- LANGUAGES -->
     <section id="languages">
       <div class="container">
-        <h2>🗣️ Languages</h2>
 
-        <div class="toggle-content">
+        <h2 tabindex="0" role="button" aria-expanded="false" aria-controls="languages-content">
+          🗣️ Languages
+        </h2>
+
+        <div class="toggle-content" id="languages-content">
+
           <ul>
             <li><strong>French</strong> – C2</li>
             <li><strong>English</strong> – C1</li>
             <li><strong>Arabic</strong> – Native</li>
             <li><strong>Tamazight</strong> – Native</li>
           </ul>
+
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- FOOTER -->
+  <!-- ================= FOOTER ================= -->
   <footer>
     <p>© 2026 Hanane Lasri – All rights reserved</p>
   </footer>
 
 </body>
 </html>
-```
