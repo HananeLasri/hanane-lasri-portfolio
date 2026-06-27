@@ -1,299 +1,292 @@
-:root {
-  --primary: #5f6f52;
-  --secondary: #7b8c72;
-  --accent: #b89b72;
+document.addEventListener("DOMContentLoaded", () => {
 
-  --bg: #f6f5f2;
-  --bg-soft: rgba(255, 255, 255, 0.88);
+  const body = document.body;
+  const welcome = document.getElementById("welcome-message");
 
-  --text: #2c2c2c;
-  --text-light: #666;
+  /* =======================================================
+     🌟 WELCOME SCREEN (FIX + SMOOTH)
+  ======================================================= */
+  function initWelcomeScreen() {
+    if (!welcome) return;
 
-  --shadow-soft: 0 8px 25px rgba(0,0,0,0.08);
-  --shadow-medium: 0 12px 30px rgba(0,0,0,0.12);
-  --shadow-strong: 0 18px 40px rgba(0,0,0,0.18);
+    setTimeout(() => {
+      welcome.classList.add("fade-out");
+    }, 2500);
 
-  --radius-md: 18px;
-  --transition: all 0.35s ease;
-}
+    setTimeout(() => {
+      welcome.remove();
+      body.classList.add("ready");
 
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+      revealContainers();
+    }, 3500);
+  }
 
-html {
-  scroll-behavior: smooth;
-}
+  /* animation apparition sections */
+  function revealContainers() {
+    document.querySelectorAll(".container").forEach((el, i) => {
+      setTimeout(() => {
+        el.classList.add("visible");
+      }, i * 150);
+    });
+  }
 
-body {
-  font-family: 'Open Sans', sans-serif;
-  color: var(--text);
-  background: linear-gradient(135deg, #f7f6f2, #ffffff);
-  line-height: 1.8;
-  overflow-x: hidden;
-  position: relative;
-}
+  initWelcomeScreen();
 
-/* texture background */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px);
-  background-size: 45px 45px;
-  z-index: -2;
-}
 
-/* CONTAINER */
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 30px;
+  /* =======================================================
+     📌 ACCORDÉONS H2 (SMOOTH + ACCESSIBLE)
+  ======================================================= */
+  function initAccordions() {
+    document.querySelectorAll("h2").forEach(title => {
+      const content = title.nextElementSibling;
+      if (!content) return;
 
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity .8s ease, transform .8s ease;
-}
+      content.style.maxHeight = "0px";
+      title.setAttribute("aria-expanded", "false");
+      title.style.cursor = "pointer";
 
-.container.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+      const toggle = () => {
+        const isOpen = content.classList.contains("open");
 
-/* =========================
-   WELCOME SCREEN
-========================= */
+        if (isOpen) {
+          content.classList.remove("open");
+          content.style.maxHeight = "0px";
+          title.setAttribute("aria-expanded", "false");
+        } else {
+          content.classList.add("open");
+          content.style.maxHeight = content.scrollHeight + "px";
+          title.setAttribute("aria-expanded", "true");
+        }
+      };
 
-#welcome-message {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 99999;
-  font-size: 2rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-  transition: opacity 1s ease;
-}
+      title.addEventListener("click", toggle);
+      title.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    });
+  }
 
-#welcome-message.fade-out {
-  opacity: 0;
-  pointer-events: none;
-}
+  initAccordions();
 
-/* =========================
-   HEADER
-========================= */
 
-header {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  position: relative;
-  overflow: hidden;
-}
+  /* =======================================================
+     📚 ACCORDÉONS CERTIFICATS (NIVEAU AVANCÉ)
+  ======================================================= */
+  function initNestedAccordions() {
+    const sections = document.querySelectorAll("#certificats, #diplomes, section");
 
-header::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top right, rgba(255,255,255,0.12), transparent 40%);
-}
+    sections.forEach(section => {
+      const titles = section.querySelectorAll("h3, h4");
 
-/* TITLES */
-h1, h2 {
-  font-family: 'Playfair Display', serif;
-}
+      titles.forEach(title => {
+        const content = title.nextElementSibling;
+        if (!content) return;
 
-/* PHOTO */
-.photo-profil {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-top: 30px;
-  border: 5px solid rgba(255,255,255,0.25);
-  box-shadow: var(--shadow-medium);
-  transition: var(--transition);
-}
+        content.style.maxHeight = "0px";
+        title.setAttribute("aria-expanded", "false");
+        title.style.cursor = "pointer";
 
-.photo-profil:hover {
-  transform: scale(1.08) rotate(2deg);
-  box-shadow: var(--shadow-strong);
-}
+        const toggle = () => {
+          const isOpen = content.classList.contains("open");
 
-/* =========================
-   BUTTONS
-========================= */
+          if (isOpen) {
+            content.classList.remove("open");
+            content.style.maxHeight = "0px";
+            title.setAttribute("aria-expanded", "false");
+          } else {
+            content.classList.add("open");
+            content.style.maxHeight = content.scrollHeight + "px";
+            title.setAttribute("aria-expanded", "true");
+          }
+        };
 
-.btn {
-  display: inline-block;
-  margin: 8px;
-  padding: 14px 24px;
-  background: rgba(255,255,255,0.95);
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 700;
-  border-radius: 30px;
-  box-shadow: var(--shadow-soft);
-  transition: var(--transition);
-}
+        title.addEventListener("click", toggle);
+        title.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            toggle();
+          }
+        });
+      });
+    });
+  }
 
-.btn:hover {
-  transform: translateY(-4px);
-  background: white;
-}
+  initNestedAccordions();
 
-/* =========================
-   ACCORDIONS
-========================= */
 
-h2 {
-  background: white;
-  padding: 18px 22px;
-  border-left: 5px solid var(--primary);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  box-shadow: var(--shadow-soft);
-  transition: var(--transition);
-}
+  /* =======================================================
+     🔝 BOUTON SCROLL TOP (PRO)
+  ======================================================= */
+  function initScrollTop() {
+    const btn = document.createElement("button");
 
-h2:hover {
-  transform: translateX(4px);
-}
+    btn.textContent = "↑";
+    btn.setAttribute("aria-label", "Retour en haut");
 
-.toggle-content {
-  max-height: 0;
-  overflow: hidden;
-  padding: 0 20px;
-  background: var(--bg-soft);
-  backdrop-filter: blur(14px);
-  border-radius: 0 0 var(--radius-md) var(--radius-md);
-  box-shadow: var(--shadow-soft);
-  transition: max-height 0.6s ease, padding 0.4s ease;
-}
+    Object.assign(btn.style, {
+      position: "fixed",
+      bottom: "25px",
+      right: "25px",
+      width: "45px",
+      height: "45px",
+      borderRadius: "50%",
+      border: "none",
+      background: "#5f6f52",
+      color: "#fff",
+      fontSize: "18px",
+      cursor: "pointer",
+      opacity: "0",
+      transition: "0.4s",
+      zIndex: "9999"
+    });
 
-.toggle-content.open {
-  padding: 20px;
-  max-height: 2000px;
-}
+    document.body.appendChild(btn);
 
-/* =========================
-   TEXT
-========================= */
+    btn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
 
-p { margin-bottom: 15px; }
-ul { padding-left: 22px; }
-li { margin-bottom: 10px; }
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        btn.style.opacity = "1";
+      } else {
+        btn.style.opacity = "0";
+      }
+    });
+  }
 
-a {
-  color: var(--primary);
-  text-decoration: none;
-  transition: var(--transition);
-}
+  initScrollTop();
 
-a:hover {
-  color: var(--accent);
-}
 
-/* =========================
-   FOOTER
-========================= */
+  /* =======================================================
+     🌙 DARK MODE (AVEC MÉMOIRE LOCAL)
+  ======================================================= */
+  function initDarkMode() {
+    const btn = document.createElement("button");
 
-footer {
-  text-align: center;
-  padding: 35px;
-  background: white;
-  color: var(--text-light);
-  border-top: 1px solid rgba(0,0,0,0.05);
-}
+    btn.textContent = "🌙";
+    btn.setAttribute("aria-label", "Mode sombre");
 
-/* =========================
-   PARTICLES + STARS
-========================= */
+    Object.assign(btn.style, {
+      position: "fixed",
+      top: "20px",
+      right: "20px",
+      width: "45px",
+      height: "45px",
+      borderRadius: "50%",
+      border: "none",
+      background: "#222",
+      color: "#fff",
+      cursor: "pointer",
+      zIndex: "10000"
+    });
 
-#particles-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: -3;
-  pointer-events: none;
-}
+    document.body.appendChild(btn);
 
-.star {
-  position: fixed;
-  background: white;
-  border-radius: 50%;
-  animation: twinkle 3s infinite;
-  z-index: -1;
-}
+    // load saved mode
+    if (localStorage.getItem("darkMode") === "true") {
+      body.classList.add("dark-mode");
+      btn.textContent = "☀️";
+    }
 
-@keyframes twinkle {
-  0%,100% { opacity:0; transform:scale(.8); }
-  50% { opacity:1; transform:scale(1.2); }
-}
+    btn.addEventListener("click", () => {
+      body.classList.toggle("dark-mode");
 
-/* =========================
-   DARK MODE
-========================= */
+      const isDark = body.classList.contains("dark-mode");
 
-body.dark-mode {
-  background: #101412;
-  color: #f2f2f2;
-}
+      btn.textContent = isDark ? "☀️" : "🌙";
+      localStorage.setItem("darkMode", isDark);
+    });
+  }
 
-body.dark-mode header {
-  background: linear-gradient(135deg, #18221b, #223126);
-}
+  initDarkMode();
 
-body.dark-mode h2 {
-  background: rgba(30,35,30,.95);
-  color: white;
-  border-left-color: var(--accent);
-}
 
-body.dark-mode .toggle-content {
-  background: rgba(25,30,27,.95);
-}
+  /* =======================================================
+     ✨ PARTICULES ANIMÉES
+  ======================================================= */
+  function initParticles() {
+    const canvas = document.createElement("canvas");
+    canvas.id = "particles-canvas";
 
-body.dark-mode .btn {
-  background: rgba(30,35,30,.95);
-  color: var(--accent);
-}
+    document.body.appendChild(canvas);
 
-body.dark-mode footer {
-  background: #111;
-  color: #aaa;
-}
+    const ctx = canvas.getContext("2d");
 
-body.dark-mode a {
-  color: var(--accent);
-}
+    let particles = [];
 
-/* =========================
-   RESPONSIVE
-========================= */
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
 
-@media (max-width: 768px) {
-  header { padding: 80px 0; min-height: auto; }
-  h2 { font-size: 1.2rem; }
-  .photo-profil { width: 140px; height: 140px; }
-  .btn { display: block; width: 85%; margin: 12px auto; }
-  .container { padding: 20px; }
-}
+    function createParticles() {
+      particles = [];
 
-@media (max-width: 480px) {
-  header { padding: 60px 0; }
-  h2 { font-size: 1rem; padding: 15px; }
-  .photo-profil { width: 120px; height: 120px; }
-  p, li { font-size: .95rem; }
-  #welcome-message { font-size: 1.4rem; }
-}
+      const count = Math.floor(window.innerWidth / 25);
+
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 2 + 1,
+          dx: (Math.random() - 0.5) * 0.4,
+          dy: (Math.random() - 0.5) * 0.4
+        });
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.4)";
+        ctx.fill();
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener("resize", () => {
+      resize();
+      createParticles();
+    });
+
+    resize();
+    createParticles();
+    animate();
+  }
+
+  initParticles();
+
+
+  /* =======================================================
+     🖼️ ANIMATION PHOTO PROFIL
+  ======================================================= */
+  function initPhoto() {
+    const photo = document.querySelector(".photo-profil");
+    if (!photo) return;
+
+    photo.addEventListener("mouseenter", () => {
+      photo.style.transform = "scale(1.1) rotate(2deg)";
+    });
+
+    photo.addEventListener("mouseleave", () => {
+      photo.style.transform = "scale(1) rotate(0deg)";
+    });
+  }
+
+  initPhoto();
+
+});
