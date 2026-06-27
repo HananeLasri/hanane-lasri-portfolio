@@ -1,310 +1,299 @@
-document.addEventListener("DOMContentLoaded", () => {
-
-  /* =========================
-     STATE GLOBAL
-  ========================= */
-
-  const body = document.body;
-  const welcome = document.getElementById("welcome-message");
-  const containers = document.querySelectorAll(".container");
-
-  let isDarkMode = localStorage.getItem("darkMode") === "true";
-
-  let particlesCanvas, particlesCtx;
-  let particles = [];
-  let stars = [];
-
-  let animationRunning = true;
-  let animationId = null;
-
-  /* =========================
-     WELCOME SCREEN
-  ========================= */
-
-  function initWelcome() {
-    if (!welcome) return;
-
-    setTimeout(() => {
-      welcome.classList.add("fade-out");
-    }, 1800);
-
-    setTimeout(() => {
-      welcome.remove();
-      body.classList.add("ready");
-    }, 2800);
-  }
-
-  initWelcome();
-
-  /* =========================
-     SCROLL REVEAL PREMIUM
-  ========================= */
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.12
-  });
-
-  containers.forEach(el => observer.observe(el));
-
-  /* =========================
-     ACCORDIONS ULTRA STABLE
-  ========================= */
-
-  document.querySelectorAll("h2").forEach(title => {
-
-    const content = title.nextElementSibling;
-    if (!content) return;
-
-    title.tabIndex = 0;
-    title.setAttribute("aria-expanded", "false");
-
-    const closeAll = () => {
-      document.querySelectorAll(".toggle-content").forEach(c => {
-        c.style.maxHeight = "0px";
-        c.classList.remove("open");
-      });
-
-      document.querySelectorAll("h2").forEach(h => {
-        h.setAttribute("aria-expanded", "false");
-      });
-    };
-
-    const toggle = () => {
-      const open = title.getAttribute("aria-expanded") === "true";
-
-      if (open) {
-        content.style.maxHeight = "0px";
-        title.setAttribute("aria-expanded", "false");
-      } else {
-        closeAll();
-        content.style.maxHeight = content.scrollHeight + "px";
-        title.setAttribute("aria-expanded", "true");
-      }
-    };
-
-    title.addEventListener("click", toggle);
-    title.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        toggle();
-      }
-    });
-  });
-
-  /* =========================
-     SCROLL TO TOP PREMIUM
-  ========================= */
-
-  const scrollBtn = document.createElement("button");
-  scrollBtn.innerHTML = "↑";
-
-  Object.assign(scrollBtn.style, {
-    position: "fixed",
-    bottom: "25px",
-    right: "25px",
-    width: "52px",
-    height: "52px",
-    borderRadius: "50%",
-    border: "none",
-    background: "#5f6f52",
-    color: "white",
-    fontSize: "20px",
-    cursor: "pointer",
-    opacity: "0",
-    transform: "translateY(20px)",
-    transition: "all .3s ease",
-    zIndex: "9999"
-  });
-
-  document.body.appendChild(scrollBtn);
-
-  scrollBtn.onclick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  window.addEventListener("scroll", () => {
-    const show = window.scrollY > 250;
-    scrollBtn.style.opacity = show ? "1" : "0";
-    scrollBtn.style.transform = show ? "translateY(0)" : "translateY(20px)";
-  });
-
-  /* =========================
-     DARK MODE FINAL
-  ========================= */
-
-  function initDarkMode() {
-    const btn = document.createElement("button");
-    btn.innerHTML = isDarkMode ? "☀️" : "🌙";
-
-    Object.assign(btn.style, {
-      position: "fixed",
-      top: "20px",
-      right: "20px",
-      width: "50px",
-      height: "50px",
-      borderRadius: "50%",
-      border: "none",
-      background: "#222",
-      color: "#fff",
-      cursor: "pointer",
-      zIndex: "10000",
-      transition: "all .3s ease"
-    });
-
-    document.body.appendChild(btn);
-
-    if (isDarkMode) {
-      body.classList.add("dark-mode");
-      createStars();
-    }
-
-    btn.onclick = () => {
-      isDarkMode = !isDarkMode;
-
-      body.classList.toggle("dark-mode");
-      localStorage.setItem("darkMode", isDarkMode);
-
-      btn.innerHTML = isDarkMode ? "☀️" : "🌙";
-
-      if (isDarkMode) createStars();
-      else clearStars();
-    };
-  }
-
-  initDarkMode();
-
-  /* =========================
-     STARS SYSTEM CLEAN
-  ========================= */
-
-  function createStars() {
-    clearStars();
-
-    for (let i = 0; i < 45; i++) {
-      const star = document.createElement("div");
-      star.className = "star";
-
-      Object.assign(star.style, {
-        width: Math.random() * 3 + "px",
-        height: Math.random() * 3 + "px",
-        top: Math.random() * 100 + "vh",
-        left: Math.random() * 100 + "vw",
-        animationDelay: Math.random() * 3 + "s"
-      });
-
-      document.body.appendChild(star);
-      stars.push(star);
-    }
-  }
-
-  function clearStars() {
-    stars.forEach(s => s.remove());
-    stars = [];
-  }
-
-  /* =========================
-     PARTICLES ULTRA OPTIMIZED
-  ========================= */
-
-  function initParticles() {
-    particlesCanvas = document.createElement("canvas");
-    particlesCanvas.id = "particles-canvas";
-
-    document.body.appendChild(particlesCanvas);
-
-    particlesCtx = particlesCanvas.getContext("2d");
-
-    resize();
-    generate();
-
-    window.addEventListener("resize", debounce(() => {
-      resize();
-      generate();
-    }, 120));
-
-    loop();
-  }
-
-  function resize() {
-    particlesCanvas.width = window.innerWidth;
-    particlesCanvas.height = window.innerHeight;
-  }
-
-  function generate() {
-    particles = [];
-
-    const count = window.innerWidth < 768 ? 25 : 70;
-
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: Math.random() * particlesCanvas.width,
-        y: Math.random() * particlesCanvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 2
-      });
-    }
-  }
-
-  function loop() {
-    if (!animationRunning) return;
-
-    particlesCtx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
-
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
-
-      p.x += p.vx;
-      p.y += p.vy;
-
-      if (p.x < 0) p.x = particlesCanvas.width;
-      if (p.y < 0) p.y = particlesCanvas.height;
-      if (p.x > particlesCanvas.width) p.x = 0;
-      if (p.y > particlesCanvas.height) p.y = 0;
-
-      particlesCtx.beginPath();
-      particlesCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-
-      particlesCtx.fillStyle = isDarkMode
-        ? "rgba(255,255,255,0.15)"
-        : "rgba(95,111,82,0.18)";
-
-      particlesCtx.fill();
-    }
-
-    animationId = requestAnimationFrame(loop);
-  }
-
-  initParticles();
-
-  /* =========================
-     PERFORMANCE CONTROL
-  ========================= */
-
-  document.addEventListener("visibilitychange", () => {
-    animationRunning = !document.hidden;
-
-    if (animationRunning) loop();
-    else cancelAnimationFrame(animationId);
-  });
-
-  /* =========================
-     UTIL
-  ========================= */
-
-  function debounce(fn, delay) {
-    let t;
-    return (...args) => {
-      clearTimeout(t);
-      t = setTimeout(() => fn(...args), delay);
-    };
-  }
-
-});
+:root {
+  --primary: #5f6f52;
+  --secondary: #7b8c72;
+  --accent: #b89b72;
+
+  --bg: #f6f5f2;
+  --bg-soft: rgba(255, 255, 255, 0.88);
+
+  --text: #2c2c2c;
+  --text-light: #666;
+
+  --shadow-soft: 0 8px 25px rgba(0,0,0,0.08);
+  --shadow-medium: 0 12px 30px rgba(0,0,0,0.12);
+  --shadow-strong: 0 18px 40px rgba(0,0,0,0.18);
+
+  --radius-md: 18px;
+  --transition: all 0.35s ease;
+}
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: var(--text);
+  background: linear-gradient(135deg, #f7f6f2, #ffffff);
+  line-height: 1.8;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* texture background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px);
+  background-size: 45px 45px;
+  z-index: -2;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 30px;
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+
+.container.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
+   WELCOME SCREEN
+========================= */
+
+#welcome-message {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: opacity 1s ease;
+}
+
+#welcome-message.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(255,255,255,0.12), transparent 40%);
+}
+
+/* TITLES */
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+}
+
+/* PHOTO */
+.photo-profil {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 30px;
+  border: 5px solid rgba(255,255,255,0.25);
+  box-shadow: var(--shadow-medium);
+  transition: var(--transition);
+}
+
+.photo-profil:hover {
+  transform: scale(1.08) rotate(2deg);
+  box-shadow: var(--shadow-strong);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn {
+  display: inline-block;
+  margin: 8px;
+  padding: 14px 24px;
+  background: rgba(255,255,255,0.95);
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 30px;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-4px);
+  background: white;
+}
+
+/* =========================
+   ACCORDIONS
+========================= */
+
+h2 {
+  background: white;
+  padding: 18px 22px;
+  border-left: 5px solid var(--primary);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
+}
+
+h2:hover {
+  transform: translateX(4px);
+}
+
+.toggle-content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  background: var(--bg-soft);
+  backdrop-filter: blur(14px);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  transition: max-height 0.6s ease, padding 0.4s ease;
+}
+
+.toggle-content.open {
+  padding: 20px;
+  max-height: 2000px;
+}
+
+/* =========================
+   TEXT
+========================= */
+
+p { margin-bottom: 15px; }
+ul { padding-left: 22px; }
+li { margin-bottom: 10px; }
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  text-align: center;
+  padding: 35px;
+  background: white;
+  color: var(--text-light);
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+/* =========================
+   PARTICLES + STARS
+========================= */
+
+#particles-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+}
+
+.star {
+  position: fixed;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite;
+  z-index: -1;
+}
+
+@keyframes twinkle {
+  0%,100% { opacity:0; transform:scale(.8); }
+  50% { opacity:1; transform:scale(1.2); }
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark-mode {
+  background: #101412;
+  color: #f2f2f2;
+}
+
+body.dark-mode header {
+  background: linear-gradient(135deg, #18221b, #223126);
+}
+
+body.dark-mode h2 {
+  background: rgba(30,35,30,.95);
+  color: white;
+  border-left-color: var(--accent);
+}
+
+body.dark-mode .toggle-content {
+  background: rgba(25,30,27,.95);
+}
+
+body.dark-mode .btn {
+  background: rgba(30,35,30,.95);
+  color: var(--accent);
+}
+
+body.dark-mode footer {
+  background: #111;
+  color: #aaa;
+}
+
+body.dark-mode a {
+  color: var(--accent);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  header { padding: 80px 0; min-height: auto; }
+  h2 { font-size: 1.2rem; }
+  .photo-profil { width: 140px; height: 140px; }
+  .btn { display: block; width: 85%; margin: 12px auto; }
+  .container { padding: 20px; }
+}
+
+@media (max-width: 480px) {
+  header { padding: 60px 0; }
+  h2 { font-size: 1rem; padding: 15px; }
+  .photo-profil { width: 120px; height: 120px; }
+  p, li { font-size: .95rem; }
+  #welcome-message { font-size: 1.4rem; }
+}
