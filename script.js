@@ -1,64 +1,62 @@
-```javascript
 document.addEventListener("DOMContentLoaded", () => {
 
   /* ==========================================================
-     GLOBAL VARIABLES
+     GLOBAL STATE
   ========================================================== */
 
   const body = document.body;
   const welcome = document.getElementById("welcome-message");
   const containers = document.querySelectorAll(".container");
-  const photo = document.querySelector(".photo-profil");
 
   let isDarkMode = localStorage.getItem("darkMode") === "true";
-  let particlesCanvas;
-  let particlesCtx;
-  let particlesArray = [];
-  let animationRunning = true;
+  let particlesCanvas, particlesCtx;
+  let particles = [];
+  let stars = [];
+  let animationActive = true;
+  let mouse = { x: null, y: null };
 
   /* ==========================================================
      WELCOME SCREEN
   ========================================================== */
 
-  function initWelcomeScreen() {
+  function initWelcome() {
     if (!welcome) return;
 
     body.classList.remove("ready");
 
     setTimeout(() => {
       welcome.classList.add("fade-out");
-    }, 2200);
+    }, 1800);
 
     setTimeout(() => {
       welcome.remove();
       body.classList.add("ready");
-    }, 3200);
+    }, 2800);
   }
 
-  initWelcomeScreen();
+  initWelcome();
 
   /* ==========================================================
-     SCROLL ANIMATION
+     SCROLL REVEAL (OPTIMISÉ)
   ========================================================== */
 
-  function initScrollReveal() {
+  function initReveal() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
         }
       });
-    }, {
-      threshold: 0.15
-    });
+    }, { threshold: 0.12 });
 
-    containers.forEach(container => observer.observe(container));
+    containers.forEach(el => observer.observe(el));
   }
 
-  initScrollReveal();
+  initReveal();
 
   /* ==========================================================
-     MAIN ACCORDIONS
+     ACCORDIONS INTELLIGENTS
   ========================================================== */
 
   function initAccordions() {
@@ -72,17 +70,13 @@ document.addEventListener("DOMContentLoaded", () => {
       title.setAttribute("aria-expanded", "false");
 
       function closeAll() {
-        document.querySelectorAll(".toggle-content").forEach(item => {
-          if (item !== content) {
-            item.style.maxHeight = "0px";
-            item.classList.remove("open");
-          }
+        document.querySelectorAll(".toggle-content").forEach(c => {
+          c.style.maxHeight = "0px";
+          c.classList.remove("open");
         });
 
         document.querySelectorAll("h2").forEach(h => {
-          if (h !== title) {
-            h.setAttribute("aria-expanded", "false");
-          }
+          h.setAttribute("aria-expanded", "false");
         });
       }
 
@@ -91,12 +85,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (isOpen) {
           content.style.maxHeight = "0px";
-          content.classList.remove("open");
           title.setAttribute("aria-expanded", "false");
         } else {
           closeAll();
           content.style.maxHeight = content.scrollHeight + "px";
-          content.classList.add("open");
           title.setAttribute("aria-expanded", "true");
         }
       }
@@ -115,62 +107,53 @@ document.addEventListener("DOMContentLoaded", () => {
   initAccordions();
 
   /* ==========================================================
-     SCROLL TO TOP BUTTON
+     SCROLL TO TOP
   ========================================================== */
 
-  function createScrollTopButton() {
+  function initScrollTop() {
     const btn = document.createElement("button");
     btn.innerHTML = "↑";
-    btn.id = "scroll-top-btn";
 
     Object.assign(btn.style, {
       position: "fixed",
-      right: "25px",
       bottom: "25px",
+      right: "25px",
       width: "52px",
       height: "52px",
       borderRadius: "50%",
       border: "none",
       background: "#5f6f52",
-      color: "#fff",
-      fontSize: "22px",
+      color: "white",
+      fontSize: "20px",
       cursor: "pointer",
       opacity: "0",
       transform: "translateY(20px)",
       transition: "all .3s ease",
-      zIndex: "1000"
+      zIndex: "9999"
     });
 
-    body.appendChild(btn);
+    document.body.appendChild(btn);
 
     btn.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 400) {
-        btn.style.opacity = "1";
-        btn.style.transform = "translateY(0)";
-      } else {
-        btn.style.opacity = "0";
-        btn.style.transform = "translateY(20px)";
-      }
+      btn.style.opacity = window.scrollY > 300 ? "1" : "0";
+      btn.style.transform = window.scrollY > 300 ? "translateY(0)" : "translateY(20px)";
     });
   }
 
-  createScrollTopButton();
+  initScrollTop();
 
   /* ==========================================================
-     DARK MODE BUTTON
+     DARK MODE AVANCÉ
   ========================================================== */
 
-  function createDarkModeButton() {
+  function initDarkMode() {
     const btn = document.createElement("button");
-    btn.id = "dark-mode-btn";
     btn.innerHTML = isDarkMode ? "☀️" : "🌙";
+    btn.setAttribute("aria-label", "Toggle dark mode");
 
     Object.assign(btn.style, {
       position: "fixed",
@@ -181,14 +164,13 @@ document.addEventListener("DOMContentLoaded", () => {
       borderRadius: "50%",
       border: "none",
       background: "#222",
-      color: "#fff",
+      color: "white",
       cursor: "pointer",
-      fontSize: "20px",
-      zIndex: "1001",
-      transition: "all .3s ease"
+      zIndex: "10000",
+      transition: "0.3s"
     });
 
-    body.appendChild(btn);
+    document.body.appendChild(btn);
 
     if (isDarkMode) {
       body.classList.add("dark-mode");
@@ -200,67 +182,73 @@ document.addEventListener("DOMContentLoaded", () => {
       body.classList.toggle("dark-mode");
 
       btn.innerHTML = isDarkMode ? "☀️" : "🌙";
-
       localStorage.setItem("darkMode", isDarkMode);
 
-      if (isDarkMode) {
-        createStars();
-      } else {
-        removeStars();
-      }
+      if (isDarkMode) createStars();
+      else clearStars();
     });
   }
 
-  createDarkModeButton();
+  initDarkMode();
 
   /* ==========================================================
-     STARS
+     STARS (OPTIMISÉES)
   ========================================================== */
 
   function createStars() {
-    removeStars();
+    clearStars();
 
-    for (let i = 0; i < 60; i++) {
+    const count = 40;
+
+    for (let i = 0; i < count; i++) {
       const star = document.createElement("div");
-      star.classList.add("star");
+      star.className = "star";
 
-      const size = Math.random() * 3 + 1;
+      const size = Math.random() * 3;
 
-      star.style.width = `${size}px`;
-      star.style.height = `${size}px`;
-      star.style.top = `${Math.random() * 100}vh`;
-      star.style.left = `${Math.random() * 100}vw`;
-      star.style.animationDelay = `${Math.random() * 3}s`;
+      Object.assign(star.style, {
+        width: size + "px",
+        height: size + "px",
+        top: Math.random() * 100 + "vh",
+        left: Math.random() * 100 + "vw",
+        animationDelay: Math.random() * 3 + "s"
+      });
 
-      body.appendChild(star);
+      document.body.appendChild(star);
+      stars.push(star);
     }
   }
 
-  function removeStars() {
-    document.querySelectorAll(".star").forEach(star => star.remove());
+  function clearStars() {
+    stars.forEach(s => s.remove());
+    stars = [];
   }
 
   /* ==========================================================
-     PARTICLES BACKGROUND
+     PARTICLES PREMIUM
   ========================================================== */
 
   function initParticles() {
     particlesCanvas = document.createElement("canvas");
     particlesCanvas.id = "particles-canvas";
 
-    body.appendChild(particlesCanvas);
+    document.body.appendChild(particlesCanvas);
 
     particlesCtx = particlesCanvas.getContext("2d");
 
     resizeCanvas();
     createParticles();
 
+    let resizeTimeout;
     window.addEventListener("resize", () => {
-      resizeCanvas();
-      createParticles();
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        resizeCanvas();
+        createParticles();
+      }, 150);
     });
 
-    animateParticles();
+    animate();
   }
 
   function resizeCanvas() {
@@ -269,109 +257,77 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function createParticles() {
-    particlesArray = [];
+    particles = [];
 
-    const numberOfParticles =
-      window.innerWidth < 768 ? 40 : 100;
+    const count = window.innerWidth < 768 ? 30 : 80;
 
-    for (let i = 0; i < numberOfParticles; i++) {
-      particlesArray.push({
+    for (let i = 0; i < count; i++) {
+      particles.push({
         x: Math.random() * particlesCanvas.width,
         y: Math.random() * particlesCanvas.height,
-        size: Math.random() * 2 + 1,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6,
+        size: Math.random() * 2
       });
     }
   }
 
-  function animateParticles() {
-    if (!animationRunning) return;
+  function animate() {
+    if (!animationActive) return;
 
-    particlesCtx.clearRect(
-      0,
-      0,
-      particlesCanvas.width,
-      particlesCanvas.height
-    );
+    particlesCtx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
 
-    particlesArray.forEach(particle => {
-      particle.x += particle.speedX;
-      particle.y += particle.speedY;
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
 
-      if (particle.x < 0) particle.x = particlesCanvas.width;
-      if (particle.x > particlesCanvas.width) particle.x = 0;
-      if (particle.y < 0) particle.y = particlesCanvas.height;
-      if (particle.y > particlesCanvas.height) particle.y = 0;
+      if (p.x < 0) p.x = particlesCanvas.width;
+      if (p.x > particlesCanvas.width) p.x = 0;
+      if (p.y < 0) p.y = particlesCanvas.height;
+      if (p.y > particlesCanvas.height) p.y = 0;
 
       particlesCtx.beginPath();
-      particlesCtx.arc(
-        particle.x,
-        particle.y,
-        particle.size,
-        0,
-        Math.PI * 2
-      );
+      particlesCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
 
       particlesCtx.fillStyle = isDarkMode
         ? "rgba(255,255,255,0.15)"
-        : "rgba(95,111,82,0.18)";
+        : "rgba(95,111,52,0.2)";
 
       particlesCtx.fill();
+
+      /* CONNECTION LINES */
+      particles.forEach(p2 => {
+        const dx = p.x - p2.x;
+        const dy = p.y - p2.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 90) {
+          particlesCtx.beginPath();
+          particlesCtx.strokeStyle = isDarkMode
+            ? "rgba(255,255,255,0.05)"
+            : "rgba(95,111,52,0.08)";
+
+          particlesCtx.lineWidth = 1;
+          particlesCtx.moveTo(p.x, p.y);
+          particlesCtx.lineTo(p2.x, p2.y);
+          particlesCtx.stroke();
+        }
+      });
     });
 
-    requestAnimationFrame(animateParticles);
+    requestAnimationFrame(animate);
   }
 
   initParticles();
 
   /* ==========================================================
-     PAGE VISIBILITY API
+     PERFORMANCE CONTROL
   ========================================================== */
 
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      animationRunning = false;
-    } else {
-      animationRunning = true;
-      animateParticles();
-    }
+    animationActive = !document.hidden;
+
+    if (animationActive) animate();
   });
 
-  /* ==========================================================
-     PHOTO EFFECT
-  ========================================================== */
-
-  function initPhotoEffects() {
-    if (!photo) return;
-
-    photo.addEventListener("mouseenter", () => {
-      photo.style.transform = "scale(1.08) rotate(2deg)";
-    });
-
-    photo.addEventListener("mouseleave", () => {
-      photo.style.transform = "scale(1)";
-    });
-  }
-
-  initPhotoEffects();
-
-  /* ==========================================================
-     HEADER PARALLAX
-  ========================================================== */
-
-  function initParallax() {
-    window.addEventListener("scroll", () => {
-      const scrollY = window.scrollY;
-      const header = document.querySelector("header");
-
-      if (header) {
-        header.style.backgroundPositionY = `${scrollY * 0.3}px`;
-      }
-    });
-  }
-
-  initParallax();
-
 });
-```
