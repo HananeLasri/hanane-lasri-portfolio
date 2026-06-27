@@ -1,50 +1,50 @@
 /* =========================
-   🎨 VARIABLES COULEURS PRO
+   🎨 VARIABLES GLOBALES
 ========================= */
 :root {
-  --primary: #5f6f52;      /* vert sauge élégant */
-  --accent: #a68a64;       /* doré doux premium */
+  --primary: #5f6f52;
+  --secondary: #7a8c6d;
+  --accent: #a68a64;
   --bg-light: #f6f5f2;
+  --bg-card: rgba(255,255,255,0.88);
   --text-dark: #2c2c2c;
   --white: #ffffff;
+  --shadow: 0 8px 20px rgba(0,0,0,0.08);
+  --radius: 18px;
 }
 
 /* =========================
-   🌿 BACKGROUND GLOBAL
+   🌿 BODY GLOBAL
 ========================= */
 body {
   font-family: 'Open Sans', sans-serif;
-  line-height: 1.6;
   margin: 0;
   padding: 0;
-
+  line-height: 1.7;
+  color: var(--text-dark);
   background: linear-gradient(135deg, #f6f5f2, #ffffff);
   background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
   background-repeat: repeat;
-
   background-size: 600% 600%;
   animation: backgroundGradient 30s ease infinite;
-
   transition: background-color 0.4s ease, color 0.4s ease;
   overflow-x: hidden;
   position: relative;
 }
 
-/* 🎞 Animation fond */
+/* =========================
+   🎞 ANIMATION BACKGROUND
+========================= */
 @keyframes backgroundGradient {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-/* motif discret */
 body::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   background-image: radial-gradient(#cfcfcf 1px, transparent 1px);
   background-size: 60px 60px;
   opacity: 0.04;
@@ -52,16 +52,15 @@ body::before {
 }
 
 /* =========================
-   📦 CONTAINERS ANIMATION
+   📦 CONTAINER
 ========================= */
 .container {
-  max-width: 900px;
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: auto;
   padding: 20px;
-
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity .8s ease, transform .8s ease;
 }
 
 .container.visible {
@@ -73,22 +72,40 @@ body::before {
    🧭 HEADER
 ========================= */
 header {
-  background: var(--primary);
-  color: var(--white);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
   text-align: center;
-  padding: 40px 20px;
+  padding: 50px 20px;
+  box-shadow: var(--shadow);
 }
 
-.intro img.photo-profil {
-  max-width: 150px;
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.7rem;
+  margin-bottom: 10px;
+}
+
+header p {
+  max-width: 750px;
+  margin: auto;
+}
+
+/* =========================
+   📸 PHOTO PROFIL
+========================= */
+.photo-profil {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
   border-radius: 50%;
   margin-top: 20px;
-  transition: transform 0.6s ease, box-shadow 0.6s ease;
+  border: 4px solid rgba(255,255,255,.4);
+  transition: transform .6s ease, box-shadow .6s ease;
 }
 
-.intro img.photo-profil:hover {
-  transform: rotateY(10deg) rotateX(5deg) scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+.photo-profil:hover {
+  transform: rotateY(10deg) rotateX(5deg) scale(1.06);
+  box-shadow: 0 12px 28px rgba(0,0,0,.25);
 }
 
 /* =========================
@@ -97,64 +114,126 @@ header {
 .btn {
   display: inline-block;
   margin: 10px;
-  padding: 10px 20px;
-
-  background-color: var(--white);
+  padding: 12px 22px;
+  background: white;
   color: var(--primary);
-
   text-decoration: none;
   font-weight: bold;
   border-radius: 30px;
-
-  transition: all 0.3s ease;
+  transition: .3s ease;
 }
 
 .btn:hover {
-  background-color: #f0f0f0;
   transform: translateY(-2px) scale(1.05);
+  background: #f0f0f0;
+}
+
+/* =========================
+   📂 SECTIONS
+========================= */
+section {
+  margin: 30px 0;
 }
 
 /* =========================
    🧾 TITRES
 ========================= */
-h1, h2 {
+h2, h3, h4 {
   font-family: 'Playfair Display', serif;
 }
 
 h2 {
   cursor: pointer;
-  padding: 10px;
-
-  background-color: #f3f3f3;
+  padding: 14px;
+  background: #f3f3f3;
   border-left: 4px solid var(--primary);
-
-  transition: all 0.3s ease;
+  border-radius: 8px;
+  transition: .3s ease;
 }
 
 h2:hover {
-  background-color: #e9e9e9;
+  background: #ececec;
 }
 
 /* =========================
-   📂 TOGGLE CONTENT
+   📂 ACCORDÉONS
 ========================= */
 .toggle-content {
   max-height: 0;
   overflow: hidden;
-
   padding: 0 15px;
-  margin-bottom: 0;
-
+  margin-top: 0;
   border-left: 4px solid var(--primary);
-  background-color: #fafafa;
-
-  transition: all 0.4s ease;
+  background: rgba(255,255,255,.75);
+  backdrop-filter: blur(8px);
+  border-radius: 0 0 12px 12px;
+  transition: max-height .5s ease, padding .5s ease;
 }
 
 .toggle-content.open {
-  max-height: 1000px;
-  padding: 10px 15px;
-  margin-bottom: 20px;
+  max-height: 2500px;
+  padding: 15px;
+}
+
+/* =========================
+   📋 LISTES
+========================= */
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+/* =========================
+   💎 CERTIFICATS
+========================= */
+.certificats-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.certificat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-card);
+  padding: 14px 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: .3s ease;
+  animation: float 6s ease infinite;
+}
+
+.certificat-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(0,0,0,.15);
+}
+
+.certificat-item p {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* =========================
+   🎞 FLOAT
+========================= */
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* =========================
+   📜 BLOCKQUOTE
+========================= */
+blockquote {
+  background: rgba(255,255,255,.85);
+  padding: 15px;
+  border-left: 4px solid var(--accent);
+  margin: 15px 0;
+  font-style: italic;
+  border-radius: 8px;
 }
 
 /* =========================
@@ -162,66 +241,96 @@ h2:hover {
 ========================= */
 footer {
   text-align: center;
-  padding: 20px;
-  background-color: #f7f6f2;
-  font-size: 0.9em;
+  padding: 30px;
+  background: #f2f2f2;
+  font-size: .95rem;
 }
 
 /* =========================
    🌙 DARK MODE
 ========================= */
 body.dark-mode {
-  background-color: #0f1210;
+  background: #101412;
   color: #e6e6e6;
   background-image: none;
 }
 
+body.dark-mode::before {
+  background-image: radial-gradient(#444 1px, transparent 1px);
+  opacity: 0.05;
+}
+
 body.dark-mode header {
-  background: #1b2a1f;
+  background: linear-gradient(135deg, #1d2920, #24362b);
 }
 
 body.dark-mode h2 {
-  background-color: #1a1f1c;
-  color: #f0f0f0;
+  background: #1b201d;
+  color: white;
   border-left-color: var(--accent);
 }
 
 body.dark-mode .toggle-content {
-  background-color: #151a17;
+  background: rgba(25,30,27,.95);
   border-left-color: var(--accent);
 }
 
 body.dark-mode .btn {
-  background-color: #1f2a23;
+  background: #202a24;
   color: var(--accent);
 }
 
-/* =========================
-   ✨ PARTICULES / CANVAS
-========================= */
-#particles-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: -1;
+body.dark-mode footer {
+  background: #141816;
 }
 
 /* =========================
-   🌟 CURSEUR CUSTOM
+   ✨ PARTICULES
+========================= */
+#particles-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* =========================
+   🌟 ÉTOILES DARK MODE
+========================= */
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%,100% {
+    opacity: 0;
+    transform: scale(.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* =========================
+   🎯 CURSEUR CUSTOM
 ========================= */
 .cursor {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 2px solid var(--primary);
   border-radius: 50%;
   position: fixed;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  transition: transform 0.1s ease-out;
-  z-index: 10000;
+  z-index: 9999;
+  transition: transform .08s ease;
 }
 
 /* =========================
@@ -229,22 +338,15 @@ body.dark-mode .btn {
 ========================= */
 #welcome-message {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  background-color: var(--primary);
+  inset: 0;
+  background: var(--primary);
   color: white;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   font-size: 2rem;
   font-weight: bold;
-
-  z-index: 9999;
+  z-index: 99999;
   transition: opacity 1s ease;
 }
 
@@ -253,7 +355,6 @@ body.dark-mode .btn {
   pointer-events: none;
 }
 
-/* cacher site avant JS */
 body > *:not(#welcome-message) {
   display: none;
 }
@@ -263,55 +364,72 @@ body.ready > *:not(#welcome-message) {
 }
 
 /* =========================
-   💎 CERTIFICATS
+   🔝 SCROLL TOP BUTTON
 ========================= */
-.certificats-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+#scroll-top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s ease;
 }
 
-.certificat-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  background: rgba(255,255,255,0.85);
-  padding: 14px 20px;
-  border-radius: 16px;
-
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-
-  transition: all 0.3s ease;
-  animation: float 6s ease-in-out infinite;
+#scroll-top-btn.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.certificat-item:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+/* =========================
+   🌙 DARK BUTTON
+========================= */
+#dark-mode-btn {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: #222;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 99999;
+  transition: transform .4s ease;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-3px); }
+#dark-mode-btn:hover {
+  transform: rotate(15deg) scale(1.1);
 }
 
 /* =========================
    📱 RESPONSIVE
 ========================= */
-@media screen and (max-width: 600px) {
-  header {
-    padding: 20px 10px;
+@media screen and (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .photo-profil {
+    width: 120px;
+    height: 120px;
   }
 
   .btn {
     display: block;
     width: 80%;
     margin: 10px auto;
-  }
-
-  h1 {
-    font-size: 1.6rem;
+    text-align: center;
   }
 
   h2 {
@@ -319,10 +437,48 @@ body.ready > *:not(#welcome-message) {
   }
 
   p, li {
-    font-size: 0.95rem;
+    font-size: .95rem;
+  }
+
+  .certificat-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+/* =========================
+   📱 PETITS MOBILES
+========================= */
+@media screen and (max-width: 480px) {
+  header {
+    padding: 30px 15px;
+  }
+
+  header h1 {
+    font-size: 1.6rem;
   }
 
   .container {
+    padding: 15px;
+  }
+
+  .btn {
+    width: 100%;
     padding: 10px;
+  }
+
+  #dark-mode-btn {
+    top: 15px;
+    right: 15px;
+    width: 42px;
+    height: 42px;
+  }
+
+  #scroll-top-btn {
+    width: 44px;
+    height: 44px;
+    bottom: 20px;
+    right: 20px;
   }
 }
