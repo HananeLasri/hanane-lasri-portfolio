@@ -1,20 +1,24 @@
+```javascript
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* =======================================================
-     🔥 INITIALISATION GLOBALE
-  ======================================================= */
+  /* ==========================================================
+     GLOBAL VARIABLES
+  ========================================================== */
 
   const body = document.body;
   const welcome = document.getElementById("welcome-message");
+  const containers = document.querySelectorAll(".container");
+  const photo = document.querySelector(".photo-profil");
 
-  let isDarkMode = false;
-  let particlesCanvas = null;
-  let particlesCtx = null;
+  let isDarkMode = localStorage.getItem("darkMode") === "true";
+  let particlesCanvas;
+  let particlesCtx;
   let particlesArray = [];
+  let animationRunning = true;
 
-  /* =======================================================
-     🌟 INTRO ANIMATION (WELCOME SCREEN)
-  ======================================================= */
+  /* ==========================================================
+     WELCOME SCREEN
+  ========================================================== */
 
   function initWelcomeScreen() {
     if (!welcome) return;
@@ -23,57 +27,77 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       welcome.classList.add("fade-out");
-    }, 2500);
+    }, 2200);
 
     setTimeout(() => {
       welcome.remove();
       body.classList.add("ready");
-
-      // animation containers
-      document.querySelectorAll(".container").forEach((container, index) => {
-        container.style.opacity = 0;
-        container.style.transform = "translateY(50px)";
-        container.style.transition = "all 1s ease";
-
-        setTimeout(() => {
-          container.style.opacity = 1;
-          container.style.transform = "translateY(0)";
-        }, index * 150);
-      });
-
-    }, 3500);
+    }, 3200);
   }
 
   initWelcomeScreen();
 
-  /* =======================================================
-     📦 ACCORDÉONS H2 (SECTIONS PRINCIPALES)
-  ======================================================= */
+  /* ==========================================================
+     SCROLL ANIMATION
+  ========================================================== */
 
-  function initMainAccordions() {
+  function initScrollReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, {
+      threshold: 0.15
+    });
+
+    containers.forEach(container => observer.observe(container));
+  }
+
+  initScrollReveal();
+
+  /* ==========================================================
+     MAIN ACCORDIONS
+  ========================================================== */
+
+  function initAccordions() {
     const titles = document.querySelectorAll("h2");
 
     titles.forEach(title => {
       const content = title.nextElementSibling;
       if (!content) return;
 
-      content.style.maxHeight = "0px";
-      content.style.overflow = "hidden";
-
       title.setAttribute("tabindex", "0");
       title.setAttribute("aria-expanded", "false");
+
+      function closeAll() {
+        document.querySelectorAll(".toggle-content").forEach(item => {
+          if (item !== content) {
+            item.style.maxHeight = "0px";
+            item.classList.remove("open");
+          }
+        });
+
+        document.querySelectorAll("h2").forEach(h => {
+          if (h !== title) {
+            h.setAttribute("aria-expanded", "false");
+          }
+        });
+      }
 
       function toggle() {
         const isOpen = title.getAttribute("aria-expanded") === "true";
 
-        title.setAttribute("aria-expanded", !isOpen);
-
         if (isOpen) {
           content.style.maxHeight = "0px";
           content.classList.remove("open");
+          title.setAttribute("aria-expanded", "false");
         } else {
+          closeAll();
           content.style.maxHeight = content.scrollHeight + "px";
           content.classList.add("open");
+          title.setAttribute("aria-expanded", "true");
         }
       }
 
@@ -88,239 +112,241 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  initMainAccordions();
+  initAccordions();
 
-  /* =======================================================
-     📚 ACCORDÉONS PROFONDS (CERTIFICATS / DIPLÔMES)
-  ======================================================= */
+  /* ==========================================================
+     SCROLL TO TOP BUTTON
+  ========================================================== */
 
-  function initDeepAccordions() {
-    const sections = document.querySelectorAll("#certificats, #diplomes");
-
-    sections.forEach(section => {
-      const titles = section.querySelectorAll("h3, h4");
-
-      titles.forEach(title => {
-        const content = title.nextElementSibling;
-        if (!content) return;
-
-        content.style.maxHeight = "0px";
-        content.style.overflow = "hidden";
-
-        title.style.cursor = "pointer";
-        title.setAttribute("tabindex", "0");
-        title.setAttribute("aria-expanded", "false");
-
-        function toggle() {
-          const open = title.getAttribute("aria-expanded") === "true";
-
-          title.setAttribute("aria-expanded", !open);
-
-          if (open) {
-            content.style.maxHeight = "0px";
-            content.classList.remove("open");
-          } else {
-            content.style.maxHeight = content.scrollHeight + "px";
-            content.classList.add("open");
-          }
-        }
-
-        title.addEventListener("click", toggle);
-        title.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            toggle();
-          }
-        });
-      });
-    });
-  }
-
-  initDeepAccordions();
-
-  /* =======================================================
-     ⬆️ BOUTON SCROLL TOP
-  ======================================================= */
-
-  function createScrollToTop() {
+  function createScrollTopButton() {
     const btn = document.createElement("button");
-    btn.innerText = "↑";
+    btn.innerHTML = "↑";
+    btn.id = "scroll-top-btn";
 
     Object.assign(btn.style, {
       position: "fixed",
-      bottom: "25px",
       right: "25px",
-      width: "50px",
-      height: "50px",
+      bottom: "25px",
+      width: "52px",
+      height: "52px",
       borderRadius: "50%",
       border: "none",
-      background: "#4ca1af",
-      color: "white",
-      fontSize: "20px",
+      background: "#5f6f52",
+      color: "#fff",
+      fontSize: "22px",
       cursor: "pointer",
       opacity: "0",
-      transition: "0.3s",
-      zIndex: "9999"
+      transform: "translateY(20px)",
+      transition: "all .3s ease",
+      zIndex: "1000"
     });
 
     body.appendChild(btn);
 
     btn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     });
 
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 300) {
+      if (window.scrollY > 400) {
         btn.style.opacity = "1";
+        btn.style.transform = "translateY(0)";
       } else {
         btn.style.opacity = "0";
+        btn.style.transform = "translateY(20px)";
       }
     });
   }
 
-  createScrollToTop();
+  createScrollTopButton();
 
-  /* =======================================================
-     🌙 DARK MODE AVANCÉ
-  ======================================================= */
+  /* ==========================================================
+     DARK MODE BUTTON
+  ========================================================== */
 
-  function createDarkMode() {
+  function createDarkModeButton() {
     const btn = document.createElement("button");
-    btn.innerText = "🌙";
+    btn.id = "dark-mode-btn";
+    btn.innerHTML = isDarkMode ? "☀️" : "🌙";
 
     Object.assign(btn.style, {
       position: "fixed",
       top: "20px",
       right: "20px",
-      width: "45px",
-      height: "45px",
+      width: "50px",
+      height: "50px",
       borderRadius: "50%",
       border: "none",
       background: "#222",
       color: "#fff",
       cursor: "pointer",
-      fontSize: "18px",
-      zIndex: "10000"
+      fontSize: "20px",
+      zIndex: "1001",
+      transition: "all .3s ease"
     });
 
     body.appendChild(btn);
+
+    if (isDarkMode) {
+      body.classList.add("dark-mode");
+      createStars();
+    }
 
     btn.addEventListener("click", () => {
       isDarkMode = !isDarkMode;
       body.classList.toggle("dark-mode");
 
-      btn.innerText = isDarkMode ? "☀️" : "🌙";
+      btn.innerHTML = isDarkMode ? "☀️" : "🌙";
 
-      toggleStars(isDarkMode);
+      localStorage.setItem("darkMode", isDarkMode);
+
+      if (isDarkMode) {
+        createStars();
+      } else {
+        removeStars();
+      }
     });
   }
 
-  function toggleStars(enable) {
-    if (!enable) {
-      document.querySelectorAll(".star").forEach(s => s.remove());
-      return;
-    }
+  createDarkModeButton();
 
-    for (let i = 0; i < 50; i++) {
+  /* ==========================================================
+     STARS
+  ========================================================== */
+
+  function createStars() {
+    removeStars();
+
+    for (let i = 0; i < 60; i++) {
       const star = document.createElement("div");
-      star.className = "star";
+      star.classList.add("star");
 
-      star.style.position = "fixed";
-      star.style.width = Math.random() * 3 + "px";
-      star.style.height = star.style.width;
-      star.style.background = "white";
-      star.style.borderRadius = "50%";
-      star.style.top = Math.random() * 100 + "vh";
-      star.style.left = Math.random() * 100 + "vw";
-      star.style.opacity = Math.random();
-      star.style.animation = "twinkle 3s infinite";
+      const size = Math.random() * 3 + 1;
 
-      document.body.appendChild(star);
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.top = `${Math.random() * 100}vh`;
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.animationDelay = `${Math.random() * 3}s`;
+
+      body.appendChild(star);
     }
   }
 
-  createDarkMode();
+  function removeStars() {
+    document.querySelectorAll(".star").forEach(star => star.remove());
+  }
 
-  /* =======================================================
-     🌌 PARTICULES AMÉLIORÉES
-  ======================================================= */
+  /* ==========================================================
+     PARTICLES BACKGROUND
+  ========================================================== */
 
   function initParticles() {
     particlesCanvas = document.createElement("canvas");
     particlesCanvas.id = "particles-canvas";
 
-    Object.assign(particlesCanvas.style, {
-      position: "fixed",
-      top: "0",
-      left: "0",
-      width: "100vw",
-      height: "100vh",
-      zIndex: "-1"
-    });
-
     body.appendChild(particlesCanvas);
 
     particlesCtx = particlesCanvas.getContext("2d");
 
-    function resize() {
-      particlesCanvas.width = window.innerWidth;
-      particlesCanvas.height = window.innerHeight;
-    }
-
-    window.addEventListener("resize", resize);
-    resize();
-
-    function createParticles() {
-      particlesArray = [];
-      for (let i = 0; i < 120; i++) {
-        particlesArray.push({
-          x: Math.random() * particlesCanvas.width,
-          y: Math.random() * particlesCanvas.height,
-          size: Math.random() * 3,
-          speedX: (Math.random() - 0.5),
-          speedY: (Math.random() - 0.5)
-        });
-      }
-    }
-
-    function animate() {
-      particlesCtx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
-
-      particlesArray.forEach(p => {
-        p.x += p.speedX;
-        p.y += p.speedY;
-
-        if (p.x < 0) p.x = particlesCanvas.width;
-        if (p.x > particlesCanvas.width) p.x = 0;
-        if (p.y < 0) p.y = particlesCanvas.height;
-        if (p.y > particlesCanvas.height) p.y = 0;
-
-        particlesCtx.beginPath();
-        particlesCtx.fillStyle = "rgba(255,255,255,0.4)";
-        particlesCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        particlesCtx.fill();
-      });
-
-      requestAnimationFrame(animate);
-    }
-
+    resizeCanvas();
     createParticles();
-    animate();
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      createParticles();
+    });
+
+    animateParticles();
+  }
+
+  function resizeCanvas() {
+    particlesCanvas.width = window.innerWidth;
+    particlesCanvas.height = window.innerHeight;
+  }
+
+  function createParticles() {
+    particlesArray = [];
+
+    const numberOfParticles =
+      window.innerWidth < 768 ? 40 : 100;
+
+    for (let i = 0; i < numberOfParticles; i++) {
+      particlesArray.push({
+        x: Math.random() * particlesCanvas.width,
+        y: Math.random() * particlesCanvas.height,
+        size: Math.random() * 2 + 1,
+        speedX: (Math.random() - 0.5) * 0.5,
+        speedY: (Math.random() - 0.5) * 0.5
+      });
+    }
+  }
+
+  function animateParticles() {
+    if (!animationRunning) return;
+
+    particlesCtx.clearRect(
+      0,
+      0,
+      particlesCanvas.width,
+      particlesCanvas.height
+    );
+
+    particlesArray.forEach(particle => {
+      particle.x += particle.speedX;
+      particle.y += particle.speedY;
+
+      if (particle.x < 0) particle.x = particlesCanvas.width;
+      if (particle.x > particlesCanvas.width) particle.x = 0;
+      if (particle.y < 0) particle.y = particlesCanvas.height;
+      if (particle.y > particlesCanvas.height) particle.y = 0;
+
+      particlesCtx.beginPath();
+      particlesCtx.arc(
+        particle.x,
+        particle.y,
+        particle.size,
+        0,
+        Math.PI * 2
+      );
+
+      particlesCtx.fillStyle = isDarkMode
+        ? "rgba(255,255,255,0.15)"
+        : "rgba(95,111,82,0.18)";
+
+      particlesCtx.fill();
+    });
+
+    requestAnimationFrame(animateParticles);
   }
 
   initParticles();
 
-  /* =======================================================
-     🖼️ PHOTO PROFIL ANIMATION
-  ======================================================= */
+  /* ==========================================================
+     PAGE VISIBILITY API
+  ========================================================== */
 
-  function initPhoto() {
-    const photo = document.querySelector(".photo-profil");
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      animationRunning = false;
+    } else {
+      animationRunning = true;
+      animateParticles();
+    }
+  });
+
+  /* ==========================================================
+     PHOTO EFFECT
+  ========================================================== */
+
+  function initPhotoEffects() {
     if (!photo) return;
 
     photo.addEventListener("mouseenter", () => {
-      photo.style.transform = "scale(1.1) rotate(2deg)";
-      photo.style.transition = "0.5s";
+      photo.style.transform = "scale(1.08) rotate(2deg)";
     });
 
     photo.addEventListener("mouseleave", () => {
@@ -328,6 +354,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  initPhoto();
+  initPhotoEffects();
+
+  /* ==========================================================
+     HEADER PARALLAX
+  ========================================================== */
+
+  function initParallax() {
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+      const header = document.querySelector("header");
+
+      if (header) {
+        header.style.backgroundPositionY = `${scrollY * 0.3}px`;
+      }
+    });
+  }
+
+  initParallax();
 
 });
+```
