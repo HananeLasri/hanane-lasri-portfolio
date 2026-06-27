@@ -1,185 +1,254 @@
+```css
 /* =========================
-   🎨 VARIABLES GLOBALES
+   ROOT VARIABLES
 ========================= */
 :root {
   --primary: #5f6f52;
-  --secondary: #7a8c6d;
-  --accent: #a68a64;
-  --bg-light: #f6f5f2;
-  --bg-card: rgba(255,255,255,0.88);
-  --text-dark: #2c2c2c;
+  --secondary: #7b8c72;
+  --accent: #b89b72;
+  --bg: #f6f5f2;
+  --bg-soft: rgba(255, 255, 255, 0.88);
   --white: #ffffff;
-  --shadow: 0 8px 20px rgba(0,0,0,0.08);
-  --radius: 18px;
+  --text: #2c2c2c;
+  --text-light: #666;
+  --border: rgba(255,255,255,0.25);
+
+  --shadow-soft: 0 8px 25px rgba(0,0,0,0.08);
+  --shadow-medium: 0 12px 30px rgba(0,0,0,0.12);
+  --shadow-strong: 0 18px 40px rgba(0,0,0,0.18);
+
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 25px;
+
+  --transition: all 0.35s ease;
 }
 
 /* =========================
-   🌿 BODY GLOBAL
+   GLOBAL
 ========================= */
-body {
-  font-family: 'Open Sans', sans-serif;
+* {
   margin: 0;
   padding: 0;
-  line-height: 1.7;
-  color: var(--text-dark);
-  background: linear-gradient(135deg, #f6f5f2, #ffffff);
-  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-  background-repeat: repeat;
-  background-size: 600% 600%;
-  animation: backgroundGradient 30s ease infinite;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: var(--text);
+  background:
+    linear-gradient(135deg, #f7f6f2, #ffffff);
+  line-height: 1.8;
   overflow-x: hidden;
   position: relative;
 }
 
-/* =========================
-   🎞 ANIMATION BACKGROUND
-========================= */
-@keyframes backgroundGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
+/* texture */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(#cfcfcf 1px, transparent 1px);
-  background-size: 60px 60px;
-  opacity: 0.04;
-  z-index: -1;
+  background-image:
+    radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px);
+  background-size: 45px 45px;
+  z-index: -2;
 }
 
 /* =========================
-   📦 CONTAINER
+   CONTAINER
 ========================= */
 .container {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: auto;
-  padding: 20px;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity .8s ease, transform .8s ease;
-}
-
-.container.visible {
-  opacity: 1;
-  transform: translateY(0);
+  padding: 30px;
 }
 
 /* =========================
-   🧭 HEADER
+   WELCOME SCREEN
+========================= */
+#welcome-message {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary)
+  );
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: opacity 1s ease;
+}
+
+#welcome-message.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* =========================
+   HEADER
 ========================= */
 header {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
   text-align: center;
-  padding: 50px 20px;
-  box-shadow: var(--shadow);
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--secondary)
+    );
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top right,
+    rgba(255,255,255,0.12),
+    transparent 40%);
+}
+
+.intro {
+  position: relative;
+  z-index: 2;
 }
 
 header h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 2.7rem;
-  margin-bottom: 10px;
+  font-size: 4rem;
+  margin-bottom: 15px;
 }
 
 header p {
-  max-width: 750px;
+  max-width: 700px;
   margin: auto;
+  font-size: 1.15rem;
+  opacity: .95;
 }
 
 /* =========================
-   📸 PHOTO PROFIL
+   PROFILE PHOTO
 ========================= */
 .photo-profil {
-  width: 160px;
-  height: 160px;
-  object-fit: cover;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  margin-top: 20px;
-  border: 4px solid rgba(255,255,255,.4);
-  transition: transform .6s ease, box-shadow .6s ease;
+  object-fit: cover;
+  margin-top: 30px;
+  border: 5px solid rgba(255,255,255,0.25);
+  box-shadow: var(--shadow-medium);
+  transition: var(--transition);
 }
 
 .photo-profil:hover {
-  transform: rotateY(10deg) rotateX(5deg) scale(1.06);
-  box-shadow: 0 12px 28px rgba(0,0,0,.25);
+  transform: scale(1.08) rotate(2deg);
+  box-shadow: var(--shadow-strong);
 }
 
 /* =========================
-   🔘 BOUTONS
+   BUTTONS
 ========================= */
+nav {
+  margin-top: 30px;
+}
+
 .btn {
   display: inline-block;
-  margin: 10px;
-  padding: 12px 22px;
-  background: white;
+  margin: 8px;
+  padding: 14px 24px;
+  background: rgba(255,255,255,0.95);
   color: var(--primary);
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 700;
   border-radius: 30px;
-  transition: .3s ease;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
 }
 
 .btn:hover {
-  transform: translateY(-2px) scale(1.05);
-  background: #f0f0f0;
+  transform: translateY(-4px);
+  background: white;
 }
 
 /* =========================
-   📂 SECTIONS
+   MAIN
+========================= */
+main {
+  padding: 60px 0;
+}
+
+/* =========================
+   SECTION
 ========================= */
 section {
-  margin: 30px 0;
+  margin-bottom: 35px;
 }
 
 /* =========================
-   🧾 TITRES
+   TITLES
 ========================= */
-h2, h3, h4 {
+h1, h2 {
   font-family: 'Playfair Display', serif;
 }
 
 h2 {
+  background: white;
+  padding: 18px 22px;
+  border-left: 5px solid var(--primary);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  padding: 14px;
-  background: #f3f3f3;
-  border-left: 4px solid var(--primary);
-  border-radius: 8px;
-  transition: .3s ease;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
 }
 
 h2:hover {
-  background: #ececec;
+  transform: translateX(4px);
 }
 
 /* =========================
-   📂 ACCORDÉONS
+   ACCORDION CONTENT
 ========================= */
 .toggle-content {
   max-height: 0;
   overflow: hidden;
-  padding: 0 15px;
-  margin-top: 0;
-  border-left: 4px solid var(--primary);
-  background: rgba(255,255,255,.75);
-  backdrop-filter: blur(8px);
-  border-radius: 0 0 12px 12px;
-  transition: max-height .5s ease, padding .5s ease;
+  padding: 0 20px;
+  background: var(--bg-soft);
+  backdrop-filter: blur(14px);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  transition:
+    max-height .6s ease,
+    padding .5s ease;
 }
 
 .toggle-content.open {
-  max-height: 2500px;
-  padding: 15px;
+  padding: 20px;
 }
 
 /* =========================
-   📋 LISTES
+   TEXT
 ========================= */
+p {
+  margin-bottom: 15px;
+}
+
 ul {
-  padding-left: 20px;
+  padding-left: 22px;
 }
 
 li {
@@ -187,128 +256,58 @@ li {
 }
 
 /* =========================
-   💎 CERTIFICATS
+   LINKS
 ========================= */
-.certificats-grid {
-  display: grid;
-  gap: 1.5rem;
+a {
+  color: var(--primary);
+  transition: var(--transition);
 }
 
-.certificat-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--bg-card);
-  padding: 14px 20px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  transition: .3s ease;
-  animation: float 6s ease infinite;
-}
-
-.certificat-item:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 14px 28px rgba(0,0,0,.15);
-}
-
-.certificat-item p {
-  margin: 0;
-  font-weight: 600;
-}
-
-/* =========================
-   🎞 FLOAT
-========================= */
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-
-/* =========================
-   📜 BLOCKQUOTE
-========================= */
-blockquote {
-  background: rgba(255,255,255,.85);
-  padding: 15px;
-  border-left: 4px solid var(--accent);
-  margin: 15px 0;
-  font-style: italic;
-  border-radius: 8px;
-}
-
-/* =========================
-   🦶 FOOTER
-========================= */
-footer {
-  text-align: center;
-  padding: 30px;
-  background: #f2f2f2;
-  font-size: .95rem;
-}
-
-/* =========================
-   🌙 DARK MODE
-========================= */
-body.dark-mode {
-  background: #101412;
-  color: #e6e6e6;
-  background-image: none;
-}
-
-body.dark-mode::before {
-  background-image: radial-gradient(#444 1px, transparent 1px);
-  opacity: 0.05;
-}
-
-body.dark-mode header {
-  background: linear-gradient(135deg, #1d2920, #24362b);
-}
-
-body.dark-mode h2 {
-  background: #1b201d;
-  color: white;
-  border-left-color: var(--accent);
-}
-
-body.dark-mode .toggle-content {
-  background: rgba(25,30,27,.95);
-  border-left-color: var(--accent);
-}
-
-body.dark-mode .btn {
-  background: #202a24;
+a:hover {
   color: var(--accent);
 }
 
-body.dark-mode footer {
-  background: #141816;
+/* =========================
+   FOOTER
+========================= */
+footer {
+  text-align: center;
+  padding: 35px;
+  background: white;
+  color: var(--text-light);
+  border-top: 1px solid rgba(0,0,0,0.05);
 }
 
 /* =========================
-   ✨ PARTICULES
+   SCROLL BUTTON (JS)
+========================= */
+button {
+  font-family: inherit;
+}
+
+/* =========================
+   PARTICLES
 ========================= */
 #particles-canvas {
   position: fixed;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
+  z-index: -3;
   pointer-events: none;
 }
 
 /* =========================
-   🌟 ÉTOILES DARK MODE
+   STARS DARK MODE
 ========================= */
 .star {
-  position: absolute;
+  position: fixed;
   background: white;
   border-radius: 50%;
-  opacity: 0;
-  animation: twinkle 3s infinite ease-in-out;
+  animation: twinkle 3s infinite;
+  z-index: -1;
 }
 
 @keyframes twinkle {
-  0%,100% {
+  0%, 100% {
     opacity: 0;
     transform: scale(.8);
   }
@@ -319,103 +318,112 @@ body.dark-mode footer {
 }
 
 /* =========================
-   🎯 CURSEUR CUSTOM
+   DARK MODE
 ========================= */
-.cursor {
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--primary);
-  border-radius: 50%;
-  position: fixed;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform .08s ease;
+body.dark-mode {
+  background: linear-gradient(
+    135deg,
+    #101412,
+    #151a17
+  );
+  color: #f2f2f2;
+}
+
+body.dark-mode::before {
+  background-image:
+    radial-gradient(rgba(255,255,255,.05) 1px, transparent 1px);
+}
+
+body.dark-mode header {
+  background:
+    linear-gradient(
+      135deg,
+      #18221b,
+      #223126
+    );
+}
+
+body.dark-mode h2 {
+  background: rgba(30,35,30,.95);
+  color: white;
+  border-left-color: var(--accent);
+}
+
+body.dark-mode .toggle-content {
+  background: rgba(25,30,27,.95);
+}
+
+body.dark-mode .btn {
+  background: rgba(30,35,30,.95);
+  color: var(--accent);
+}
+
+body.dark-mode footer {
+  background: #111;
+  color: #aaa;
+}
+
+body.dark-mode a {
+  color: var(--accent);
 }
 
 /* =========================
-   🌅 WELCOME SCREEN
+   FADE ANIMATION
 ========================= */
-#welcome-message {
-  position: fixed;
-  inset: 0;
-  background: var(--primary);
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-  font-weight: bold;
-  z-index: 99999;
-  transition: opacity 1s ease;
-}
-
-#welcome-message.fade-out {
+.container {
   opacity: 0;
-  pointer-events: none;
+  transform: translateY(40px);
+  transition:
+    opacity .8s ease,
+    transform .8s ease;
 }
 
-body > *:not(#welcome-message) {
-  display: none;
-}
-
-body.ready > *:not(#welcome-message) {
-  display: block;
-}
-
-/* =========================
-   🔝 SCROLL TOP BUTTON
-========================= */
-#scroll-top-btn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 52px;
-  height: 52px;
-  border: none;
-  border-radius: 50%;
-  background: var(--primary);
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-  opacity: 0;
-  pointer-events: none;
-  transition: .3s ease;
-}
-
-#scroll-top-btn.show {
+.container.visible {
   opacity: 1;
-  pointer-events: auto;
+  transform: translateY(0);
 }
 
 /* =========================
-   🌙 DARK BUTTON
+   RESPONSIVE TABLET
 ========================= */
-#dark-mode-btn {
-  position: fixed;
-  top: 25px;
-  right: 25px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: none;
-  background: #222;
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
-  z-index: 99999;
-  transition: transform .4s ease;
-}
+@media (max-width: 768px) {
+  header {
+    min-height: auto;
+    padding: 80px 0;
+  }
 
-#dark-mode-btn:hover {
-  transform: rotate(15deg) scale(1.1);
+  header h1 {
+    font-size: 2.5rem;
+  }
+
+  header p {
+    font-size: 1rem;
+  }
+
+  .photo-profil {
+    width: 140px;
+    height: 140px;
+  }
+
+  .btn {
+    display: block;
+    width: 85%;
+    margin: 12px auto;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .container {
+    padding: 20px;
+  }
 }
 
 /* =========================
-   📱 RESPONSIVE
+   RESPONSIVE MOBILE
 ========================= */
-@media screen and (max-width: 768px) {
+@media (max-width: 480px) {
   header h1 {
     font-size: 2rem;
   }
@@ -425,60 +433,24 @@ body.ready > *:not(#welcome-message) {
     height: 120px;
   }
 
-  .btn {
-    display: block;
-    width: 80%;
-    margin: 10px auto;
-    text-align: center;
+  .container {
+    padding: 16px;
   }
 
   h2 {
-    font-size: 1.2rem;
+    padding: 15px;
+    font-size: 1rem;
   }
 
-  p, li {
+  p,
+  li {
     font-size: .95rem;
   }
 
-  .certificat-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+  #welcome-message {
+    font-size: 1.4rem;
+    text-align: center;
+    padding: 20px;
   }
 }
-
-/* =========================
-   📱 PETITS MOBILES
-========================= */
-@media screen and (max-width: 480px) {
-  header {
-    padding: 30px 15px;
-  }
-
-  header h1 {
-    font-size: 1.6rem;
-  }
-
-  .container {
-    padding: 15px;
-  }
-
-  .btn {
-    width: 100%;
-    padding: 10px;
-  }
-
-  #dark-mode-btn {
-    top: 15px;
-    right: 15px;
-    width: 42px;
-    height: 42px;
-  }
-
-  #scroll-top-btn {
-    width: 44px;
-    height: 44px;
-    bottom: 20px;
-    right: 20px;
-  }
-}
+```
