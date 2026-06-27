@@ -1,3 +1,6 @@
+/* =========================================================
+   VARIABLES
+========================================================= */
 :root {
   --primary: #5f6f52;
   --secondary: #7b8c72;
@@ -13,11 +16,16 @@
   --shadow-medium: 0 12px 30px rgba(0,0,0,0.12);
   --shadow-strong: 0 18px 40px rgba(0,0,0,0.18);
 
+  --radius-sm: 10px;
   --radius-md: 18px;
+  --radius-lg: 28px;
+
   --transition: all 0.35s ease;
 }
 
-/* RESET */
+/* =========================================================
+   RESET
+========================================================= */
 * {
   margin: 0;
   padding: 0;
@@ -35,6 +43,7 @@ body {
   line-height: 1.8;
   overflow-x: hidden;
   position: relative;
+  transition: background 0.5s ease, color 0.5s ease;
 }
 
 /* texture background */
@@ -45,9 +54,12 @@ body::before {
   background-image: radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px);
   background-size: 45px 45px;
   z-index: -2;
+  pointer-events: none;
 }
 
-/* CONTAINER */
+/* =========================================================
+   CONTAINER
+========================================================= */
 .container {
   max-width: 1100px;
   margin: auto;
@@ -63,7 +75,9 @@ body::before {
   transform: translateY(0);
 }
 
-/* WELCOME */
+/* =========================================================
+   WELCOME SCREEN
+========================================================= */
 #welcome-message {
   position: fixed;
   inset: 0;
@@ -76,15 +90,18 @@ body::before {
   font-size: 2rem;
   font-weight: bold;
   letter-spacing: 1px;
-  transition: opacity 1s ease;
+  transition: opacity 1s ease, transform 1s ease;
 }
 
 #welcome-message.fade-out {
   opacity: 0;
+  transform: scale(1.05);
   pointer-events: none;
 }
 
-/* HEADER */
+/* =========================================================
+   HEADER
+========================================================= */
 header {
   min-height: 100vh;
   display: flex;
@@ -100,7 +117,9 @@ header::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top right, rgba(255,255,255,0.12), transparent 40%);
+  background: radial-gradient(circle at top right,
+    rgba(255,255,255,0.12),
+    transparent 40%);
 }
 
 .intro {
@@ -108,12 +127,8 @@ header::after {
   z-index: 2;
 }
 
-/* TITLES */
-h1, h2 {
-  font-family: 'Playfair Display', serif;
-}
-
 header h1 {
+  font-family: 'Playfair Display', serif;
   font-size: 4rem;
   margin-bottom: 15px;
 }
@@ -124,7 +139,9 @@ header p {
   font-size: 1.15rem;
 }
 
-/* PHOTO */
+/* =========================================================
+   PHOTO
+========================================================= */
 .photo-profil {
   width: 180px;
   height: 180px;
@@ -133,7 +150,7 @@ header p {
   margin-top: 30px;
   border: 5px solid rgba(255,255,255,0.25);
   box-shadow: var(--shadow-medium);
-  transition: var(--transition);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .photo-profil:hover {
@@ -141,7 +158,9 @@ header p {
   box-shadow: var(--shadow-strong);
 }
 
-/* BUTTONS */
+/* =========================================================
+   BUTTONS
+========================================================= */
 .btn {
   display: inline-block;
   margin: 8px;
@@ -157,10 +176,16 @@ header p {
 
 .btn:hover {
   transform: translateY(-4px);
-  background: white;
+  background: #fff;
 }
 
-/* MAIN */
+.btn:focus {
+  outline: 2px solid var(--accent);
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
 main {
   padding: 60px 0;
 }
@@ -169,7 +194,13 @@ section {
   margin-bottom: 35px;
 }
 
-/* ACCORDION TITLE */
+/* =========================================================
+   TITLES (ACCORDION)
+========================================================= */
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+}
+
 h2 {
   background: white;
   padding: 18px 22px;
@@ -178,13 +209,21 @@ h2 {
   cursor: pointer;
   box-shadow: var(--shadow-soft);
   transition: var(--transition);
+  user-select: none;
 }
 
 h2:hover {
   transform: translateX(4px);
+  background: #fafafa;
 }
 
-/* ACCORDION CONTENT */
+h2:focus {
+  outline: 2px solid var(--accent);
+}
+
+/* =========================================================
+   ACCORDION CONTENT
+========================================================= */
 .toggle-content {
   max-height: 0;
   overflow: hidden;
@@ -194,6 +233,7 @@ h2:hover {
   border-radius: 0 0 var(--radius-md) var(--radius-md);
   box-shadow: var(--shadow-soft);
   transition: max-height 0.6s ease, padding 0.4s ease;
+  will-change: max-height;
 }
 
 .toggle-content.open {
@@ -201,14 +241,24 @@ h2:hover {
   max-height: 2000px;
 }
 
-/* TEXT */
-p { margin-bottom: 15px; }
+/* =========================================================
+   TEXT
+========================================================= */
+p {
+  margin-bottom: 15px;
+}
 
-ul { padding-left: 22px; }
+ul {
+  padding-left: 22px;
+}
 
-li { margin-bottom: 10px; }
+li {
+  margin-bottom: 10px;
+}
 
-/* LINKS */
+/* =========================================================
+   LINKS
+========================================================= */
 a {
   color: var(--primary);
   text-decoration: none;
@@ -219,7 +269,9 @@ a:hover {
   color: var(--accent);
 }
 
-/* FOOTER */
+/* =========================================================
+   FOOTER
+========================================================= */
 footer {
   text-align: center;
   padding: 35px;
@@ -228,7 +280,9 @@ footer {
   border-top: 1px solid rgba(0,0,0,0.05);
 }
 
-/* PARTICLES */
+/* =========================================================
+   PARTICLES
+========================================================= */
 #particles-canvas {
   position: fixed;
   inset: 0;
@@ -236,7 +290,9 @@ footer {
   pointer-events: none;
 }
 
-/* STARS */
+/* =========================================================
+   STARS (DARK MODE)
+========================================================= */
 .star {
   position: fixed;
   background: white;
@@ -250,7 +306,9 @@ footer {
   50% { opacity:1; transform:scale(1.2); }
 }
 
-/* DARK MODE */
+/* =========================================================
+   DARK MODE
+========================================================= */
 body.dark-mode {
   background: #101412;
   color: #f2f2f2;
@@ -284,8 +342,11 @@ body.dark-mode a {
   color: var(--accent);
 }
 
-/* RESPONSIVE TABLET */
+/* =========================================================
+   RESPONSIVE TABLET
+========================================================= */
 @media (max-width: 768px) {
+
   header {
     min-height: auto;
     padding: 80px 0;
@@ -319,8 +380,11 @@ body.dark-mode a {
   }
 }
 
-/* MOBILE */
+/* =========================================================
+   MOBILE
+========================================================= */
 @media (max-width: 480px) {
+
   header h1 {
     font-size: 2rem;
   }
