@@ -1,359 +1,263 @@
 /* =========================================================
-   HANANE LASRI PORTFOLIO
-   STYLE.CSS
-   PART 1
+   HANANE LASRI - PREMIUM PORTFOLIO CSS
+   VERSION FINAL PRO (PART 1)
 ========================================================= */
 
 /* =========================================================
-   GOOGLE VARIABLES
+   DESIGN SYSTEM (VARIABLES)
 ========================================================= */
 
-:root{
+:root {
 
+    /* Colors */
     --primary:#5f6f52;
-    --secondary:#73866b;
+    --secondary:#6f8266;
     --accent:#c8a978;
 
-    --white:#ffffff;
+    --bg:#f6f5f2;
+    --card:#ffffff;
 
-    --background:#f5f5f2;
-    --section:#ffffff;
+    --text:#2b2b2b;
+    --muted:#6b6b6b;
 
-    --text:#2d2d2d;
-    --text-light:#666666;
+    /* Shadows */
+    --shadow-sm:0 8px 20px rgba(0,0,0,.08);
+    --shadow-md:0 14px 35px rgba(0,0,0,.12);
+    --shadow-lg:0 22px 50px rgba(0,0,0,.18);
 
-    --border:#e7e7e7;
+    /* Radius */
+    --radius-sm:12px;
+    --radius-md:18px;
+    --radius-lg:26px;
 
-    --shadow-small:
-    0 5px 15px rgba(0,0,0,.08);
-
-    --shadow-medium:
-    0 10px 30px rgba(0,0,0,.12);
-
-    --shadow-large:
-    0 20px 45px rgba(0,0,0,.18);
-
-    --radius:18px;
-
-    --transition:.35s ease;
-
+    /* Transition */
+    --transition:0.35s cubic-bezier(.4,0,.2,1);
 }
 
 /* =========================================================
-   RESET
+   RESET GLOBAL
 ========================================================= */
 
-*{
-
+* {
     margin:0;
     padding:0;
     box-sizing:border-box;
-
 }
 
-html{
-
+html {
     scroll-behavior:smooth;
-
+    scroll-padding-top:80px;
 }
 
-body{
+body {
 
     font-family:'Open Sans',sans-serif;
-
-    background:var(--background);
-
+    background:var(--bg);
     color:var(--text);
 
-    line-height:1.8;
-
+    line-height:1.7;
     overflow-x:hidden;
-
 }
 
 /* =========================================================
-   BACKGROUND
+   BACKGROUND TEXTURE (SUBTLE PREMIUM EFFECT)
 ========================================================= */
 
-body::before{
+body::before {
 
     content:"";
-
     position:fixed;
-
     inset:0;
 
-    background-image:
+    background:
+        radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px);
 
-    radial-gradient(rgba(0,0,0,.03) 1px,transparent 1px);
+    background-size:45px 45px;
 
-    background-size:40px 40px;
-
-    z-index:-3;
-
+    z-index:-2;
 }
 
 /* =========================================================
-   GENERAL
+   MAIN CONTAINER
 ========================================================= */
 
-.container{
+.container {
 
     width:min(1100px,92%);
-
     margin:auto;
-
-}
-
-section{
-
-    padding:70px 0;
-
 }
 
 /* =========================================================
-   WELCOME SCREEN
+   SECTION SPACING
 ========================================================= */
 
-#welcome-message{
-
-    position:fixed;
-
-    inset:0;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:linear-gradient(
-    135deg,
-    var(--primary),
-    var(--secondary));
-
-    z-index:99999;
-
-    transition:1s;
-
-}
-
-#welcome-message.fade-out{
-
-    opacity:0;
-
-    visibility:hidden;
-
-}
-
-.welcome-box{
-
-    color:white;
-
-    text-align:center;
-
-}
-
-.welcome-box h2{
-
-    font-size:2.7rem;
-
-    margin-bottom:15px;
-
-    font-family:'Playfair Display',serif;
-
-}
-
-.welcome-box p{
-
-    font-size:1.2rem;
-
+section {
+    padding:80px 0;
 }
 
 /* =========================================================
-   HEADER
+   GLOBAL IMAGE RULES
 ========================================================= */
 
-header{
+img {
+    max-width:100%;
+    display:block;
+}
+
+
+/* =========================================================
+   HERO SECTION (HEADER PREMIUM)
+========================================================= */
+
+header {
 
     min-height:100vh;
 
     display:flex;
-
-    justify-content:center;
-
     align-items:center;
+    justify-content:center;
 
     text-align:center;
 
-    background:
-
-    linear-gradient(
-    135deg,
-    var(--primary),
-    var(--secondary));
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
 
     color:white;
 
     position:relative;
-
     overflow:hidden;
-
 }
 
-/* halo lumineux */
-
-header::before{
+/* LIGHT GLOW EFFECT */
+header::before {
 
     content:"";
-
     position:absolute;
 
-    width:700px;
+    width:650px;
+    height:650px;
 
-    height:700px;
+    background:radial-gradient(
+        circle,
+        rgba(255,255,255,.15),
+        transparent 70%
+    );
 
-    background:
-
-    radial-gradient(circle,
-    rgba(255,255,255,.15),
-    transparent 70%);
-
-    top:-250px;
-
-    right:-200px;
-
+    top:-200px;
+    right:-180px;
 }
 
 /* =========================================================
-   INTRO
+   INTRO BLOCK
 ========================================================= */
 
-.intro{
-
+.intro {
     position:relative;
-
     z-index:2;
-
 }
 
-.photo-profil{
+/* PROFILE IMAGE */
+.photo-profil {
 
     width:190px;
-
     height:190px;
 
+    border-radius:50%;
     object-fit:cover;
 
-    border-radius:50%;
+    border:4px solid rgba(255,255,255,.3);
 
-    border:5px solid rgba(255,255,255,.35);
+    box-shadow:var(--shadow-lg);
 
-    margin-bottom:30px;
-
-    box-shadow:var(--shadow-large);
+    margin-bottom:25px;
 
     transition:var(--transition);
 
+    animation:float 6s ease-in-out infinite;
 }
 
-.photo-profil:hover{
-
-    transform:scale(1.06);
-
-}
-
-header h1{
-
-    font-family:'Playfair Display',serif;
-
-    font-size:4rem;
-
-    margin-bottom:12px;
-
-}
-
-.subtitle{
-
-    font-size:1.4rem;
-
-    font-weight:600;
-
-    margin-bottom:15px;
-
-}
-
-.description{
-
-    width:min(700px,90%);
-
-    margin:auto;
-
-    font-size:1.05rem;
-
+.photo-profil:hover {
+    transform:scale(1.05) rotate(1deg);
 }
 
 /* =========================================================
-   HERO BUTTONS
+   TYPOGRAPHY
 ========================================================= */
 
-.hero-buttons{
+h1 {
 
-    margin-top:35px;
+    font-family:'Playfair Display',serif;
+    font-size:4rem;
 
+    margin-bottom:10px;
 }
 
-.btn{
+.subtitle {
+
+    font-size:1.4rem;
+    font-weight:600;
+
+    margin-bottom:12px;
+}
+
+.description {
+
+    max-width:700px;
+    margin:15px auto;
+
+    font-size:1.05rem;
+
+    opacity:.95;
+}
+
+/* =========================================================
+   BUTTONS (PREMIUM UX)
+========================================================= */
+
+.btn {
 
     display:inline-block;
 
-    padding:14px 24px;
-
+    padding:14px 26px;
     margin:8px;
 
     background:white;
-
     color:var(--primary);
-
-    text-decoration:none;
 
     border-radius:40px;
 
     font-weight:700;
 
-    box-shadow:var(--shadow-small);
+    text-decoration:none;
+
+    box-shadow:var(--shadow-sm);
 
     transition:var(--transition);
-
 }
 
-.btn:hover{
+.btn:hover {
 
-    transform:translateY(-4px);
+    transform:translateY(-5px);
 
-    box-shadow:var(--shadow-medium);
+    box-shadow:var(--shadow-md);
 
     background:#fafafa;
-
-}
-
-.btn:focus{
-
-    outline:3px solid var(--accent);
-
 }
 
 /* =========================================================
-   TITLES
+   TITLES (ACCORDION HEADERS)
 ========================================================= */
 
-h2{
+h2 {
 
     font-family:'Playfair Display',serif;
 
     background:white;
 
-    padding:18px 24px;
+    padding:18px 22px;
 
     border-left:6px solid var(--primary);
 
@@ -361,884 +265,290 @@ h2{
 
     cursor:pointer;
 
-    box-shadow:var(--shadow-small);
+    box-shadow:var(--shadow-sm);
+
+    transition:var(--transition);
+}
+
+h2:hover {
+    transform:translateX(6px);
+}
+
+/* =========================================================
+   CARDS SYSTEM (EXPERIENCE / PROJECT / PUBLICATION)
+========================================================= */
+
+.experience-card,
+.publication-card,
+.project-card {
+
+    background:var(--card);
+
+    border-radius:var(--radius-md);
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    box-shadow:var(--shadow-sm);
 
     transition:var(--transition);
 
+    position:relative;
 }
 
-h2:hover{
+/* HOVER EFFECT */
+.experience-card:hover,
+.publication-card:hover,
+.project-card:hover {
 
-    transform:translateX(6px);
-
+    transform:translateY(-8px);
+    box-shadow:var(--shadow-md);
 }
 
-h3{
+/* LEFT ACCENT LINE (PRO LOOK) */
+.experience-card::before {
 
-    font-family:'Playfair Display',serif;
+    content:"";
+    position:absolute;
 
-    margin-bottom:12px;
+    left:0;
+    top:0;
+    bottom:0;
 
-    color:var(--primary);
+    width:5px;
 
+    background:var(--primary);
+
+    border-radius:20px 0 0 20px;
 }
 
-/* =========================================================
-   LINKS
-========================================================= */
-
-a{
-
-    color:var(--primary);
-
-    transition:.3s;
-
-}
-
-a:hover{
+/* EXPERIENCE DATE */
+.experience-date {
 
     color:var(--accent);
+    font-weight:700;
 
+    margin-bottom:15px;
 }
 
-/* =========================================================
-   LISTS
-========================================================= */
-
-ul{
-
-    padding-left:22px;
-
-}
-
-li{
-
-    margin-bottom:10px;
-
-}
-
-p{
-
-    margin-bottom:18px;
-
-}
 
 
 /* =========================================================
-   MAIN
+   ACCORDION SYSTEM (SMOOTH OPEN / CLOSE)
 ========================================================= */
 
-main{
-
-    background:var(--background);
-
-}
-
-/* =========================================================
-   SECTIONS
-========================================================= */
-
-section{
-
-    animation:fadeIn .8s ease;
-
-}
-
-section:last-child{
-
-    padding-bottom:90px;
-
-}
-
-/* =========================================================
-   ACCORDION CONTENT
-========================================================= */
-
-.toggle-content{
+.toggle-content {
 
     max-height:0;
-
     overflow:hidden;
 
-    background:var(--section);
+    background:var(--card);
 
     margin-top:10px;
 
-    padding:0 25px;
+    border-radius:0 0 var(--radius-md) var(--radius-md);
 
-    border-radius:0 0 var(--radius) var(--radius);
+    box-shadow:var(--shadow-sm);
 
-    box-shadow:var(--shadow-small);
+    padding:0 22px;
 
-    transition:
-
-    max-height .55s ease,
-
-    padding .35s ease;
-
+    transition:max-height .6s ease, padding .4s ease;
 }
 
-.toggle-content.open{
-
+.toggle-content.open {
     padding:25px;
-
 }
 
 /* =========================================================
-   EXPERIENCE CARD
+   LISTS + TEXT IMPROVEMENT
 ========================================================= */
 
-.experience-card{
-
-    background:var(--white);
-
-    border-left:5px solid var(--primary);
-
-    border-radius:var(--radius);
-
-    padding:25px;
-
-    margin-bottom:25px;
-
-    box-shadow:var(--shadow-small);
-
-    transition:var(--transition);
-
+ul {
+    padding-left:22px;
 }
 
-.experience-card:hover{
-
-    transform:translateY(-6px);
-
-    box-shadow:var(--shadow-medium);
-
+li {
+    margin-bottom:10px;
 }
 
-.experience-date{
-
-    color:var(--accent);
-
-    font-weight:700;
-
-    margin-bottom:18px;
-
+p {
+    margin-bottom:16px;
 }
 
 /* =========================================================
-   PUBLICATION CARD
+   FLOAT ANIMATION (PROFILE IMAGE)
 ========================================================= */
 
-.publication-card{
-
-    background:var(--white);
-
-    padding:25px;
-
-    margin-bottom:25px;
-
-    border-radius:var(--radius);
-
-    box-shadow:var(--shadow-small);
-
-    transition:var(--transition);
-
+@keyframes float {
+    0%,100% { transform:translateY(0); }
+    50% { transform:translateY(-6px); }
 }
-
-.publication-card:hover{
-
-    transform:translateY(-6px);
-
-    box-shadow:var(--shadow-medium);
-
-}
-
-.publication-card .btn{
-
-    margin-top:18px;
-
-}
-
-/* =========================================================
-   PROJECT CARD
-========================================================= */
-
-.project-card{
-
-    background:var(--white);
-
-    border-radius:var(--radius);
-
-    padding:25px;
-
-    box-shadow:var(--shadow-small);
-
-    transition:var(--transition);
-
-}
-
-.project-card:hover{
-
-    transform:translateY(-6px);
-
-    box-shadow:var(--shadow-medium);
-
-}
-
-/* =========================================================
-   SKILLS
-========================================================= */
-
-#skills li{
-
-    background:white;
-
-    padding:16px;
-
-    border-radius:12px;
-
-    margin-bottom:15px;
-
-    list-style:none;
-
-    box-shadow:var(--shadow-small);
-
-    transition:var(--transition);
-
-}
-
-#skills li:hover{
-
-    transform:translateX(8px);
-
-}
-
-/* =========================================================
-   ASSOCIATIVE LIFE
-========================================================= */
-
-#associative-life p{
-
-    background:white;
-
-    padding:25px;
-
-    border-radius:var(--radius);
-
-    box-shadow:var(--shadow-small);
-
-}
-
-/* =========================================================
-   PASSIONS
-========================================================= */
-
-#passions p{
-
-    background:white;
-
-    padding:20px;
-
-    border-radius:var(--radius);
-
-    margin-bottom:18px;
-
-    box-shadow:var(--shadow-small);
-
-}
-
-/* =========================================================
-   LANGUAGES
-========================================================= */
-
-#languages li{
-
-    background:white;
-
-    padding:15px;
-
-    margin-bottom:12px;
-
-    border-radius:12px;
-
-    list-style:none;
-
-    box-shadow:var(--shadow-small);
-
-}
-
-/* =========================================================
-   IMAGES
-========================================================= */
-
-img{
-
-    max-width:100%;
-
-    display:block;
-
-}
-
-/* =========================================================
-   SCROLLBAR
-========================================================= */
-
-::-webkit-scrollbar{
-
-    width:10px;
-
-}
-
-::-webkit-scrollbar-track{
-
-    background:#ececec;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-    background:var(--primary);
-
-    border-radius:20px;
-
-}
-
-::-webkit-scrollbar-thumb:hover{
-
-    background:var(--secondary);
-
-}
-
-/* =========================================================
-   ANIMATIONS
-========================================================= */
-
-@keyframes fadeIn{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(25px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-}
-
-@keyframes float{
-
-    0%{
-
-        transform:translateY(0);
-
-    }
-
-    50%{
-
-        transform:translateY(-5px);
-
-    }
-
-    100%{
-
-        transform:translateY(0);
-
-    }
-
-}
-
-.photo-profil{
-
-    animation:float 6s ease-in-out infinite;
-
-}
-
-/* =========================================================
-   FOCUS ACCESSIBILITY
-========================================================= */
-
-button:focus,
-a:focus,
-h2:focus{
-
-    outline:3px solid var(--accent);
-
-    outline-offset:3px;
-
-}
-
-/* =========================================================
-   SELECTION
-========================================================= */
-
-::selection{
-
-    background:var(--primary);
-
-    color:white;
-
-}
-
-
 
 /* =========================================================
    FOOTER
 ========================================================= */
 
-footer{
-
-    background:var(--section);
-
-    border-top:1px solid var(--border);
+footer {
 
     text-align:center;
 
     padding:40px 20px;
 
-    color:var(--text-light);
+    background:var(--card);
 
-}
+    color:var(--muted);
 
-footer p{
-
-    margin:8px 0;
-
+    border-top:1px solid rgba(0,0,0,.06);
 }
 
 /* =========================================================
-   SCROLL TO TOP BUTTON
+   SCROLLBAR (PREMIUM LOOK)
 ========================================================= */
 
-#scroll-top{
+::-webkit-scrollbar {
+    width:10px;
+}
 
-    position:fixed;
+::-webkit-scrollbar-track {
+    background:#ececec;
+}
 
-    right:25px;
-
-    bottom:25px;
-
-    width:50px;
-
-    height:50px;
-
-    border:none;
-
-    border-radius:50%;
-
+::-webkit-scrollbar-thumb {
     background:var(--primary);
-
-    color:#fff;
-
-    cursor:pointer;
-
-    font-size:20px;
-
-    opacity:0;
-
-    visibility:hidden;
-
-    transition:all .35s ease;
-
-    box-shadow:var(--shadow-medium);
-
-    z-index:999;
-
+    border-radius:20px;
 }
 
-#scroll-top.show{
-
-    opacity:1;
-
-    visibility:visible;
-
-}
-
-#scroll-top:hover{
-
-    transform:translateY(-5px);
-
+::-webkit-scrollbar-thumb:hover {
     background:var(--secondary);
-
 }
 
 /* =========================================================
-   DARK MODE BUTTON
+   DARK MODE (FULL PREMIUM SYSTEM)
 ========================================================= */
 
-#dark-mode-toggle{
+body.dark-mode {
 
-    position:fixed;
+    --bg:#0f1412;
+    --card:#1b2220;
 
-    top:20px;
+    --text:#f2f2f2;
+    --muted:#bdbdbd;
 
-    right:20px;
-
-    width:50px;
-
-    height:50px;
-
-    border:none;
-
-    border-radius:50%;
-
-    cursor:pointer;
-
-    font-size:20px;
-
-    background:white;
-
-    color:var(--primary);
-
-    box-shadow:var(--shadow-medium);
-
-    transition:all .35s ease;
-
-    z-index:999;
-
-}
-
-#dark-mode-toggle:hover{
-
-    transform:rotate(15deg) scale(1.08);
-
-}
-
-/* =========================================================
-   DARK MODE
-========================================================= */
-
-body.dark-mode{
-
-    --background:#111615;
-
-    --section:#1b2220;
-
-    --white:#202826;
-
-    --text:#f3f3f3;
-
-    --text-light:#c7c7c7;
-
-    --border:#2f3935;
-
-    background:var(--background);
-
+    background:var(--bg);
     color:var(--text);
-
 }
 
-/* texture du fond */
-
-body.dark-mode::before{
-
-    background-image:
-    radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);
-
+/* HERO DARK */
+body.dark-mode header {
+    background:linear-gradient(135deg,#17201b,#223028);
 }
 
-/* Hero */
-
-body.dark-mode header{
-
-    background:
-    linear-gradient(
-    135deg,
-    #18221b,
-    #243128);
-
-}
-
-body.dark-mode header::before{
-
-    background:
-    radial-gradient(circle,
-    rgba(255,255,255,.08),
-    transparent 70%);
-
-}
-
-/* Titres */
-
-body.dark-mode h2{
-
-    background:var(--section);
-
+/* CARDS DARK */
+body.dark-mode .experience-card,
+body.dark-mode .publication-card,
+body.dark-mode .project-card,
+body.dark-mode .toggle-content {
+    background:var(--card);
     color:var(--text);
-
-    border-left-color:var(--accent);
-
 }
 
-/* Cartes */
-
-body.dark-mode
-.experience-card,
-
-body.dark-mode
-.publication-card,
-
-body.dark-mode
-.project-card,
-
-body.dark-mode
-#skills li,
-
-body.dark-mode
-#languages li,
-
-body.dark-mode
-#passions p,
-
-body.dark-mode
-#associative-life p,
-
-body.dark-mode
-.toggle-content{
-
-    background:var(--section);
-
-    color:var(--text);
-
-}
-
-/* Footer */
-
-body.dark-mode footer{
-
-    background:#0d1110;
-
-    border-top:1px solid #2d3432;
-
-}
-
-/* Boutons */
-
-body.dark-mode .btn{
-
-    background:#2b3430;
-
-    color:#ffffff;
-
-}
-
-body.dark-mode .btn:hover{
-
-    background:var(--primary);
-
-    color:white;
-
-}
-
-/* Liens */
-
-body.dark-mode a{
-
-    color:#d7c19d;
-
-}
-
-body.dark-mode a:hover{
-
-    color:white;
-
-}
-
-/* Bouton Dark */
-
-body.dark-mode #dark-mode-toggle{
-
+/* BUTTONS DARK */
+body.dark-mode .btn {
     background:#2a332f;
-
     color:white;
-
 }
 
-/* Scrollbar */
-
-body.dark-mode::-webkit-scrollbar-track{
-
-    background:#161616;
-
+body.dark-mode .btn:hover {
+    background:var(--primary);
 }
 
-body.dark-mode::-webkit-scrollbar-thumb{
-
-    background:#5f6f52;
-
+/* LINKS DARK */
+body.dark-mode a {
+    color:#d7c19d;
 }
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media(max-width:992px){
-
-header h1{
-
-font-size:3rem;
-
+body.dark-mode a:hover {
+    color:white;
 }
 
-.description{
-
-font-size:1rem;
-
+/* SCROLLBAR DARK */
+body.dark-mode::-webkit-scrollbar-track {
+    background:#121615;
 }
 
-.container{
-
-width:94%;
-
-}
-
-}
-
-@media(max-width:768px){
-
-header{
-
-padding:90px 0;
-
-min-height:auto;
-
-}
-
-.photo-profil{
-
-width:150px;
-
-height:150px;
-
-}
-
-header h1{
-
-font-size:2.4rem;
-
-}
-
-.subtitle{
-
-font-size:1.2rem;
-
-}
-
-.btn{
-
-display:block;
-
-width:90%;
-
-margin:12px auto;
-
-text-align:center;
-
-}
-
-h2{
-
-font-size:1.2rem;
-
-}
-
-.toggle-content{
-
-padding-left:18px;
-
-padding-right:18px;
-
-}
-
-}
-
-@media(max-width:480px){
-
-header h1{
-
-font-size:2rem;
-
-}
-
-.photo-profil{
-
-width:120px;
-
-height:120px;
-
-}
-
-.description{
-
-font-size:.95rem;
-
-}
-
-#welcome-message h2{
-
-font-size:2rem;
-
-}
-
-#welcome-message p{
-
-font-size:1rem;
-
-}
-
-#dark-mode-toggle{
-
-width:45px;
-
-height:45px;
-
-}
-
-#scroll-top{
-
-width:45px;
-
-height:45px;
-
-}
-
+body.dark-mode::-webkit-scrollbar-thumb {
+    background:var(--primary);
 }
 
 /* =========================================================
-   REDUCED MOTION
+   ACCESSIBILITY (REDUCED MOTION)
 ========================================================= */
 
-@media(prefers-reduced-motion:reduce){
+@media (prefers-reduced-motion: reduce) {
 
-*{
-
-animation:none !important;
-
-transition:none !important;
-
-scroll-behavior:auto !important;
-
+    * {
+        animation:none !important;
+        transition:none !important;
+        scroll-behavior:auto !important;
+    }
 }
 
+/* =========================================================
+   RESPONSIVE DESIGN (FINAL POLISH)
+========================================================= */
+
+@media (max-width:992px) {
+
+    h1 {
+        font-size:3rem;
+    }
+
+    .description {
+        font-size:1rem;
+    }
 }
-#particles-canvas{
 
-    position:fixed;
+@media (max-width:768px) {
 
-    inset:0;
+    header {
+        min-height:auto;
+        padding:90px 0;
+    }
 
-    width:100%;
+    .photo-profil {
+        width:150px;
+        height:150px;
+    }
 
-    height:100%;
+    h1 {
+        font-size:2.4rem;
+    }
 
-    z-index:-2;
+    .btn {
+        display:block;
+        width:90%;
+        margin:12px auto;
+        text-align:center;
+    }
 
-    pointer-events:none;
+    h2 {
+        font-size:1.2rem;
+    }
+}
 
+@media (max-width:480px) {
+
+    h1 {
+        font-size:2rem;
+    }
+
+    .photo-profil {
+        width:120px;
+        height:120px;
+    }
+
+    .description {
+        font-size:.95rem;
+    }
 }
