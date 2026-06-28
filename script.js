@@ -1,292 +1,400 @@
+"use strict";
+
+/* ==========================================================
+   Hanane Lasri Portfolio
+   script.js
+   PARTIE 1
+========================================================== */
+
 document.addEventListener("DOMContentLoaded", () => {
 
-  const body = document.body;
-  const welcome = document.getElementById("welcome-message");
+    /* ======================================================
+       ELEMENTS
+    ====================================================== */
 
-  /* =======================================================
-     🌟 WELCOME SCREEN (FIX + SMOOTH)
-  ======================================================= */
-  function initWelcomeScreen() {
-    if (!welcome) return;
+    const body = document.body;
+    const welcome = document.getElementById("welcome-message");
+    const accordionTitles = document.querySelectorAll("main h2");
 
-    setTimeout(() => {
-      welcome.classList.add("fade-out");
-    }, 2500);
+    /* ======================================================
+       WELCOME SCREEN
+    ====================================================== */
 
-    setTimeout(() => {
-      welcome.remove();
-      body.classList.add("ready");
+    function initWelcomeScreen() {
 
-      revealContainers();
-    }, 3500);
-  }
+        if (!welcome) return;
 
-  /* animation apparition sections */
-  function revealContainers() {
-    document.querySelectorAll(".container").forEach((el, i) => {
-      setTimeout(() => {
-        el.classList.add("visible");
-      }, i * 150);
-    });
-  }
+        setTimeout(() => {
 
-  initWelcomeScreen();
+            welcome.classList.add("fade-out");
 
+            setTimeout(() => {
 
-  /* =======================================================
-     📌 ACCORDÉONS H2 (SMOOTH + ACCESSIBLE)
-  ======================================================= */
-  function initAccordions() {
-    document.querySelectorAll("h2").forEach(title => {
-      const content = title.nextElementSibling;
-      if (!content) return;
+                welcome.remove();
 
-      content.style.maxHeight = "0px";
-      title.setAttribute("aria-expanded", "false");
-      title.style.cursor = "pointer";
+            }, 1000);
 
-      const toggle = () => {
-        const isOpen = content.classList.contains("open");
+        }, 2500);
 
-        if (isOpen) {
-          content.classList.remove("open");
-          content.style.maxHeight = "0px";
-          title.setAttribute("aria-expanded", "false");
-        } else {
-          content.classList.add("open");
-          content.style.maxHeight = content.scrollHeight + "px";
-          title.setAttribute("aria-expanded", "true");
-        }
-      };
+    }
 
-      title.addEventListener("click", toggle);
-      title.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          toggle();
-        }
-      });
-    });
-  }
+    initWelcomeScreen();
 
-  initAccordions();
+    /* ======================================================
+       ACCORDIONS
+    ====================================================== */
 
+    function initAccordions() {
 
-  /* =======================================================
-     📚 ACCORDÉONS CERTIFICATS (NIVEAU AVANCÉ)
-  ======================================================= */
-  function initNestedAccordions() {
-    const sections = document.querySelectorAll("#certificats, #diplomes, section");
+        accordionTitles.forEach(title => {
 
-    sections.forEach(section => {
-      const titles = section.querySelectorAll("h3, h4");
+            const content = title.nextElementSibling;
 
-      titles.forEach(title => {
-        const content = title.nextElementSibling;
-        if (!content) return;
+            if (!content) return;
 
-        content.style.maxHeight = "0px";
-        title.setAttribute("aria-expanded", "false");
-        title.style.cursor = "pointer";
-
-        const toggle = () => {
-          const isOpen = content.classList.contains("open");
-
-          if (isOpen) {
-            content.classList.remove("open");
-            content.style.maxHeight = "0px";
             title.setAttribute("aria-expanded", "false");
-          } else {
-            content.classList.add("open");
-            content.style.maxHeight = content.scrollHeight + "px";
-            title.setAttribute("aria-expanded", "true");
-          }
-        };
 
-        title.addEventListener("click", toggle);
-        title.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            toggle();
-          }
+            content.style.maxHeight = "0px";
+
+            function toggleAccordion() {
+
+                const opened = content.classList.contains("open");
+
+                if (opened) {
+
+                    content.classList.remove("open");
+                    content.style.maxHeight = "0px";
+                    title.setAttribute("aria-expanded", "false");
+
+                } else {
+
+                    content.classList.add("open");
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    title.setAttribute("aria-expanded", "true");
+
+                }
+
+            }
+
+            title.addEventListener("click", toggleAccordion);
+
+            title.addEventListener("keydown", (event) => {
+
+                if (event.key === "Enter" || event.key === " ") {
+
+                    event.preventDefault();
+                    toggleAccordion();
+
+                }
+
+            });
+
         });
-      });
-    });
-  }
 
-  initNestedAccordions();
-
-
-  /* =======================================================
-     🔝 BOUTON SCROLL TOP (PRO)
-  ======================================================= */
-  function initScrollTop() {
-    const btn = document.createElement("button");
-
-    btn.textContent = "↑";
-    btn.setAttribute("aria-label", "Retour en haut");
-
-    Object.assign(btn.style, {
-      position: "fixed",
-      bottom: "25px",
-      right: "25px",
-      width: "45px",
-      height: "45px",
-      borderRadius: "50%",
-      border: "none",
-      background: "#5f6f52",
-      color: "#fff",
-      fontSize: "18px",
-      cursor: "pointer",
-      opacity: "0",
-      transition: "0.4s",
-      zIndex: "9999"
-    });
-
-    document.body.appendChild(btn);
-
-    btn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 300) {
-        btn.style.opacity = "1";
-      } else {
-        btn.style.opacity = "0";
-      }
-    });
-  }
-
-  initScrollTop();
-
-
-  /* =======================================================
-     🌙 DARK MODE (AVEC MÉMOIRE LOCAL)
-  ======================================================= */
-  function initDarkMode() {
-    const btn = document.createElement("button");
-
-    btn.textContent = "🌙";
-    btn.setAttribute("aria-label", "Mode sombre");
-
-    Object.assign(btn.style, {
-      position: "fixed",
-      top: "20px",
-      right: "20px",
-      width: "45px",
-      height: "45px",
-      borderRadius: "50%",
-      border: "none",
-      background: "#222",
-      color: "#fff",
-      cursor: "pointer",
-      zIndex: "10000"
-    });
-
-    document.body.appendChild(btn);
-
-    // load saved mode
-    if (localStorage.getItem("darkMode") === "true") {
-      body.classList.add("dark-mode");
-      btn.textContent = "☀️";
     }
 
-    btn.addEventListener("click", () => {
-      body.classList.toggle("dark-mode");
+    initAccordions();
 
-      const isDark = body.classList.contains("dark-mode");
+    /* ======================================================
+       DARK MODE
+    ====================================================== */
 
-      btn.textContent = isDark ? "☀️" : "🌙";
-      localStorage.setItem("darkMode", isDark);
-    });
-  }
+    function initDarkMode() {
 
-  initDarkMode();
+        const button = document.createElement("button");
 
+        button.id = "dark-mode-toggle";
 
-  /* =======================================================
-     ✨ PARTICULES ANIMÉES
-  ======================================================= */
-  function initParticles() {
-    const canvas = document.createElement("canvas");
-    canvas.id = "particles-canvas";
+        button.setAttribute("aria-label", "Dark Mode");
 
-    document.body.appendChild(canvas);
+        body.appendChild(button);
 
-    const ctx = canvas.getContext("2d");
+        const savedTheme = localStorage.getItem("theme");
 
-    let particles = [];
+        if (savedTheme === "dark") {
 
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+            body.classList.add("dark-mode");
 
-    function createParticles() {
-      particles = [];
+        }
 
-      const count = Math.floor(window.innerWidth / 25);
+        updateIcon();
 
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 2 + 1,
-          dx: (Math.random() - 0.5) * 0.4,
-          dy: (Math.random() - 0.5) * 0.4
+        function updateIcon() {
+
+            button.textContent = body.classList.contains("dark-mode")
+                ? "☀️"
+                : "🌙";
+
+        }
+
+        button.addEventListener("click", () => {
+
+            body.classList.toggle("dark-mode");
+
+            const theme = body.classList.contains("dark-mode")
+                ? "dark"
+                : "light";
+
+            localStorage.setItem("theme", theme);
+
+            updateIcon();
+
         });
-      }
+
     }
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    initDarkMode();
 
-      for (let p of particles) {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,0.4)";
-        ctx.fill();
+    /* ======================================================
+       REVEAL ON SCROLL
+    ====================================================== */
 
-        p.x += p.dx;
-        p.y += p.dy;
+    function initRevealAnimation() {
 
-        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-      }
+        const elements = document.querySelectorAll("section");
 
-      requestAnimationFrame(animate);
+        const observer = new IntersectionObserver((entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+
+                }
+
+            });
+
+        }, {
+
+            threshold: 0.15
+
+        });
+
+        elements.forEach(section => {
+
+            section.style.opacity = "0";
+            section.style.transform = "translateY(40px)";
+            section.style.transition = "all .8s ease";
+
+            observer.observe(section);
+
+        });
+
     }
 
-    window.addEventListener("resize", () => {
-      resize();
-      createParticles();
-    });
-
-    resize();
-    createParticles();
-    animate();
-  }
-
-  initParticles();
+    initRevealAnimation();
 
 
-  /* =======================================================
-     🖼️ ANIMATION PHOTO PROFIL
-  ======================================================= */
-  function initPhoto() {
-    const photo = document.querySelector(".photo-profil");
-    if (!photo) return;
 
-    photo.addEventListener("mouseenter", () => {
-      photo.style.transform = "scale(1.1) rotate(2deg)";
-    });
 
-    photo.addEventListener("mouseleave", () => {
-      photo.style.transform = "scale(1) rotate(0deg)";
-    });
-  }
 
-  initPhoto();
+                              /* ======================================================
+       SCROLL TO TOP BUTTON
+    ====================================================== */
 
-});
+    function initScrollTop() {
+
+        const button = document.createElement("button");
+
+        button.id = "scroll-top";
+
+        button.setAttribute("aria-label", "Back to top");
+
+        button.innerHTML = "↑";
+
+        document.body.appendChild(button);
+
+        window.addEventListener("scroll", () => {
+
+            if (window.scrollY > 300) {
+
+                button.classList.add("show");
+
+            } else {
+
+                button.classList.remove("show");
+
+            }
+
+        });
+
+        button.addEventListener("click", () => {
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+
+            });
+
+        });
+
+    }
+
+    initScrollTop();
+
+    /* ======================================================
+       PARTICLES BACKGROUND
+    ====================================================== */
+
+    function initParticles() {
+
+        const canvas = document.createElement("canvas");
+
+        canvas.id = "particles-canvas";
+
+        document.body.prepend(canvas);
+
+        const ctx = canvas.getContext("2d");
+
+        let particles = [];
+
+        function resizeCanvas() {
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+        }
+
+        function createParticles() {
+
+            particles = [];
+
+            const number = Math.floor(window.innerWidth / 18);
+
+            for (let i = 0; i < number; i++) {
+
+                particles.push({
+
+                    x: Math.random() * canvas.width,
+
+                    y: Math.random() * canvas.height,
+
+                    radius: Math.random() * 2 + 1,
+
+                    dx: (Math.random() - 0.5) * 0.4,
+
+                    dy: (Math.random() - 0.5) * 0.4
+
+                });
+
+            }
+
+        }
+
+        function drawParticles() {
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const color = body.classList.contains("dark-mode")
+
+                ? "rgba(255,255,255,0.35)"
+
+                : "rgba(95,111,82,0.25)";
+
+            particles.forEach(particle => {
+
+                ctx.beginPath();
+
+                ctx.arc(
+
+                    particle.x,
+
+                    particle.y,
+
+                    particle.radius,
+
+                    0,
+
+                    Math.PI * 2
+
+                );
+
+                ctx.fillStyle = color;
+
+                ctx.fill();
+
+                particle.x += particle.dx;
+                particle.y += particle.dy;
+
+                if (
+
+                    particle.x <= 0 ||
+
+                    particle.x >= canvas.width
+
+                ) {
+
+                    particle.dx *= -1;
+
+                }
+
+                if (
+
+                    particle.y <= 0 ||
+
+                    particle.y >= canvas.height
+
+                ) {
+
+                    particle.dy *= -1;
+
+                }
+
+            });
+
+            requestAnimationFrame(drawParticles);
+
+        }
+
+        resizeCanvas();
+
+        createParticles();
+
+        drawParticles();
+
+        window.addEventListener("resize", () => {
+
+            resizeCanvas();
+
+            createParticles();
+
+        });
+
+    }
+
+    initParticles();
+
+    /* ======================================================
+       PROFILE PHOTO EFFECT
+    ====================================================== */
+
+    function initProfilePhoto() {
+
+        const photo = document.querySelector(".photo-profil");
+
+        if (!photo) return;
+
+        photo.addEventListener("mousemove", () => {
+
+            photo.style.transform = "scale(1.05)";
+
+        });
+
+        photo.addEventListener("mouseleave", () => {
+
+            photo.style.transform = "";
+
+        });
+
+    }
+
+    initProfilePhoto();
+
+
+
+
+                          
