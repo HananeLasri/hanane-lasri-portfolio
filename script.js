@@ -396,5 +396,93 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+    /* ======================================================
+       PERFORMANCE + CLEANUP
+    ====================================================== */
 
+    function initPerformanceOptimizations() {
+
+        // Réduit les animations si l'utilisateur préfère moins de mouvement
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        if (prefersReducedMotion.matches) {
+
+            document.querySelectorAll("*").forEach(el => {
+
+                el.style.animation = "none";
+                el.style.transition = "none";
+
+            });
+
+        }
+
+    }
+
+    initPerformanceOptimizations();
+
+    /* ======================================================
+       KEYBOARD ACCESSIBILITY IMPROVEMENT
+    ====================================================== */
+
+    function initKeyboardNavigation() {
+
+        document.addEventListener("keydown", (e) => {
+
+            // ESC ferme tous les accordéons ouverts
+            if (e.key === "Escape") {
+
+                document.querySelectorAll(".toggle-content.open").forEach(content => {
+
+                    content.classList.remove("open");
+                    content.style.maxHeight = "0px";
+
+                });
+
+                document.querySelectorAll("h2[aria-expanded='true']").forEach(title => {
+
+                    title.setAttribute("aria-expanded", "false");
+
+                });
+
+            }
+
+        });
+
+    }
+
+    initKeyboardNavigation();
+
+    /* ======================================================
+       SMOOTH SCROLL IMPROVEMENT (optional UX polish)
+    ====================================================== */
+
+    function initSmoothScrollEnhancement() {
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+
+            anchor.addEventListener("click", function (e) {
+
+                const target = document.querySelector(this.getAttribute("href"));
+
+                if (target) {
+
+                    e.preventDefault();
+
+                    target.scrollIntoView({
+
+                        behavior: "smooth"
+
+                    });
+
+                }
+
+            });
+
+        });
+
+    }
+
+    initSmoothScrollEnhancement();
+
+});
                           
