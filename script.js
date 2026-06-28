@@ -1,23 +1,18 @@
 "use strict";
 
 /* ==========================================================
-   Hanane Lasri Portfolio
-   script.js
-   PARTIE 1
+   HANANE LASRI - PREMIUM PORTFOLIO JS
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* ======================================================
-       ELEMENTS
-    ====================================================== */
-
     const body = document.body;
     const welcome = document.getElementById("welcome-message");
+    const sections = document.querySelectorAll("section");
     const accordionTitles = document.querySelectorAll("main h2");
 
     /* ======================================================
-       WELCOME SCREEN
+       WELCOME SCREEN (OPTIMIZED)
     ====================================================== */
 
     function initWelcomeScreen() {
@@ -29,19 +24,16 @@ document.addEventListener("DOMContentLoaded", () => {
             welcome.classList.add("fade-out");
 
             setTimeout(() => {
-
                 welcome.remove();
+            }, 900);
 
-            }, 1000);
-
-        }, 2500);
-
+        }, 2200);
     }
 
     initWelcomeScreen();
 
     /* ======================================================
-       ACCORDIONS
+       ACCORDIONS (ROBUST VERSION)
     ====================================================== */
 
     function initAccordions() {
@@ -49,18 +41,16 @@ document.addEventListener("DOMContentLoaded", () => {
         accordionTitles.forEach(title => {
 
             const content = title.nextElementSibling;
-
             if (!content) return;
 
+            content.style.maxHeight = "0px";
             title.setAttribute("aria-expanded", "false");
 
-            content.style.maxHeight = "0px";
+            const toggle = () => {
 
-            function toggleAccordion() {
+                const isOpen = content.classList.contains("open");
 
-                const opened = content.classList.contains("open");
-
-                if (opened) {
+                if (isOpen) {
 
                     content.classList.remove("open");
                     content.style.maxHeight = "0px";
@@ -71,87 +61,67 @@ document.addEventListener("DOMContentLoaded", () => {
                     content.classList.add("open");
                     content.style.maxHeight = content.scrollHeight + "px";
                     title.setAttribute("aria-expanded", "true");
-
                 }
+            };
 
-            }
+            title.addEventListener("click", toggle);
 
-            title.addEventListener("click", toggleAccordion);
-
-            title.addEventListener("keydown", (event) => {
-
-                if (event.key === "Enter" || event.key === " ") {
-
-                    event.preventDefault();
-                    toggleAccordion();
-
+            title.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggle();
                 }
-
             });
-
         });
-
     }
 
     initAccordions();
 
     /* ======================================================
-       DARK MODE
+       DARK MODE (FIX + SAFE STORAGE)
     ====================================================== */
 
     function initDarkMode() {
 
-        const button = document.createElement("button");
+        const btn = document.createElement("button");
 
-        button.id = "dark-mode-toggle";
+        btn.id = "dark-mode-toggle";
+        btn.setAttribute("aria-label", "Toggle dark mode");
 
-        button.setAttribute("aria-label", "Dark Mode");
+        document.body.appendChild(btn);
 
-        body.appendChild(button);
+        const saved = localStorage.getItem("theme");
 
-        const savedTheme = localStorage.getItem("theme");
-
-        if (savedTheme === "dark") {
-
+        if (saved === "dark") {
             body.classList.add("dark-mode");
-
         }
+
+        const updateIcon = () => {
+            btn.textContent = body.classList.contains("dark-mode") ? "☀️" : "🌙";
+        };
 
         updateIcon();
 
-        function updateIcon() {
-
-            button.textContent = body.classList.contains("dark-mode")
-                ? "☀️"
-                : "🌙";
-
-        }
-
-        button.addEventListener("click", () => {
+        btn.addEventListener("click", () => {
 
             body.classList.toggle("dark-mode");
 
-            const theme = body.classList.contains("dark-mode")
-                ? "dark"
-                : "light";
-
-            localStorage.setItem("theme", theme);
+            localStorage.setItem(
+                "theme",
+                body.classList.contains("dark-mode") ? "dark" : "light"
+            );
 
             updateIcon();
-
         });
-
     }
 
     initDarkMode();
 
     /* ======================================================
-       REVEAL ON SCROLL
+       REVEAL ON SCROLL (IMPROVED PERFORMANCE)
     ====================================================== */
 
     function initRevealAnimation() {
-
-        const elements = document.querySelectorAll("section");
 
         const observer = new IntersectionObserver((entries) => {
 
@@ -159,85 +129,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (entry.isIntersecting) {
 
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
+                    entry.target.classList.add("visible");
 
+                    observer.unobserve(entry.target);
                 }
-
             });
 
-        }, {
+        }, { threshold: 0.15 });
 
-            threshold: 0.15
-
-        });
-
-        elements.forEach(section => {
-
-            section.style.opacity = "0";
-            section.style.transform = "translateY(40px)";
-            section.style.transition = "all .8s ease";
-
+        sections.forEach(section => {
+            section.classList.add("reveal");
             observer.observe(section);
-
         });
-
     }
 
     initRevealAnimation();
 
-
-
-
-
-                              /* ======================================================
-       SCROLL TO TOP BUTTON
+    /* ======================================================
+       SCROLL TO TOP
     ====================================================== */
 
     function initScrollTop() {
 
-        const button = document.createElement("button");
+        const btn = document.createElement("button");
 
-        button.id = "scroll-top";
+        btn.id = "scroll-top";
+        btn.innerHTML = "↑";
+        btn.setAttribute("aria-label", "Scroll to top");
 
-        button.setAttribute("aria-label", "Back to top");
-
-        button.innerHTML = "↑";
-
-        document.body.appendChild(button);
+        document.body.appendChild(btn);
 
         window.addEventListener("scroll", () => {
 
-            if (window.scrollY > 300) {
-
-                button.classList.add("show");
-
-            } else {
-
-                button.classList.remove("show");
-
-            }
-
+            btn.classList.toggle("show", window.scrollY > 300);
         });
 
-        button.addEventListener("click", () => {
+        btn.addEventListener("click", () => {
 
-            window.scrollTo({
-
-                top: 0,
-
-                behavior: "smooth"
-
-            });
-
+            window.scrollTo({ top: 0, behavior: "smooth" });
         });
-
     }
 
     initScrollTop();
 
     /* ======================================================
-       PARTICLES BACKGROUND
+       PARTICLES (OPTIMIZED + THEME SAFE)
     ====================================================== */
 
     function initParticles() {
@@ -245,244 +181,110 @@ document.addEventListener("DOMContentLoaded", () => {
         const canvas = document.createElement("canvas");
 
         canvas.id = "particles-canvas";
-
         document.body.prepend(canvas);
 
         const ctx = canvas.getContext("2d");
 
         let particles = [];
 
-        function resizeCanvas() {
-
+        const resize = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+        };
 
-        }
-
-        function createParticles() {
+        const create = () => {
 
             particles = [];
 
-            const number = Math.floor(window.innerWidth / 18);
+            const count = Math.floor(window.innerWidth / 22);
 
-            for (let i = 0; i < number; i++) {
+            for (let i = 0; i < count; i++) {
 
                 particles.push({
 
                     x: Math.random() * canvas.width,
-
                     y: Math.random() * canvas.height,
-
-                    radius: Math.random() * 2 + 1,
-
+                    r: Math.random() * 2 + 0.5,
                     dx: (Math.random() - 0.5) * 0.4,
-
                     dy: (Math.random() - 0.5) * 0.4
-
                 });
-
             }
+        };
 
-        }
-
-        function drawParticles() {
+        const draw = () => {
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             const color = body.classList.contains("dark-mode")
-
-                ? "rgba(255,255,255,0.35)"
-
+                ? "rgba(255,255,255,0.3)"
                 : "rgba(95,111,82,0.25)";
 
-            particles.forEach(particle => {
+            particles.forEach(p => {
 
                 ctx.beginPath();
-
-                ctx.arc(
-
-                    particle.x,
-
-                    particle.y,
-
-                    particle.radius,
-
-                    0,
-
-                    Math.PI * 2
-
-                );
-
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
                 ctx.fillStyle = color;
-
                 ctx.fill();
 
-                particle.x += particle.dx;
-                particle.y += particle.dy;
+                p.x += p.dx;
+                p.y += p.dy;
 
-                if (
-
-                    particle.x <= 0 ||
-
-                    particle.x >= canvas.width
-
-                ) {
-
-                    particle.dx *= -1;
-
-                }
-
-                if (
-
-                    particle.y <= 0 ||
-
-                    particle.y >= canvas.height
-
-                ) {
-
-                    particle.dy *= -1;
-
-                }
-
+                if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
             });
 
-            requestAnimationFrame(drawParticles);
+            requestAnimationFrame(draw);
+        };
 
-        }
-
-        resizeCanvas();
-
-        createParticles();
-
-        drawParticles();
+        resize();
+        create();
+        draw();
 
         window.addEventListener("resize", () => {
-
-            resizeCanvas();
-
-            createParticles();
-
+            resize();
+            create();
         });
-
     }
 
     initParticles();
 
     /* ======================================================
-       PROFILE PHOTO EFFECT
+       PROFILE PHOTO
     ====================================================== */
 
     function initProfilePhoto() {
 
         const photo = document.querySelector(".photo-profil");
-
         if (!photo) return;
 
-        photo.addEventListener("mousemove", () => {
-
+        photo.addEventListener("mouseenter", () => {
             photo.style.transform = "scale(1.05)";
-
         });
 
         photo.addEventListener("mouseleave", () => {
-
             photo.style.transform = "";
-
         });
-
     }
 
     initProfilePhoto();
 
-
-
     /* ======================================================
-       PERFORMANCE + CLEANUP
+       KEYBOARD NAV (ESC CLOSE)
     ====================================================== */
 
-    function initPerformanceOptimizations() {
+    document.addEventListener("keydown", (e) => {
 
-        // Réduit les animations si l'utilisateur préfère moins de mouvement
-        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+        if (e.key === "Escape") {
 
-        if (prefersReducedMotion.matches) {
-
-            document.querySelectorAll("*").forEach(el => {
-
-                el.style.animation = "none";
-                el.style.transition = "none";
-
+            document.querySelectorAll(".toggle-content.open").forEach(el => {
+                el.classList.remove("open");
+                el.style.maxHeight = "0px";
             });
 
+            document.querySelectorAll("h2[aria-expanded='true']").forEach(h => {
+                h.setAttribute("aria-expanded", "false");
+            });
         }
-
-    }
-
-    initPerformanceOptimizations();
-
-    /* ======================================================
-       KEYBOARD ACCESSIBILITY IMPROVEMENT
-    ====================================================== */
-
-    function initKeyboardNavigation() {
-
-        document.addEventListener("keydown", (e) => {
-
-            // ESC ferme tous les accordéons ouverts
-            if (e.key === "Escape") {
-
-                document.querySelectorAll(".toggle-content.open").forEach(content => {
-
-                    content.classList.remove("open");
-                    content.style.maxHeight = "0px";
-
-                });
-
-                document.querySelectorAll("h2[aria-expanded='true']").forEach(title => {
-
-                    title.setAttribute("aria-expanded", "false");
-
-                });
-
-            }
-
-        });
-
-    }
-
-    initKeyboardNavigation();
-
-    /* ======================================================
-       SMOOTH SCROLL IMPROVEMENT (optional UX polish)
-    ====================================================== */
-
-    function initSmoothScrollEnhancement() {
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-
-            anchor.addEventListener("click", function (e) {
-
-                const target = document.querySelector(this.getAttribute("href"));
-
-                if (target) {
-
-                    e.preventDefault();
-
-                    target.scrollIntoView({
-
-                        behavior: "smooth"
-
-                    });
-
-                }
-
-            });
-
-        });
-
-    }
-
-    initSmoothScrollEnhancement();
+    });
 
 });
-                          
