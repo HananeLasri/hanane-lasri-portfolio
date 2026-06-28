@@ -1,15 +1,14 @@
 /* =========================================================
-   HANANE LASRI - PREMIUM PORTFOLIO CSS
-   VERSION FINAL PRO (PART 1)
+   HANANE LASRI PORTFOLIO
+   PREMIUM CSS 2026
 ========================================================= */
 
-/* =========================================================
-   DESIGN SYSTEM (VARIABLES)
-========================================================= */
+/* ===============================
+   VARIABLES
+================================ */
 
-:root {
+:root{
 
-    /* Colors */
     --primary:#5f6f52;
     --secondary:#6f8266;
     --accent:#c8a978;
@@ -20,96 +19,176 @@
     --text:#2b2b2b;
     --muted:#6b6b6b;
 
-    /* Shadows */
     --shadow-sm:0 8px 20px rgba(0,0,0,.08);
     --shadow-md:0 14px 35px rgba(0,0,0,.12);
-    --shadow-lg:0 22px 50px rgba(0,0,0,.18);
 
-    /* Radius */
-    --radius-sm:12px;
-    --radius-md:18px;
-    --radius-lg:26px;
+    --radius:18px;
 
-    /* Transition */
-    --transition:0.35s cubic-bezier(.4,0,.2,1);
+    --transition:.35s ease;
 }
 
-/* =========================================================
-   RESET GLOBAL
-========================================================= */
+/* ===============================
+   RESET
+================================ */
 
-* {
+*{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-html {
+html{
     scroll-behavior:smooth;
-    scroll-padding-top:80px;
 }
 
-body {
+body{
 
     font-family:'Open Sans',sans-serif;
+
     background:var(--bg);
     color:var(--text);
 
     line-height:1.7;
+
     overflow-x:hidden;
 }
 
-/* =========================================================
-   BACKGROUND TEXTURE (SUBTLE PREMIUM EFFECT)
-========================================================= */
-
-body::before {
-
-    content:"";
-    position:fixed;
-    inset:0;
-
-    background:
-        radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px);
-
-    background-size:45px 45px;
-
-    z-index:-2;
+img{
+    display:block;
+    max-width:100%;
 }
 
-/* =========================================================
-   MAIN CONTAINER
-========================================================= */
+a{
+    text-decoration:none;
+}
 
-.container {
+ul{
+    padding-left:22px;
+}
+
+.container{
 
     width:min(1100px,92%);
     margin:auto;
 }
 
-/* =========================================================
-   SECTION SPACING
-========================================================= */
+/* ===============================
+   PARTICLES
+================================ */
 
-section {
-    padding:80px 0;
+#particles-canvas{
+
+    position:fixed;
+    inset:0;
+
+    z-index:-1;
+
+    pointer-events:none;
 }
 
-/* =========================================================
-   GLOBAL IMAGE RULES
-========================================================= */
+/* ===============================
+   WELCOME SCREEN
+================================ */
 
-img {
-    max-width:100%;
-    display:block;
+#welcome-message{
+
+    position:fixed;
+    inset:0;
+
+    background:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:9999;
 }
 
+.welcome-box{
 
-/* =========================================================
-   HERO SECTION (HEADER PREMIUM)
-========================================================= */
+    background:white;
 
-header {
+    padding:40px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    box-shadow:var(--shadow-md);
+}
+
+.fade-out{
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:opacity .8s ease;
+}
+
+/* ===============================
+   NAVBAR
+================================ */
+
+.navbar{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+    right:0;
+
+    z-index:1000;
+
+    background:rgba(255,255,255,.95);
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:var(--shadow-sm);
+}
+
+.navbar .container{
+
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 0;
+}
+
+.logo{
+
+    color:var(--primary);
+
+    font-weight:700;
+    font-size:1.2rem;
+}
+
+.nav-links{
+
+    display:flex;
+    gap:25px;
+
+    list-style:none;
+}
+
+.nav-links a{
+
+    color:var(--text);
+    font-weight:600;
+
+    transition:var(--transition);
+}
+
+.nav-links a:hover{
+    color:var(--primary);
+}
+
+/* ===============================
+   HERO
+================================ */
+
+header{
 
     min-height:100vh;
 
@@ -127,428 +206,418 @@ header {
 
     color:white;
 
-    position:relative;
-    overflow:hidden;
+    padding-top:100px;
 }
 
-/* LIGHT GLOW EFFECT */
-header::before {
-
-    content:"";
-    position:absolute;
-
-    width:650px;
-    height:650px;
-
-    background:radial-gradient(
-        circle,
-        rgba(255,255,255,.15),
-        transparent 70%
-    );
-
-    top:-200px;
-    right:-180px;
+.intro{
+    max-width:800px;
 }
 
-/* =========================================================
-   INTRO BLOCK
-========================================================= */
-
-.intro {
-    position:relative;
-    z-index:2;
-}
-
-/* PROFILE IMAGE */
-.photo-profil {
+.photo-profil{
 
     width:190px;
     height:190px;
 
+    margin:auto auto 25px;
+
     border-radius:50%;
+
     object-fit:cover;
 
-    border:4px solid rgba(255,255,255,.3);
+    border:4px solid rgba(255,255,255,.35);
 
-    box-shadow:var(--shadow-lg);
-
-    margin-bottom:25px;
+    box-shadow:var(--shadow-md);
 
     transition:var(--transition);
 
     animation:float 6s ease-in-out infinite;
 }
 
-.photo-profil:hover {
-    transform:scale(1.05) rotate(1deg);
+.photo-profil:hover{
+
+    transform:scale(1.05);
 }
 
-/* =========================================================
-   TYPOGRAPHY
-========================================================= */
-
-h1 {
+h1{
 
     font-family:'Playfair Display',serif;
+
     font-size:4rem;
 
     margin-bottom:10px;
 }
 
-.subtitle {
+.subtitle{
 
     font-size:1.4rem;
     font-weight:600;
 
-    margin-bottom:12px;
+    margin-bottom:15px;
 }
 
-.description {
+.description{
 
     max-width:700px;
-    margin:15px auto;
 
-    font-size:1.05rem;
+    margin:auto;
 
     opacity:.95;
 }
 
-/* =========================================================
-   BUTTONS (PREMIUM UX)
-========================================================= */
+/* ===============================
+   BUTTONS
+================================ */
 
-.btn {
+.btn{
 
     display:inline-block;
 
-    padding:14px 26px;
     margin:8px;
+    padding:14px 28px;
+
+    border-radius:40px;
 
     background:white;
     color:var(--primary);
 
-    border-radius:40px;
-
     font-weight:700;
 
-    text-decoration:none;
+    transition:var(--transition);
 
     box-shadow:var(--shadow-sm);
-
-    transition:var(--transition);
 }
 
-.btn:hover {
+.btn:hover{
 
-    transform:translateY(-5px);
+    transform:translateY(-4px);
 
     box-shadow:var(--shadow-md);
-
-    background:#fafafa;
 }
 
-/* =========================================================
-   TITLES (ACCORDION HEADERS)
-========================================================= */
+/* ===============================
+   SECTIONS
+================================ */
 
-h2 {
+section{
+    padding:80px 0;
+}
 
-    font-family:'Playfair Display',serif;
+/* ===============================
+   ACCORDION BUTTON
+================================ */
+
+.accordion-btn{
+
+    width:100%;
+
+    border:none;
+
+    cursor:pointer;
 
     background:white;
 
-    padding:18px 22px;
+    text-align:left;
+
+    padding:20px;
+
+    font-size:1.3rem;
+
+    font-family:'Playfair Display',serif;
 
     border-left:6px solid var(--primary);
 
     border-radius:14px;
 
-    cursor:pointer;
-
     box-shadow:var(--shadow-sm);
 
     transition:var(--transition);
 }
 
-h2:hover {
-    transform:translateX(6px);
+.accordion-btn:hover{
+
+    transform:translateX(5px);
 }
 
-/* =========================================================
-   CARDS SYSTEM (EXPERIENCE / PROJECT / PUBLICATION)
-========================================================= */
+.accordion-btn:focus{
+
+    outline:3px solid var(--accent);
+}
+
+/* ===============================
+   ACCORDION CONTENT
+================================ */
+
+.accordion-content{
+
+    max-height:0;
+
+    overflow:hidden;
+
+    background:white;
+
+    border-radius:0 0 16px 16px;
+
+    margin-top:10px;
+
+    box-shadow:var(--shadow-sm);
+
+    transition:max-height .6s ease,
+               padding .4s ease;
+
+    padding:0 25px;
+}
+
+.accordion-content.open{
+
+    padding:25px;
+}
+
+/* ===============================
+   CARDS
+================================ */
 
 .experience-card,
-.publication-card,
-.project-card {
+.project-card,
+.publication-card{
 
     background:var(--card);
 
-    border-radius:var(--radius-md);
-
     padding:25px;
+
+    border-radius:18px;
 
     margin-bottom:25px;
 
     box-shadow:var(--shadow-sm);
 
     transition:var(--transition);
-
-    position:relative;
 }
 
-/* HOVER EFFECT */
 .experience-card:hover,
-.publication-card:hover,
-.project-card:hover {
+.project-card:hover,
+.publication-card:hover{
 
-    transform:translateY(-8px);
+    transform:translateY(-6px);
+
     box-shadow:var(--shadow-md);
 }
 
-/* LEFT ACCENT LINE (PRO LOOK) */
-.experience-card::before {
+.experience-date{
 
-    content:"";
-    position:absolute;
+    color:var(--accent);
 
-    left:0;
-    top:0;
-    bottom:0;
+    font-weight:700;
 
-    width:5px;
+    margin:12px 0;
+}
+
+/* ===============================
+   REVEAL ANIMATION
+================================ */
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    transition:
+    opacity .8s ease,
+    transform .8s ease;
+}
+
+.visible{
+
+    opacity:1;
+
+    transform:translateY(0);
+}
+
+/* ===============================
+   SCROLL TOP
+================================ */
+
+#scroll-top{
+
+    position:fixed;
+
+    right:25px;
+    bottom:25px;
+
+    width:50px;
+    height:50px;
+
+    border:none;
+
+    border-radius:50%;
 
     background:var(--primary);
 
-    border-radius:20px 0 0 20px;
+    color:white;
+
+    cursor:pointer;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:var(--transition);
+
+    z-index:900;
 }
 
-/* EXPERIENCE DATE */
-.experience-date {
+#scroll-top.show{
 
-    color:var(--accent);
-    font-weight:700;
-
-    margin-bottom:15px;
+    opacity:1;
+    visibility:visible;
 }
 
+/* ===============================
+   DARK MODE BUTTON
+================================ */
 
+#dark-mode-toggle{
 
-/* =========================================================
-   ACCORDION SYSTEM (SMOOTH OPEN / CLOSE)
-========================================================= */
+    position:fixed;
 
-.toggle-content {
+    top:90px;
+    right:20px;
 
-    max-height:0;
-    overflow:hidden;
+    width:50px;
+    height:50px;
 
-    background:var(--card);
+    border:none;
 
-    margin-top:10px;
+    border-radius:50%;
 
-    border-radius:0 0 var(--radius-md) var(--radius-md);
+    cursor:pointer;
+
+    background:white;
 
     box-shadow:var(--shadow-sm);
 
-    padding:0 22px;
-
-    transition:max-height .6s ease, padding .4s ease;
+    z-index:1001;
 }
 
-.toggle-content.open {
-    padding:25px;
-}
-
-/* =========================================================
-   LISTS + TEXT IMPROVEMENT
-========================================================= */
-
-ul {
-    padding-left:22px;
-}
-
-li {
-    margin-bottom:10px;
-}
-
-p {
-    margin-bottom:16px;
-}
-
-/* =========================================================
-   FLOAT ANIMATION (PROFILE IMAGE)
-========================================================= */
-
-@keyframes float {
-    0%,100% { transform:translateY(0); }
-    50% { transform:translateY(-6px); }
-}
-
-/* =========================================================
+/* ===============================
    FOOTER
-========================================================= */
+================================ */
 
-footer {
+footer{
+
+    background:white;
 
     text-align:center;
 
-    padding:40px 20px;
-
-    background:var(--card);
+    padding:50px 20px;
 
     color:var(--muted);
 
-    border-top:1px solid rgba(0,0,0,.06);
+    border-top:1px solid rgba(0,0,0,.08);
 }
 
-/* =========================================================
-   SCROLLBAR (PREMIUM LOOK)
-========================================================= */
+/* ===============================
+   DARK MODE
+================================ */
 
-::-webkit-scrollbar {
-    width:10px;
-}
+body.dark-mode{
 
-::-webkit-scrollbar-track {
-    background:#ececec;
-}
-
-::-webkit-scrollbar-thumb {
-    background:var(--primary);
-    border-radius:20px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background:var(--secondary);
-}
-
-/* =========================================================
-   DARK MODE (FULL PREMIUM SYSTEM)
-========================================================= */
-
-body.dark-mode {
-
-    --bg:#0f1412;
-    --card:#1b2220;
+    --bg:#101513;
+    --card:#1b2320;
 
     --text:#f2f2f2;
-    --muted:#bdbdbd;
+    --muted:#c0c0c0;
 
     background:var(--bg);
-    color:var(--text);
 }
 
-/* HERO DARK */
-body.dark-mode header {
-    background:linear-gradient(135deg,#17201b,#223028);
+body.dark-mode .navbar{
+
+    background:rgba(20,25,22,.95);
 }
 
-/* CARDS DARK */
+body.dark-mode .accordion-btn,
+body.dark-mode .accordion-content,
 body.dark-mode .experience-card,
-body.dark-mode .publication-card,
 body.dark-mode .project-card,
-body.dark-mode .toggle-content {
+body.dark-mode .publication-card,
+body.dark-mode footer{
+
     background:var(--card);
+
     color:var(--text);
 }
 
-/* BUTTONS DARK */
-body.dark-mode .btn {
-    background:#2a332f;
+body.dark-mode .btn{
+
+    background:#29332f;
     color:white;
 }
 
-body.dark-mode .btn:hover {
-    background:var(--primary);
-}
+body.dark-mode #dark-mode-toggle{
 
-/* LINKS DARK */
-body.dark-mode a {
-    color:#d7c19d;
-}
-
-body.dark-mode a:hover {
+    background:#29332f;
     color:white;
 }
 
-/* SCROLLBAR DARK */
-body.dark-mode::-webkit-scrollbar-track {
-    background:#121615;
-}
+/* ===============================
+   FLOAT
+================================ */
 
-body.dark-mode::-webkit-scrollbar-thumb {
-    background:var(--primary);
-}
+@keyframes float{
 
-/* =========================================================
-   ACCESSIBILITY (REDUCED MOTION)
-========================================================= */
+    0%,100%{
+        transform:translateY(0);
+    }
 
-@media (prefers-reduced-motion: reduce) {
-
-    * {
-        animation:none !important;
-        transition:none !important;
-        scroll-behavior:auto !important;
+    50%{
+        transform:translateY(-8px);
     }
 }
 
-/* =========================================================
-   RESPONSIVE DESIGN (FINAL POLISH)
-========================================================= */
+/* ===============================
+   RESPONSIVE
+================================ */
 
-@media (max-width:992px) {
+@media(max-width:768px){
 
-    h1 {
-        font-size:3rem;
+    .navbar .container{
+
+        flex-direction:column;
+        gap:15px;
     }
 
-    .description {
-        font-size:1rem;
-    }
-}
+    .nav-links{
 
-@media (max-width:768px) {
-
-    header {
-        min-height:auto;
-        padding:90px 0;
+        flex-wrap:wrap;
+        justify-content:center;
     }
 
-    .photo-profil {
-        width:150px;
-        height:150px;
+    h1{
+        font-size:2.5rem;
     }
 
-    h1 {
-        font-size:2.4rem;
+    .photo-profil{
+
+        width:140px;
+        height:140px;
     }
 
-    .btn {
+    .btn{
+
         display:block;
         width:90%;
-        margin:12px auto;
-        text-align:center;
-    }
 
-    h2 {
-        font-size:1.2rem;
+        margin:10px auto;
     }
 }
 
-@media (max-width:480px) {
+@media(max-width:480px){
 
-    h1 {
+    h1{
         font-size:2rem;
     }
 
-    .photo-profil {
-        width:120px;
-        height:120px;
-    }
-
-    .description {
-        font-size:.95rem;
+    .accordion-btn{
+        font-size:1.1rem;
     }
 }
