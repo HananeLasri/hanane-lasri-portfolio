@@ -1,23 +1,19 @@
-"use strict";
-
 /* ==========================================================
-   HANANE LASRI - PREMIUM PORTFOLIO JS
+   HANANE LASRI PORTFOLIO
+   PREMIUM JS 2026
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
     const body = document.body;
-    const welcome = document.getElementById("welcome-message");
-    const sections = document.querySelectorAll("section");
-    const accordionTitles = document.querySelectorAll("main h2");
 
     /* ======================================================
-       WELCOME SCREEN (OPTIMIZED)
+       WELCOME SCREEN
     ====================================================== */
 
-    function initWelcomeScreen() {
+    const welcome = document.getElementById("welcome-message");
 
-        if (!welcome) return;
+    if (welcome) {
 
         setTimeout(() => {
 
@@ -25,266 +21,416 @@ document.addEventListener("DOMContentLoaded", () => {
 
             setTimeout(() => {
                 welcome.remove();
-            }, 900);
+            }, 800);
 
         }, 2200);
     }
 
-    initWelcomeScreen();
-
     /* ======================================================
-       ACCORDIONS (ROBUST VERSION)
+       ACCORDIONS
     ====================================================== */
 
-    function initAccordions() {
+    const accordionButtons =
+        document.querySelectorAll(".accordion-btn");
 
-        accordionTitles.forEach(title => {
+    accordionButtons.forEach(button => {
 
-            const content = title.nextElementSibling;
-            if (!content) return;
+        const content = button.nextElementSibling;
 
-            content.style.maxHeight = "0px";
-            title.setAttribute("aria-expanded", "false");
+        if (!content) return;
 
-            const toggle = () => {
+        const toggleAccordion = () => {
 
-                const isOpen = content.classList.contains("open");
+            const isOpen =
+                content.classList.contains("open");
 
-                if (isOpen) {
+            if (isOpen) {
 
-                    content.classList.remove("open");
-                    content.style.maxHeight = "0px";
-                    title.setAttribute("aria-expanded", "false");
+                content.classList.remove("open");
+                content.style.maxHeight = null;
 
-                } else {
+                button.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
 
-                    content.classList.add("open");
-                    content.style.maxHeight = content.scrollHeight + "px";
-                    title.setAttribute("aria-expanded", "true");
-                }
-            };
+            } else {
 
-            title.addEventListener("click", toggle);
+                content.classList.add("open");
 
-            title.addEventListener("keydown", (e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    toggle();
-                }
-            });
-        });
-    }
+                content.style.maxHeight =
+                    content.scrollHeight + "px";
 
-    initAccordions();
-
-    /* ======================================================
-       DARK MODE (FIX + SAFE STORAGE)
-    ====================================================== */
-
-    function initDarkMode() {
-
-        const btn = document.createElement("button");
-
-        btn.id = "dark-mode-toggle";
-        btn.setAttribute("aria-label", "Toggle dark mode");
-
-        document.body.appendChild(btn);
-
-        const saved = localStorage.getItem("theme");
-
-        if (saved === "dark") {
-            body.classList.add("dark-mode");
-        }
-
-        const updateIcon = () => {
-            btn.textContent = body.classList.contains("dark-mode") ? "☀️" : "🌙";
+                button.setAttribute(
+                    "aria-expanded",
+                    "true"
+                );
+            }
         };
 
-        updateIcon();
+        button.addEventListener(
+            "click",
+            toggleAccordion
+        );
 
-        btn.addEventListener("click", () => {
+        button.addEventListener(
+            "keydown",
+            (e) => {
 
-            body.classList.toggle("dark-mode");
+                if (
+                    e.key === "Enter" ||
+                    e.key === " "
+                ) {
+
+                    e.preventDefault();
+
+                    toggleAccordion();
+                }
+            }
+        );
+    });
+
+    /* ======================================================
+       DARK MODE
+    ====================================================== */
+
+    const darkModeBtn =
+        document.createElement("button");
+
+    darkModeBtn.id =
+        "dark-mode-toggle";
+
+    document.body.appendChild(
+        darkModeBtn
+    );
+
+    const savedTheme =
+        localStorage.getItem("theme");
+
+    if (savedTheme === "dark") {
+
+        body.classList.add(
+            "dark-mode"
+        );
+    }
+
+    const updateThemeIcon = () => {
+
+        const dark =
+            body.classList.contains(
+                "dark-mode"
+            );
+
+        darkModeBtn.textContent =
+            dark ? "☀️" : "🌙";
+
+        darkModeBtn.setAttribute(
+            "aria-pressed",
+            dark
+        );
+    };
+
+    updateThemeIcon();
+
+    darkModeBtn.addEventListener(
+        "click",
+        () => {
+
+            body.classList.toggle(
+                "dark-mode"
+            );
 
             localStorage.setItem(
                 "theme",
-                body.classList.contains("dark-mode") ? "dark" : "light"
+                body.classList.contains(
+                    "dark-mode"
+                )
+                    ? "dark"
+                    : "light"
             );
 
-            updateIcon();
-        });
-    }
-
-    initDarkMode();
+            updateThemeIcon();
+        }
+    );
 
     /* ======================================================
-       REVEAL ON SCROLL (IMPROVED PERFORMANCE)
+       REVEAL ON SCROLL
     ====================================================== */
 
-    function initRevealAnimation() {
+    const sections =
+        document.querySelectorAll("section");
 
-        const observer = new IntersectionObserver((entries) => {
+    const observer =
+        new IntersectionObserver(
 
-            entries.forEach(entry => {
+            entries => {
 
-                if (entry.isIntersecting) {
+                entries.forEach(entry => {
 
-                    entry.target.classList.add("visible");
+                    if (
+                        entry.isIntersecting
+                    ) {
 
-                    observer.unobserve(entry.target);
-                }
-            });
+                        entry.target.classList.add(
+                            "visible"
+                        );
 
-        }, { threshold: 0.15 });
+                        observer.unobserve(
+                            entry.target
+                        );
+                    }
+                });
 
-        sections.forEach(section => {
-            section.classList.add("reveal");
-            observer.observe(section);
-        });
-    }
+            },
 
-    initRevealAnimation();
+            {
+                threshold: 0.15
+            }
+        );
+
+    sections.forEach(section => {
+
+        section.classList.add(
+            "reveal"
+        );
+
+        observer.observe(section);
+    });
 
     /* ======================================================
        SCROLL TO TOP
     ====================================================== */
 
-    function initScrollTop() {
+    const scrollBtn =
+        document.createElement("button");
 
-        const btn = document.createElement("button");
+    scrollBtn.id =
+        "scroll-top";
 
-        btn.id = "scroll-top";
-        btn.innerHTML = "↑";
-        btn.setAttribute("aria-label", "Scroll to top");
+    scrollBtn.innerHTML = "↑";
 
-        document.body.appendChild(btn);
+    scrollBtn.setAttribute(
+        "aria-label",
+        "Back to top"
+    );
 
-        window.addEventListener("scroll", () => {
+    document.body.appendChild(
+        scrollBtn
+    );
 
-            btn.classList.toggle("show", window.scrollY > 300);
-        });
+    window.addEventListener(
+        "scroll",
+        () => {
 
-        btn.addEventListener("click", () => {
+            if (
+                window.scrollY > 300
+            ) {
 
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-    }
+                scrollBtn.classList.add(
+                    "show"
+                );
 
-    initScrollTop();
+            } else {
+
+                scrollBtn.classList.remove(
+                    "show"
+                );
+            }
+        }
+    );
+
+    scrollBtn.addEventListener(
+        "click",
+        () => {
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+            });
+        }
+    );
 
     /* ======================================================
-       PARTICLES (OPTIMIZED + THEME SAFE)
+       PARTICLES
     ====================================================== */
 
-    function initParticles() {
+    if (window.innerWidth > 768) {
 
-        const canvas = document.createElement("canvas");
+        const canvas =
+            document.createElement(
+                "canvas"
+            );
 
-        canvas.id = "particles-canvas";
-        document.body.prepend(canvas);
+        canvas.id =
+            "particles-canvas";
 
-        const ctx = canvas.getContext("2d");
+        document.body.prepend(
+            canvas
+        );
+
+        const ctx =
+            canvas.getContext("2d");
 
         let particles = [];
 
-        const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        const resizeCanvas = () => {
+
+            canvas.width =
+                window.innerWidth;
+
+            canvas.height =
+                window.innerHeight;
         };
 
-        const create = () => {
+        const createParticles = () => {
 
             particles = [];
 
-            const count = Math.floor(window.innerWidth / 22);
+            const count =
+                Math.floor(
+                    window.innerWidth / 30
+                );
 
-            for (let i = 0; i < count; i++) {
+            for (
+                let i = 0;
+                i < count;
+                i++
+            ) {
 
                 particles.push({
 
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    r: Math.random() * 2 + 0.5,
-                    dx: (Math.random() - 0.5) * 0.4,
-                    dy: (Math.random() - 0.5) * 0.4
+                    x:
+                        Math.random() *
+                        canvas.width,
+
+                    y:
+                        Math.random() *
+                        canvas.height,
+
+                    radius:
+                        Math.random() * 2 + 1,
+
+                    dx:
+                        (Math.random() - 0.5) *
+                        0.4,
+
+                    dy:
+                        (Math.random() - 0.5) *
+                        0.4
                 });
             }
         };
 
-        const draw = () => {
+        const animate = () => {
 
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
 
-            const color = body.classList.contains("dark-mode")
-                ? "rgba(255,255,255,0.3)"
-                : "rgba(95,111,82,0.25)";
+            const color =
+                body.classList.contains(
+                    "dark-mode"
+                )
+                    ? "rgba(255,255,255,.25)"
+                    : "rgba(95,111,82,.25)";
 
             particles.forEach(p => {
 
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fillStyle = color;
+
+                ctx.arc(
+                    p.x,
+                    p.y,
+                    p.radius,
+                    0,
+                    Math.PI * 2
+                );
+
+                ctx.fillStyle =
+                    color;
+
                 ctx.fill();
 
                 p.x += p.dx;
                 p.y += p.dy;
 
-                if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+                if (
+                    p.x < 0 ||
+                    p.x > canvas.width
+                ) {
+                    p.dx *= -1;
+                }
+
+                if (
+                    p.y < 0 ||
+                    p.y > canvas.height
+                ) {
+                    p.dy *= -1;
+                }
             });
 
-            requestAnimationFrame(draw);
+            requestAnimationFrame(
+                animate
+            );
         };
 
-        resize();
-        create();
-        draw();
+        resizeCanvas();
+        createParticles();
+        animate();
 
-        window.addEventListener("resize", () => {
-            resize();
-            create();
-        });
+        window.addEventListener(
+            "resize",
+            () => {
+
+                resizeCanvas();
+                createParticles();
+            }
+        );
     }
 
-    initParticles();
-
     /* ======================================================
-       PROFILE PHOTO
+       ESC CLOSE ALL ACCORDIONS
     ====================================================== */
 
-    function initProfilePhoto() {
+    document.addEventListener(
+        "keydown",
+        e => {
 
-        const photo = document.querySelector(".photo-profil");
-        if (!photo) return;
+            if (
+                e.key === "Escape"
+            ) {
 
-        photo.addEventListener("mouseenter", () => {
-            photo.style.transform = "scale(1.05)";
-        });
+                document
+                    .querySelectorAll(
+                        ".accordion-content.open"
+                    )
+                    .forEach(content => {
 
-        photo.addEventListener("mouseleave", () => {
-            photo.style.transform = "";
-        });
-    }
+                        content.classList.remove(
+                            "open"
+                        );
 
-    initProfilePhoto();
+                        content.style.maxHeight =
+                            null;
+                    });
 
-    /* ======================================================
-       KEYBOARD NAV (ESC CLOSE)
-    ====================================================== */
+                document
+                    .querySelectorAll(
+                        ".accordion-btn"
+                    )
+                    .forEach(button => {
 
-    document.addEventListener("keydown", (e) => {
-
-        if (e.key === "Escape") {
-
-            document.querySelectorAll(".toggle-content.open").forEach(el => {
-                el.classList.remove("open");
-                el.style.maxHeight = "0px";
-            });
-
-            document.querySelectorAll("h2[aria-expanded='true']").forEach(h => {
-                h.setAttribute("aria-expanded", "false");
-            });
+                        button.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+                    });
+            }
         }
-    });
-
+    );
 });
