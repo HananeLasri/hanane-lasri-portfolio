@@ -1,15 +1,12 @@
-/* ==========================================================
-   HANANE LASRI PORTFOLIO
-   PREMIUM JS 2026
-========================================================== */
+"use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
 
     const body = document.body;
 
-    /* ======================================================
+    /* =========================================
        WELCOME SCREEN
-    ====================================================== */
+    ========================================= */
 
     const welcome = document.getElementById("welcome-message");
 
@@ -20,26 +17,36 @@ document.addEventListener("DOMContentLoaded", () => {
             welcome.classList.add("fade-out");
 
             setTimeout(() => {
-                welcome.remove();
+
+                if (welcome.parentNode) {
+                    welcome.remove();
+                }
+
             }, 800);
 
         }, 2200);
     }
 
-    /* ======================================================
+    /* =========================================
        ACCORDIONS
-    ====================================================== */
+    ========================================= */
 
     const accordionButtons =
         document.querySelectorAll(".accordion-btn");
 
     accordionButtons.forEach(button => {
 
-        const content = button.nextElementSibling;
+        const content =
+            button.nextElementSibling;
 
         if (!content) return;
 
-        const toggleAccordion = () => {
+        button.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+        button.addEventListener("click", () => {
 
             const isOpen =
                 content.classList.contains("open");
@@ -47,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (isOpen) {
 
                 content.classList.remove("open");
+
                 content.style.maxHeight = null;
 
                 button.setAttribute(
@@ -66,33 +74,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     "true"
                 );
             }
-        };
-
-        button.addEventListener(
-            "click",
-            toggleAccordion
-        );
-
-        button.addEventListener(
-            "keydown",
-            (e) => {
-
-                if (
-                    e.key === "Enter" ||
-                    e.key === " "
-                ) {
-
-                    e.preventDefault();
-
-                    toggleAccordion();
-                }
-            }
-        );
+        });
     });
 
-    /* ======================================================
+    /* =========================================
        DARK MODE
-    ====================================================== */
+    ========================================= */
 
     const darkModeBtn =
         document.createElement("button");
@@ -100,106 +87,123 @@ document.addEventListener("DOMContentLoaded", () => {
     darkModeBtn.id =
         "dark-mode-toggle";
 
+    darkModeBtn.setAttribute(
+        "aria-label",
+        "Toggle dark mode"
+    );
+
     document.body.appendChild(
         darkModeBtn
     );
 
-    const savedTheme =
-        localStorage.getItem("theme");
+    const applyTheme = theme => {
 
-    if (savedTheme === "dark") {
+        if (theme === "dark") {
 
-        body.classList.add(
-            "dark-mode"
-        );
-    }
-
-    const updateThemeIcon = () => {
-
-        const dark =
-            body.classList.contains(
+            body.classList.add(
                 "dark-mode"
             );
 
-        darkModeBtn.textContent =
-            dark ? "☀️" : "🌙";
+            darkModeBtn.textContent =
+                "☀️";
 
-        darkModeBtn.setAttribute(
-            "aria-pressed",
-            dark
-        );
+        } else {
+
+            body.classList.remove(
+                "dark-mode"
+            );
+
+            darkModeBtn.textContent =
+                "🌙";
+        }
     };
 
-    updateThemeIcon();
+    const savedTheme =
+        localStorage.getItem("theme");
+
+    applyTheme(
+        savedTheme || "light"
+    );
 
     darkModeBtn.addEventListener(
         "click",
         () => {
 
-            body.classList.toggle(
-                "dark-mode"
-            );
-
-            localStorage.setItem(
-                "theme",
+            const newTheme =
                 body.classList.contains(
                     "dark-mode"
                 )
-                    ? "dark"
-                    : "light"
-            );
+                    ? "light"
+                    : "dark";
 
-            updateThemeIcon();
+            applyTheme(newTheme);
+
+            localStorage.setItem(
+                "theme",
+                newTheme
+            );
         }
     );
 
-    /* ======================================================
+    /* =========================================
        REVEAL ON SCROLL
-    ====================================================== */
+    ========================================= */
 
     const sections =
         document.querySelectorAll("section");
 
-    const observer =
-        new IntersectionObserver(
+    if ("IntersectionObserver" in window) {
 
-            entries => {
+        const observer =
+            new IntersectionObserver(
 
-                entries.forEach(entry => {
+                entries => {
 
-                    if (
-                        entry.isIntersecting
-                    ) {
+                    entries.forEach(entry => {
 
-                        entry.target.classList.add(
-                            "visible"
-                        );
+                        if (
+                            entry.isIntersecting
+                        ) {
 
-                        observer.unobserve(
-                            entry.target
-                        );
-                    }
-                });
+                            entry.target.classList.add(
+                                "visible"
+                            );
 
-            },
+                            observer.unobserve(
+                                entry.target
+                            );
+                        }
+                    });
 
-            {
-                threshold: 0.15
-            }
-        );
+                },
 
-    sections.forEach(section => {
+                {
+                    threshold: 0.15
+                }
+            );
 
-        section.classList.add(
-            "reveal"
-        );
+        sections.forEach(section => {
 
-        observer.observe(section);
-    });
+            section.classList.add(
+                "reveal"
+            );
 
-    /* ======================================================
+            observer.observe(section);
+        });
+
+    } else {
+
+        sections.forEach(section => {
+
+            section.classList.add(
+                "visible"
+            );
+        });
+    }
+
+    /* =========================================
        SCROLL TO TOP
-    ====================================================== */
+    ========================================= */
 
     const scrollBtn =
         document.createElement("button");
@@ -246,15 +250,14 @@ document.addEventListener("DOMContentLoaded", () => {
             window.scrollTo({
 
                 top: 0,
-
                 behavior: "smooth"
             });
         }
     );
 
-    /* ======================================================
+    /* =========================================
        PARTICLES
-    ====================================================== */
+    ========================================= */
 
     if (window.innerWidth > 768) {
 
@@ -290,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const count =
                 Math.floor(
-                    window.innerWidth / 30
+                    window.innerWidth / 35
                 );
 
             for (
@@ -314,11 +317,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     dx:
                         (Math.random() - 0.5) *
-                        0.4,
+                        0.3,
 
                     dy:
                         (Math.random() - 0.5) *
-                        0.4
+                        0.3
                 });
             }
         };
@@ -362,16 +365,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (
                     p.x < 0 ||
                     p.x > canvas.width
-                ) {
-                    p.dx *= -1;
-                }
+                ) p.dx *= -1;
 
                 if (
                     p.y < 0 ||
                     p.y > canvas.height
-                ) {
-                    p.dy *= -1;
-                }
+                ) p.dy *= -1;
             });
 
             requestAnimationFrame(
@@ -393,21 +392,19 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     }
 
-    /* ======================================================
-       ESC CLOSE ALL ACCORDIONS
-    ====================================================== */
+    /* =========================================
+       ESC FERME TOUS LES ACCORDÉONS
+    ========================================= */
 
     document.addEventListener(
         "keydown",
         e => {
 
-            if (
-                e.key === "Escape"
-            ) {
+            if (e.key === "Escape") {
 
                 document
                     .querySelectorAll(
-                        ".accordion-content.open"
+                        ".accordion-content"
                     )
                     .forEach(content => {
 
@@ -419,18 +416,21 @@ document.addEventListener("DOMContentLoaded", () => {
                             null;
                     });
 
-                document
-                    .querySelectorAll(
-                        ".accordion-btn"
-                    )
-                    .forEach(button => {
+                accordionButtons.forEach(
+                    button => {
 
                         button.setAttribute(
                             "aria-expanded",
                             "false"
                         );
-                    });
+                    }
+                );
             }
         }
     );
+
+    console.log(
+        "Portfolio JS chargé avec succès."
+    );
+
 });
