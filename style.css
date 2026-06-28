@@ -1,242 +1,340 @@
-/* =========================================================
+/* ==========================================================
    HANANE LASRI PORTFOLIO
-   PREMIUM CSS 2026
-========================================================= */
+   PREMIUM STYLE.CSS 2026
+   PARTIE 1 / 3
+==========================================================*/
 
-/* ===============================
-   VARIABLES
-================================ */
+/*==========================================================
+= VARIABLES
+==========================================================*/
 
 :root{
 
+    /* Couleurs principales */
+
     --primary:#5f6f52;
-    --secondary:#6f8266;
+    --primary-dark:#4d5d44;
+    --secondary:#7b8d72;
     --accent:#c8a978;
 
-    --bg:#f6f5f2;
-    --card:#ffffff;
+    /* Couleurs de fond */
 
-    --text:#2b2b2b;
-    --muted:#6b6b6b;
+    --background:#f5f5f2;
+    --surface:#ffffff;
+    --surface-soft:#faf9f6;
+
+    /* Texte */
+
+    --text:#2d2d2d;
+    --text-light:#6c6c6c;
+
+    /* Bordures */
+
+    --border:#e6e6e6;
+
+    /* Ombres */
 
     --shadow-sm:0 8px 20px rgba(0,0,0,.08);
-    --shadow-md:0 14px 35px rgba(0,0,0,.12);
 
-    --radius:18px;
+    --shadow-md:0 15px 35px rgba(0,0,0,.12);
+
+    --shadow-lg:0 20px 45px rgba(0,0,0,.18);
+
+    /* Rayons */
+
+    --radius-sm:12px;
+
+    --radius-md:18px;
+
+    --radius-lg:28px;
+
+    /* Transition */
 
     --transition:.35s ease;
+
 }
 
-/* ===============================
-   RESET
-================================ */
+/*==========================================================
+= RESET
+==========================================================*/
 
 *{
+
     margin:0;
     padding:0;
     box-sizing:border-box;
+
 }
 
 html{
+
     scroll-behavior:smooth;
+
 }
 
 body{
 
     font-family:'Open Sans',sans-serif;
 
-    background:var(--bg);
+    background:var(--background);
+
     color:var(--text);
 
-    line-height:1.7;
+    line-height:1.8;
 
     overflow-x:hidden;
+
+    transition:
+    background .4s ease,
+    color .4s ease;
+
 }
 
-img{
-    display:block;
-    max-width:100%;
+/*==========================================================
+= BACKGROUND
+==========================================================*/
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background-image:
+
+    radial-gradient(rgba(0,0,0,.03) 1px,transparent 1px);
+
+    background-size:42px 42px;
+
+    z-index:-3;
+
 }
 
-a{
-    text-decoration:none;
-}
-
-ul{
-    padding-left:22px;
-}
+/*==========================================================
+= GENERAL
+==========================================================*/
 
 .container{
 
     width:min(1100px,92%);
+
     margin:auto;
+
 }
 
-/* ===============================
-   PARTICLES
-================================ */
+img{
 
-#particles-canvas{
+    display:block;
 
-    position:fixed;
-    inset:0;
+    max-width:100%;
 
-    z-index:-1;
-
-    pointer-events:none;
 }
 
-/* ===============================
-   WELCOME SCREEN
-================================ */
+a{
+
+    color:var(--primary);
+
+    text-decoration:none;
+
+    transition:var(--transition);
+
+}
+
+a:hover{
+
+    color:var(--accent);
+
+}
+
+ul{
+
+    padding-left:22px;
+
+}
+
+li{
+
+    margin-bottom:10px;
+
+}
+
+p{
+
+    margin-bottom:18px;
+
+}
+
+/*==========================================================
+= WELCOME SCREEN
+==========================================================*/
 
 #welcome-message{
 
     position:fixed;
+
     inset:0;
 
-    background:white;
-
     display:flex;
+
     justify-content:center;
+
     align-items:center;
 
-    z-index:9999;
+    background:
+
+    linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary));
+
+    z-index:99999;
+
+    transition:opacity .9s ease;
+
+}
+
+#welcome-message.fade-out{
+
+    opacity:0;
+
+    pointer-events:none;
+
 }
 
 .welcome-box{
 
-    background:white;
+    background:rgba(255,255,255,.96);
 
-    padding:40px;
+    padding:45px;
 
-    border-radius:20px;
+    border-radius:var(--radius-lg);
 
     text-align:center;
 
-    box-shadow:var(--shadow-md);
+    box-shadow:var(--shadow-lg);
+
+    backdrop-filter:blur(15px);
+
 }
 
-.fade-out{
+.welcome-box h2{
 
-    opacity:0;
-    visibility:hidden;
-
-    transition:opacity .8s ease;
-}
-
-/* ===============================
-   NAVBAR
-================================ */
-
-.navbar{
-
-    position:fixed;
-
-    top:0;
-    left:0;
-    right:0;
-
-    z-index:1000;
-
-    background:rgba(255,255,255,.95);
-
-    backdrop-filter:blur(10px);
-
-    box-shadow:var(--shadow-sm);
-}
-
-.navbar .container{
-
-    display:flex;
-
-    justify-content:space-between;
-    align-items:center;
-
-    padding:18px 0;
-}
-
-.logo{
+    font-family:'Playfair Display',serif;
 
     color:var(--primary);
 
-    font-weight:700;
-    font-size:1.2rem;
+    font-size:2.8rem;
+
+    margin-bottom:15px;
+
 }
 
-.nav-links{
+.welcome-box p{
 
-    display:flex;
-    gap:25px;
+    color:var(--text-light);
 
-    list-style:none;
+    font-size:1.1rem;
+
 }
 
-.nav-links a{
-
-    color:var(--text);
-    font-weight:600;
-
-    transition:var(--transition);
-}
-
-.nav-links a:hover{
-    color:var(--primary);
-}
-
-/* ===============================
-   HERO
-================================ */
+/*==========================================================
+= HERO
+==========================================================*/
 
 header{
 
     min-height:100vh;
 
     display:flex;
-    align-items:center;
+
     justify-content:center;
+
+    align-items:center;
 
     text-align:center;
 
-    background:linear-gradient(
-        135deg,
-        var(--primary),
-        var(--secondary)
-    );
-
     color:white;
 
-    padding-top:100px;
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+
+    linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary));
+
+}
+
+header::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:850px;
+
+    height:850px;
+
+    top:-300px;
+
+    right:-220px;
+
+    background:
+
+    radial-gradient(circle,
+    rgba(255,255,255,.18),
+    transparent 70%);
+
 }
 
 .intro{
-    max-width:800px;
+
+    position:relative;
+
+    z-index:2;
+
 }
+
+/*==========================================================
+= PHOTO
+==========================================================*/
 
 .photo-profil{
 
     width:190px;
+
     height:190px;
-
-    margin:auto auto 25px;
-
-    border-radius:50%;
 
     object-fit:cover;
 
-    border:4px solid rgba(255,255,255,.35);
+    margin:auto auto 30px;
 
-    box-shadow:var(--shadow-md);
+    border-radius:50%;
 
-    transition:var(--transition);
+    border:5px solid rgba(255,255,255,.35);
+
+    box-shadow:var(--shadow-lg);
 
     animation:float 6s ease-in-out infinite;
+
+    transition:transform .4s ease;
+
 }
 
 .photo-profil:hover{
 
-    transform:scale(1.05);
+    transform:scale(1.06);
+
 }
+
+/*==========================================================
+= TITRES HERO
+==========================================================*/
 
 h1{
 
@@ -244,162 +342,251 @@ h1{
 
     font-size:4rem;
 
-    margin-bottom:10px;
+    margin-bottom:12px;
+
 }
 
 .subtitle{
 
     font-size:1.4rem;
+
     font-weight:600;
 
-    margin-bottom:15px;
+    margin-bottom:18px;
+
 }
 
 .description{
 
-    max-width:700px;
+    width:min(720px,90%);
 
     margin:auto;
 
     opacity:.95;
+
 }
 
-/* ===============================
-   BUTTONS
-================================ */
+/*==========================================================
+= BOUTONS HERO
+==========================================================*/
+
+.hero-buttons{
+
+    margin-top:35px;
+
+}
 
 .btn{
 
     display:inline-block;
 
     margin:8px;
-    padding:14px 28px;
 
-    border-radius:40px;
+    padding:15px 28px;
+
+    border-radius:50px;
 
     background:white;
+
     color:var(--primary);
 
     font-weight:700;
 
-    transition:var(--transition);
-
     box-shadow:var(--shadow-sm);
+
+    transition:all .35s ease;
+
 }
 
 .btn:hover{
 
-    transform:translateY(-4px);
+    transform:translateY(-5px);
 
     box-shadow:var(--shadow-md);
+
+    background:var(--surface-soft);
+
 }
 
-/* ===============================
-   SECTIONS
-================================ */
+.btn:focus{
+
+    outline:3px solid var(--accent);
+
+    outline-offset:3px;
+
+}
+/*==========================================================
+= MAIN
+==========================================================*/
+
+main{
+
+    background:var(--background);
+
+}
+
+/*==========================================================
+= SECTIONS
+==========================================================*/
 
 section{
+
     padding:80px 0;
+
+    position:relative;
+
 }
 
-/* ===============================
-   ACCORDION BUTTON
-================================ */
+section:last-child{
 
-.accordion-btn{
+    padding-bottom:100px;
 
-    width:100%;
+}
 
-    border:none;
+/*==========================================================
+= CONTAINER ANIMATION
+==========================================================*/
 
-    cursor:pointer;
+.container{
 
-    background:white;
+    opacity:0;
 
-    text-align:left;
+    transform:translateY(40px);
 
-    padding:20px;
+    transition:
 
-    font-size:1.3rem;
+        opacity .8s ease,
+
+        transform .8s ease;
+
+}
+
+.container.visible{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+/*==========================================================
+= SECTION TITLES
+==========================================================*/
+
+h2{
 
     font-family:'Playfair Display',serif;
 
+    font-size:1.6rem;
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    padding:20px 25px;
+
     border-left:6px solid var(--primary);
 
-    border-radius:14px;
+    border-radius:var(--radius-md);
+
+    cursor:pointer;
+
+    user-select:none;
 
     box-shadow:var(--shadow-sm);
 
-    transition:var(--transition);
+    transition:all .35s ease;
+
 }
 
-.accordion-btn:hover{
+h2:hover{
 
-    transform:translateX(5px);
+    transform:translateX(6px);
+
+    box-shadow:var(--shadow-md);
+
 }
 
-.accordion-btn:focus{
+h2:focus{
 
     outline:3px solid var(--accent);
+
+    outline-offset:3px;
+
 }
 
-/* ===============================
-   ACCORDION CONTENT
-================================ */
+h3{
 
-.accordion-content{
+    font-family:'Playfair Display',serif;
 
-    max-height:0;
+    color:var(--primary);
+
+    margin-bottom:15px;
+
+}
+
+/*==========================================================
+= ACCORDION
+==========================================================*/
+
+.toggle-content{
 
     overflow:hidden;
 
-    background:white;
+    max-height:0;
 
-    border-radius:0 0 16px 16px;
+    background:var(--surface);
+
+    border-radius:0 0 var(--radius-md) var(--radius-md);
+
+    box-shadow:var(--shadow-sm);
 
     margin-top:10px;
 
-    box-shadow:var(--shadow-sm);
+    padding:0 28px;
 
-    transition:max-height .6s ease,
-               padding .4s ease;
+    transition:
 
-    padding:0 25px;
+        max-height .55s ease,
+
+        padding .35s ease;
+
 }
 
-.accordion-content.open{
+.toggle-content.open{
 
-    padding:25px;
+    padding:28px;
+
 }
 
-/* ===============================
-   CARDS
-================================ */
+/*==========================================================
+= EXPERIENCE CARD
+==========================================================*/
 
-.experience-card,
-.project-card,
-.publication-card{
+.experience-card{
 
-    background:var(--card);
+    background:var(--surface);
 
-    padding:25px;
-
-    border-radius:18px;
+    padding:28px;
 
     margin-bottom:25px;
 
+    border-radius:var(--radius-md);
+
+    border-left:5px solid var(--primary);
+
     box-shadow:var(--shadow-sm);
 
-    transition:var(--transition);
+    transition:all .35s ease;
+
 }
 
-.experience-card:hover,
-.project-card:hover,
-.publication-card:hover{
+.experience-card:hover{
 
-    transform:translateY(-6px);
+    transform:translateY(-8px);
 
     box-shadow:var(--shadow-md);
+
 }
 
 .experience-date{
@@ -408,44 +595,185 @@ section{
 
     font-weight:700;
 
-    margin:12px 0;
+    margin-bottom:18px;
+
 }
 
-/* ===============================
-   REVEAL ANIMATION
-================================ */
+/*==========================================================
+= PUBLICATION CARD
+==========================================================*/
 
-.reveal{
+.publication-card{
 
-    opacity:0;
+    background:var(--surface);
 
-    transform:translateY(40px);
+    padding:28px;
 
-    transition:
-    opacity .8s ease,
-    transform .8s ease;
+    margin-bottom:25px;
+
+    border-radius:var(--radius-md);
+
+    box-shadow:var(--shadow-sm);
+
+    transition:all .35s ease;
+
 }
 
-.visible{
+.publication-card:hover{
 
-    opacity:1;
+    transform:translateY(-8px);
 
-    transform:translateY(0);
+    box-shadow:var(--shadow-md);
+
 }
 
-/* ===============================
-   SCROLL TOP
-================================ */
+/*==========================================================
+= PROJECT CARD
+==========================================================*/
+
+.project-card{
+
+    background:var(--surface);
+
+    padding:28px;
+
+    border-radius:var(--radius-md);
+
+    box-shadow:var(--shadow-sm);
+
+    transition:all .35s ease;
+
+}
+
+.project-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+/*==========================================================
+= SKILLS
+==========================================================*/
+
+#skills li{
+
+    list-style:none;
+
+    background:var(--surface);
+
+    margin-bottom:16px;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    box-shadow:var(--shadow-sm);
+
+    transition:all .35s ease;
+
+}
+
+#skills li:hover{
+
+    transform:translateX(8px);
+
+}
+
+/*==========================================================
+= ASSOCIATIVE LIFE
+==========================================================*/
+
+#associative-life p{
+
+    background:var(--surface);
+
+    padding:24px;
+
+    border-radius:var(--radius-md);
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+/*==========================================================
+= PASSIONS
+==========================================================*/
+
+#passions p{
+
+    background:var(--surface);
+
+    padding:22px;
+
+    margin-bottom:18px;
+
+    border-radius:var(--radius-md);
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+/*==========================================================
+= LANGUAGES
+==========================================================*/
+
+#languages li{
+
+    list-style:none;
+
+    background:var(--surface);
+
+    padding:16px;
+
+    margin-bottom:14px;
+
+    border-radius:14px;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+/*==========================================================
+= FOOTER
+==========================================================*/
+
+footer{
+
+    background:var(--surface);
+
+    padding:45px 20px;
+
+    text-align:center;
+
+    color:var(--text-light);
+
+    border-top:1px solid rgba(0,0,0,.08);
+
+}
+
+footer p{
+
+    margin:8px 0;
+
+}
+
+/*==========================================================
+= SCROLL TOP BUTTON
+==========================================================*/
 
 #scroll-top{
 
     position:fixed;
 
     right:25px;
+
     bottom:25px;
 
-    width:50px;
-    height:50px;
+    width:52px;
+
+    height:52px;
 
     border:none;
 
@@ -457,33 +785,179 @@ section{
 
     cursor:pointer;
 
+    font-size:20px;
+
     opacity:0;
+
     visibility:hidden;
 
-    transition:var(--transition);
+    box-shadow:var(--shadow-md);
 
-    z-index:900;
+    transition:all .35s ease;
+
+    z-index:999;
+
 }
 
 #scroll-top.show{
 
     opacity:1;
+
     visibility:visible;
+
 }
 
-/* ===============================
-   DARK MODE BUTTON
-================================ */
+#scroll-top:hover{
+
+    transform:translateY(-5px);
+
+    background:var(--secondary);
+
+}
+
+/*==========================================================
+= DARK MODE BUTTON
+==========================================================*/
 
 #dark-mode-toggle{
 
     position:fixed;
 
-    top:90px;
+    top:20px;
+
     right:20px;
 
-    width:50px;
-    height:50px;
+    width:52px;
+
+    height:52px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--surface);
+
+    color:var(--primary);
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    box-shadow:var(--shadow-md);
+
+    transition:all .35s ease;
+
+    z-index:1000;
+
+}
+
+#dark-mode-toggle:hover{
+
+    transform:rotate(15deg) scale(1.08);
+
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+
+    background:var(--card);
+
+    border-top:1px solid rgba(0,0,0,.08);
+
+    text-align:center;
+
+    padding:45px 20px;
+
+    color:var(--muted);
+
+}
+
+footer p{
+
+    margin:8px 0;
+
+}
+
+/* =========================================================
+   SCROLL TO TOP
+========================================================= */
+
+#scroll-top{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    width:55px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:#fff;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:translateY(20px);
+
+    transition:all .35s ease;
+
+    box-shadow:var(--shadow-md);
+
+    z-index:999;
+
+}
+
+#scroll-top.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:translateY(0);
+
+}
+
+#scroll-top:hover{
+
+    background:var(--accent);
+
+    color:#fff;
+
+    transform:translateY(-5px);
+
+}
+
+/* =========================================================
+   DARK MODE BUTTON
+========================================================= */
+
+#dark-mode-toggle{
+
+    position:fixed;
+
+    top:20px;
+
+    right:20px;
+
+    width:55px;
+
+    height:55px;
 
     border:none;
 
@@ -491,133 +965,392 @@ section{
 
     cursor:pointer;
 
-    background:white;
+    background:rgba(255,255,255,.95);
 
-    box-shadow:var(--shadow-sm);
+    color:var(--primary);
 
-    z-index:1001;
+    font-size:22px;
+
+    box-shadow:var(--shadow-md);
+
+    backdrop-filter:blur(10px);
+
+    transition:all .35s ease;
+
+    z-index:1000;
+
 }
 
-/* ===============================
-   FOOTER
-================================ */
+#dark-mode-toggle:hover{
 
-footer{
+    transform:rotate(15deg) scale(1.08);
 
-    background:white;
-
-    text-align:center;
-
-    padding:50px 20px;
-
-    color:var(--muted);
-
-    border-top:1px solid rgba(0,0,0,.08);
 }
 
-/* ===============================
+/* =========================================================
    DARK MODE
-================================ */
+========================================================= */
 
 body.dark-mode{
 
-    --bg:#101513;
-    --card:#1b2320;
+    --bg:#101715;
 
-    --text:#f2f2f2;
-    --muted:#c0c0c0;
+    --card:#18201d;
+
+    --text:#f3f3f3;
+
+    --muted:#c6c6c6;
 
     background:var(--bg);
+
+    color:var(--text);
+
 }
+
+/* Fond général */
+
+body.dark-mode::before{
+
+    background-image:
+
+    radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);
+
+}
+
+/* Navbar */
 
 body.dark-mode .navbar{
 
-    background:rgba(20,25,22,.95);
+    background:rgba(18,24,21,.95);
+
 }
 
-body.dark-mode .accordion-btn,
-body.dark-mode .accordion-content,
-body.dark-mode .experience-card,
-body.dark-mode .project-card,
-body.dark-mode .publication-card,
-body.dark-mode footer{
+/* Hero */
+
+body.dark-mode header{
+
+    background:
+
+    linear-gradient(
+
+    135deg,
+
+    #1b2a22,
+
+    #2d4033
+
+    );
+
+}
+
+/* Titres */
+
+body.dark-mode h2,
+
+body.dark-mode .accordion-btn{
 
     background:var(--card);
 
     color:var(--text);
+
+    border-left-color:var(--accent);
+
 }
+
+/* Accordions */
+
+body.dark-mode .accordion-content{
+
+    background:var(--card);
+
+    color:var(--text);
+
+}
+
+/* Cartes */
+
+body.dark-mode .experience-card,
+
+body.dark-mode .project-card,
+
+body.dark-mode .publication-card{
+
+    background:var(--card);
+
+    color:var(--text);
+
+}
+
+/* Listes */
+
+body.dark-mode #skills li,
+
+body.dark-mode #languages li{
+
+    background:var(--card);
+
+    color:var(--text);
+
+}
+
+/* Paragraphes */
+
+body.dark-mode #passions p,
+
+body.dark-mode #associative-life p{
+
+    background:var(--card);
+
+    color:var(--text);
+
+}
+
+/* Footer */
+
+body.dark-mode footer{
+
+    background:#0d1210;
+
+    color:var(--muted);
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+/* Boutons */
 
 body.dark-mode .btn{
 
-    background:#29332f;
-    color:white;
+    background:#2b3732;
+
+    color:#fff;
+
 }
+
+body.dark-mode .btn:hover{
+
+    background:var(--accent);
+
+    color:#fff;
+
+}
+
+/* Icône Dark */
 
 body.dark-mode #dark-mode-toggle{
 
-    background:#29332f;
-    color:white;
+    background:#29342f;
+
+    color:#fff;
+
 }
 
-/* ===============================
-   FLOAT
-================================ */
+/* Scroll Top */
 
-@keyframes float{
+body.dark-mode #scroll-top{
 
-    0%,100%{
-        transform:translateY(0);
-    }
+    background:var(--accent);
 
-    50%{
-        transform:translateY(-8px);
-    }
 }
 
-/* ===============================
+body.dark-mode #scroll-top:hover{
+
+    background:#d8b886;
+
+}
+
+/* Liens */
+
+body.dark-mode a{
+
+    color:#e0c28e;
+
+}
+
+body.dark-mode a:hover{
+
+    color:#ffffff;
+
+}
+
+/* Scrollbar */
+
+body.dark-mode::-webkit-scrollbar-track{
+
+    background:#121816;
+
+}
+
+body.dark-mode::-webkit-scrollbar-thumb{
+
+    background:var(--primary);
+
+}
+
+/* =========================================================
    RESPONSIVE
-================================ */
+========================================================= */
+
+@media(max-width:992px){
+
+    h1{
+
+        font-size:3rem;
+
+    }
+
+    .container{
+
+        width:94%;
+
+    }
+
+}
 
 @media(max-width:768px){
 
-    .navbar .container{
+    header{
 
-        flex-direction:column;
-        gap:15px;
-    }
+        min-height:auto;
 
-    .nav-links{
+        padding:100px 0 80px;
 
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    h1{
-        font-size:2.5rem;
     }
 
     .photo-profil{
 
-        width:140px;
-        height:140px;
+        width:150px;
+
+        height:150px;
+
+    }
+
+    h1{
+
+        font-size:2.5rem;
+
+    }
+
+    .subtitle{
+
+        font-size:1.2rem;
+
+    }
+
+    .description{
+
+        font-size:1rem;
+
     }
 
     .btn{
 
         display:block;
+
         width:90%;
 
-        margin:10px auto;
+        margin:12px auto;
+
+        text-align:center;
+
     }
+
+    .navbar .container{
+
+        flex-direction:column;
+
+        gap:15px;
+
+    }
+
+    .nav-links{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+    }
+
 }
 
 @media(max-width:480px){
 
     h1{
+
         font-size:2rem;
+
+    }
+
+    .photo-profil{
+
+        width:120px;
+
+        height:120px;
+
     }
 
     .accordion-btn{
+
         font-size:1.1rem;
+
     }
+
+    #dark-mode-toggle,
+
+    #scroll-top{
+
+        width:48px;
+
+        height:48px;
+
+        font-size:20px;
+
+    }
+
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+button:focus,
+
+a:focus,
+
+.accordion-btn:focus{
+
+    outline:3px solid var(--accent);
+
+    outline-offset:3px;
+
+}
+
+/* =========================================================
+   SELECTION
+========================================================= */
+
+::selection{
+
+    background:var(--primary);
+
+    color:#fff;
+
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *{
+
+        animation:none !important;
+
+        transition:none !important;
+
+        scroll-behavior:auto !important;
+
+    }
+
 }
