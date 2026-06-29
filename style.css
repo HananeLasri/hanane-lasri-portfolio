@@ -2,52 +2,52 @@
    HANANE LASRI PORTFOLIO
    PREMIUM STYLE.CSS 2026
    PARTIE 1 / 3
-==========================================================*/
+========================================================== */
 
-/*==========================================================
-= VARIABLES
-==========================================================*/
+/* ==========================================================
+   VARIABLES
+========================================================== */
 
 :root{
 
-    /* Palette principale */
+    /* Palette */
 
     --primary:#5f6f52;
-    --primary-dark:#49583f;
-    --secondary:#73866b;
+    --primary-dark:#4b5b42;
+    --secondary:#73856a;
     --accent:#c8a978;
 
-    /* Fonds */
+    /* Background */
 
-    --background:#f5f5f2;
+    --background:#f6f5f2;
     --surface:#ffffff;
-    --surface-soft:#fbfaf7;
+    --surface-light:#fbfaf7;
 
-    /* Texte */
+    /* Text */
 
-    --text:#2d2d2d;
-    --text-light:#6f6f6f;
+    --text:#2b2b2b;
+    --text-light:#666666;
 
-    /* Bordures */
+    /* Border */
 
-    --border:#e5e5e5;
+    --border:#e8e8e8;
 
-    /* Ombres */
-
-    --shadow-sm:
-        0 8px 20px rgba(0,0,0,.08);
-
-    --shadow-md:
-        0 15px 35px rgba(0,0,0,.12);
-
-    --shadow-lg:
-        0 25px 50px rgba(0,0,0,.18);
-
-    /* Rayons */
+    /* Radius */
 
     --radius-sm:12px;
     --radius-md:18px;
     --radius-lg:28px;
+
+    /* Shadows */
+
+    --shadow-sm:
+    0 8px 20px rgba(0,0,0,.08);
+
+    --shadow-md:
+    0 15px 35px rgba(0,0,0,.12);
+
+    --shadow-lg:
+    0 25px 60px rgba(0,0,0,.18);
 
     /* Transition */
 
@@ -55,14 +55,15 @@
 
 }
 
-/*==========================================================
-= RESET
-==========================================================*/
+/* ==========================================================
+   RESET
+========================================================== */
 
 *{
 
     margin:0;
     padding:0;
+
     box-sizing:border-box;
 
 }
@@ -86,14 +87,14 @@ body{
     overflow-x:hidden;
 
     transition:
-        background .45s ease,
-        color .45s ease;
+    background .4s ease,
+    color .4s ease;
 
 }
 
-/*==========================================================
-= BACKGROUND
-==========================================================*/
+/* ==========================================================
+   BACKGROUND DECORATION
+========================================================== */
 
 body::before{
 
@@ -104,40 +105,21 @@ body::before{
     inset:0;
 
     background-image:
-        radial-gradient(rgba(0,0,0,.03) 1px,transparent 1px);
 
-    background-size:42px 42px;
+    radial-gradient(
+        rgba(95,111,82,.05) 1px,
+        transparent 1px
+    );
+
+    background-size:40px 40px;
 
     z-index:-3;
 
 }
 
-/* Dégradé très léger */
-
-body::after{
-
-    content:"";
-
-    position:fixed;
-
-    inset:0;
-
-    background:
-        radial-gradient(circle at top right,
-        rgba(200,169,120,.08),
-        transparent 45%),
-
-        radial-gradient(circle at bottom left,
-        rgba(95,111,82,.08),
-        transparent 40%);
-
-    z-index:-4;
-
-}
-
-/*==========================================================
-= GENERAL
-==========================================================*/
+/* ==========================================================
+   GENERAL
+========================================================== */
 
 .container{
 
@@ -189,9 +171,25 @@ p{
 
 }
 
-/*==========================================================
-= WELCOME SCREEN
-==========================================================*/
+/* ==========================================================
+   PARTICLES CANVAS
+========================================================== */
+
+#particles-canvas{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-2;
+
+    pointer-events:none;
+
+}
+
+/* ==========================================================
+   WELCOME SCREEN
+========================================================== */
 
 #welcome-message{
 
@@ -206,16 +204,16 @@ p{
     align-items:center;
 
     background:
-        linear-gradient(
+
+    linear-gradient(
         135deg,
         var(--primary),
-        var(--secondary));
+        var(--secondary)
+    );
 
     z-index:99999;
 
-    transition:
-        opacity .9s ease,
-        visibility .9s ease;
+    transition:opacity .8s ease;
 
 }
 
@@ -223,23 +221,21 @@ p{
 
     opacity:0;
 
-    visibility:hidden;
-
     pointer-events:none;
 
 }
 
 .welcome-box{
 
-    background:rgba(255,255,255,.96);
-
-    backdrop-filter:blur(16px);
+    background:rgba(255,255,255,.95);
 
     padding:45px;
 
     border-radius:var(--radius-lg);
 
     text-align:center;
+
+    backdrop-filter:blur(12px);
 
     box-shadow:var(--shadow-lg);
 
@@ -253,7 +249,7 @@ p{
 
     font-size:2.7rem;
 
-    margin-bottom:18px;
+    margin-bottom:15px;
 
 }
 
@@ -265,9 +261,9 @@ p{
 
 }
 
-/*==========================================================
-= NAVBAR
-==========================================================*/
+/* ==========================================================
+   NAVBAR
+========================================================== */
 
 .navbar{
 
@@ -279,11 +275,9 @@ p{
 
     z-index:1000;
 
-    background:rgba(255,255,255,.85);
+    background:rgba(255,255,255,.90);
 
-    backdrop-filter:blur(18px);
-
-    border-bottom:1px solid rgba(255,255,255,.25);
+    backdrop-filter:blur(14px);
 
     box-shadow:var(--shadow-sm);
 
@@ -303,13 +297,13 @@ p{
 
 .logo{
 
-    font-size:1.25rem;
+    font-family:'Playfair Display',serif;
+
+    font-size:1.35rem;
 
     font-weight:700;
 
     color:var(--primary);
-
-    letter-spacing:.5px;
 
 }
 
@@ -317,7 +311,7 @@ p{
 
     display:flex;
 
-    gap:26px;
+    gap:28px;
 
     list-style:none;
 
@@ -349,7 +343,7 @@ p{
 
     background:var(--accent);
 
-    transition:.35s ease;
+    transition:.3s;
 
 }
 
@@ -359,9 +353,9 @@ p{
 
 }
 
-/*==========================================================
-= HERO
-==========================================================*/
+/* ==========================================================
+   HERO
+========================================================== */
 
 header{
 
@@ -382,10 +376,12 @@ header{
     overflow:hidden;
 
     background:
-        linear-gradient(
+
+    linear-gradient(
         135deg,
         var(--primary),
-        var(--secondary));
+        var(--secondary)
+    );
 
 }
 
@@ -395,18 +391,25 @@ header::before{
 
     position:absolute;
 
-    width:850px;
+    width:900px;
 
-    height:850px;
+    height:900px;
 
-    top:-280px;
+    top:-320px;
 
-    right:-220px;
+    right:-250px;
 
     background:
-        radial-gradient(circle,
+
+    radial-gradient(
+
+        circle,
+
         rgba(255,255,255,.18),
-        transparent 70%);
+
+        transparent 70%
+
+    );
 
 }
 
@@ -418,9 +421,9 @@ header::before{
 
 }
 
-/*==========================================================
-= PHOTO
-==========================================================*/
+/* ==========================================================
+   PHOTO
+========================================================== */
 
 .photo-profil{
 
@@ -428,7 +431,7 @@ header::before{
 
     height:190px;
 
-    margin:auto auto 30px;
+    margin:auto auto 28px;
 
     object-fit:cover;
 
@@ -438,7 +441,7 @@ header::before{
 
     box-shadow:var(--shadow-lg);
 
-    transition:transform .4s ease;
+    transition:transform .35s ease;
 
     animation:float 6s ease-in-out infinite;
 
@@ -450,9 +453,9 @@ header::before{
 
 }
 
-/*==========================================================
-= HERO TEXT
-==========================================================*/
+/* ==========================================================
+   HERO TEXT
+========================================================== */
 
 h1{
 
@@ -466,11 +469,11 @@ h1{
 
 .subtitle{
 
-    font-size:1.35rem;
+    font-size:1.4rem;
 
     font-weight:600;
 
-    margin-bottom:18px;
+    margin-bottom:20px;
 
 }
 
@@ -484,9 +487,9 @@ h1{
 
 }
 
-/*==========================================================
-= HERO BUTTONS
-==========================================================*/
+/* ==========================================================
+   HERO BUTTONS
+========================================================== */
 
 .hero-buttons{
 
@@ -518,9 +521,9 @@ h1{
 
 .btn:hover{
 
-    background:var(--surface-soft);
-
     transform:translateY(-5px);
+
+    background:var(--surface-light);
 
     box-shadow:var(--shadow-md);
 
@@ -533,9 +536,15 @@ h1{
     outline-offset:3px;
 
 }
-/*==========================================================
-= MAIN
+/* ==========================================================
+   HANANE LASRI PORTFOLIO
+   PREMIUM STYLE.CSS 2026
+   PARTIE 2 / 3
 ==========================================================*/
+
+/* ==========================================================
+   MAIN
+========================================================== */
 
 main{
 
@@ -543,33 +552,16 @@ main{
 
 }
 
-/*==========================================================
-= SECTIONS
-==========================================================*/
-
-section{
-
-    position:relative;
-
-    padding:90px 0;
-
-}
-
-section:last-child{
-
-    padding-bottom:110px;
-
-}
-
-/*==========================================================
-= REVEAL ANIMATION
-==========================================================*/
+/* ==========================================================
+   REVEAL ANIMATION
+   (Compatible avec script.js)
+========================================================== */
 
 .reveal{
 
     opacity:0;
 
-    transform:translateY(45px);
+    transform:translateY(40px);
 
     transition:
 
@@ -579,7 +571,7 @@ section:last-child{
 
 }
 
-.visible{
+.reveal.visible{
 
     opacity:1;
 
@@ -587,9 +579,27 @@ section:last-child{
 
 }
 
-/*==========================================================
-= ACCORDION BUTTON
-==========================================================*/
+/* ==========================================================
+   SECTIONS
+========================================================== */
+
+section{
+
+    padding:90px 0;
+
+    position:relative;
+
+}
+
+section:last-child{
+
+    padding-bottom:120px;
+
+}
+
+/* ==========================================================
+   ACCORDION BUTTON
+========================================================== */
 
 .accordion-btn{
 
@@ -601,25 +611,27 @@ section:last-child{
 
     align-items:center;
 
+    padding:22px 28px;
+
     border:none;
 
-    cursor:pointer;
+    border-left:6px solid var(--primary);
+
+    border-radius:var(--radius-md);
 
     background:var(--surface);
 
     color:var(--text);
 
-    padding:22px 28px;
-
-    font-size:1.45rem;
+    cursor:pointer;
 
     font-family:'Playfair Display',serif;
 
+    font-size:1.45rem;
+
+    font-weight:600;
+
     text-align:left;
-
-    border-left:6px solid var(--primary);
-
-    border-radius:var(--radius-md);
 
     box-shadow:var(--shadow-sm);
 
@@ -629,7 +641,7 @@ section:last-child{
 
 .accordion-btn:hover{
 
-    transform:translateX(6px);
+    transform:translateX(8px);
 
     box-shadow:var(--shadow-md);
 
@@ -639,19 +651,21 @@ section:last-child{
 
     outline:3px solid var(--accent);
 
-    outline-offset:3px;
+    outline-offset:4px;
 
 }
+
+/* Petite flèche */
 
 .accordion-btn::after{
 
     content:"+";
 
-    font-size:1.6rem;
+    font-size:28px;
 
     color:var(--accent);
 
-    transition:.3s ease;
+    transition:.3s;
 
 }
 
@@ -659,17 +673,23 @@ section:last-child{
 
     content:"−";
 
+    transform:rotate(180deg);
+
 }
 
-/*==========================================================
-= ACCORDION CONTENT
-==========================================================*/
+/* ==========================================================
+   ACCORDION CONTENT
+========================================================== */
 
 .accordion-content{
 
+    overflow:hidden;
+
     max-height:0;
 
-    overflow:hidden;
+    margin-top:12px;
+
+    padding:0 30px;
 
     background:var(--surface);
 
@@ -677,13 +697,9 @@ section:last-child{
 
     box-shadow:var(--shadow-sm);
 
-    margin-top:10px;
-
-    padding:0 30px;
-
     transition:
 
-        max-height .6s ease,
+        max-height .55s ease,
 
         padding .35s ease;
 
@@ -695,9 +711,9 @@ section:last-child{
 
 }
 
-/*==========================================================
-= HEADINGS
-==========================================================*/
+/* ==========================================================
+   HEADINGS
+========================================================== */
 
 h3{
 
@@ -705,31 +721,31 @@ h3{
 
     color:var(--primary);
 
-    margin-bottom:15px;
-
     font-size:1.35rem;
+
+    margin-bottom:15px;
 
 }
 
-/*==========================================================
-= EXPERIENCE CARD
-==========================================================*/
+/* ==========================================================
+   EXPERIENCE CARDS
+========================================================== */
 
 .experience-card{
 
     background:var(--surface);
 
-    padding:30px;
-
-    margin-bottom:25px;
-
     border-left:5px solid var(--primary);
 
     border-radius:var(--radius-md);
 
+    padding:28px;
+
+    margin-bottom:25px;
+
     box-shadow:var(--shadow-sm);
 
-    transition:all .35s ease;
+    transition:.35s;
 
 }
 
@@ -747,27 +763,27 @@ h3{
 
     font-weight:700;
 
-    margin:15px 0;
+    margin:14px 0 18px;
 
 }
 
-/*==========================================================
-= PUBLICATION CARD
-==========================================================*/
+/* ==========================================================
+   PUBLICATION CARDS
+========================================================== */
 
 .publication-card{
 
     background:var(--surface);
 
-    padding:30px;
-
-    margin-bottom:25px;
+    padding:28px;
 
     border-radius:var(--radius-md);
 
+    margin-bottom:25px;
+
     box-shadow:var(--shadow-sm);
 
-    transition:all .35s ease;
+    transition:.35s;
 
 }
 
@@ -779,27 +795,21 @@ h3{
 
 }
 
-.publication-card .btn{
-
-    margin-top:20px;
-
-}
-
-/*==========================================================
-= PROJECT CARD
-==========================================================*/
+/* ==========================================================
+   PROJECT CARD
+========================================================== */
 
 .project-card{
 
     background:var(--surface);
 
-    padding:30px;
+    padding:28px;
 
     border-radius:var(--radius-md);
 
     box-shadow:var(--shadow-sm);
 
-    transition:all .35s ease;
+    transition:.35s;
 
 }
 
@@ -811,15 +821,35 @@ h3{
 
 }
 
-/*==========================================================
-= SKILLS
-==========================================================*/
+/* ==========================================================
+   ABOUT
+========================================================== */
+
+#about p{
+
+    text-align:justify;
+
+}
+
+/* ==========================================================
+   EDUCATION
+========================================================== */
+
+#education li{
+
+    margin-bottom:20px;
+
+}
+
+/* ==========================================================
+   SKILLS
+========================================================== */
 
 #skills ul{
 
     list-style:none;
 
-    padding:0;
+    padding-left:0;
 
 }
 
@@ -831,11 +861,11 @@ h3{
 
     padding:20px;
 
-    border-radius:15px;
+    border-radius:16px;
 
     box-shadow:var(--shadow-sm);
 
-    transition:all .35s ease;
+    transition:.35s;
 
 }
 
@@ -843,19 +873,23 @@ h3{
 
     transform:translateX(8px);
 
-    border-left:5px solid var(--accent);
+}
+
+#skills strong{
+
+    color:var(--primary);
 
 }
 
-/*==========================================================
-= ASSOCIATIVE LIFE
-==========================================================*/
+/* ==========================================================
+   ASSOCIATIVE LIFE
+========================================================== */
 
 #associative-life p{
 
     background:var(--surface);
 
-    padding:28px;
+    padding:24px;
 
     border-radius:var(--radius-md);
 
@@ -863,33 +897,33 @@ h3{
 
 }
 
-/*==========================================================
-= PASSIONS
-==========================================================*/
+/* ==========================================================
+   PASSIONS
+========================================================== */
 
 #passions p{
 
     background:var(--surface);
 
-    padding:24px;
-
-    margin-bottom:20px;
+    padding:22px;
 
     border-radius:var(--radius-md);
+
+    margin-bottom:18px;
 
     box-shadow:var(--shadow-sm);
 
 }
 
-/*==========================================================
-= LANGUAGES
-==========================================================*/
+/* ==========================================================
+   LANGUAGES
+========================================================== */
 
 #languages ul{
 
     list-style:none;
 
-    padding:0;
+    padding-left:0;
 
 }
 
@@ -901,23 +935,106 @@ h3{
 
     margin-bottom:15px;
 
-    border-radius:14px;
+    border-radius:15px;
 
     box-shadow:var(--shadow-sm);
 
-    transition:all .3s ease;
+}
+
+/* ==========================================================
+   LINKS INSIDE CARDS
+========================================================== */
+
+.publication-card .btn{
+
+    margin-top:20px;
 
 }
 
-#languages li:hover{
+.project-card ul{
 
-    transform:translateX(6px);
+    margin-top:18px;
 
 }
 
-/*==========================================================
-= FOOTER
+.project-card li{
+
+    margin-bottom:10px;
+
+}
+
+/* ==========================================================
+   CARD HOVER EFFECT
+========================================================== */
+
+.experience-card,
+.project-card,
+.publication-card,
+#skills li,
+#languages li,
+#associative-life p,
+#passions p{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.experience-card::before,
+.project-card::before,
+.publication-card::before,
+#skills li::before,
+#languages li::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-100%;
+
+    width:100%;
+
+    height:100%;
+
+    background:
+
+    linear-gradient(
+
+        90deg,
+
+        transparent,
+
+        rgba(255,255,255,.20),
+
+        transparent
+
+    );
+
+    transition:.6s;
+
+}
+
+.experience-card:hover::before,
+.project-card:hover::before,
+.publication-card:hover::before,
+#skills li:hover::before,
+#languages li:hover::before{
+
+    left:100%;
+
+}
+/* ==========================================================
+   HANANE LASRI PORTFOLIO
+   PREMIUM STYLE.CSS 2026
+   PARTIE 3 / 3
 ==========================================================*/
+
+/* ==========================================================
+   FOOTER
+========================================================== */
 
 footer{
 
@@ -935,13 +1052,15 @@ footer{
 
 footer p{
 
-    margin:8px 0;
+    margin:10px 0;
+
+    font-size:.95rem;
 
 }
 
-/*==========================================================
-= SCROLL TO TOP
-==========================================================*/
+/* ==========================================================
+   SCROLL TO TOP
+========================================================== */
 
 #scroll-top{
 
@@ -951,9 +1070,9 @@ footer p{
 
     bottom:25px;
 
-    width:55px;
+    width:56px;
 
-    height:55px;
+    height:56px;
 
     border:none;
 
@@ -961,15 +1080,17 @@ footer p{
 
     background:var(--primary);
 
-    color:white;
+    color:#fff;
 
-    font-size:22px;
+    font-size:24px;
 
     cursor:pointer;
 
     opacity:0;
 
     visibility:hidden;
+
+    transform:translateY(20px);
 
     box-shadow:var(--shadow-md);
 
@@ -985,54 +1106,523 @@ footer p{
 
     visibility:visible;
 
+    transform:translateY(0);
+
 }
 
 #scroll-top:hover{
 
-    transform:translateY(-5px);
+    background:var(--accent);
 
-    background:var(--secondary);
+    transform:translateY(-5px);
 
 }
 
-/*==========================================================
-= DARK MODE BUTTON
-==========================================================*/
+/* ==========================================================
+   DARK MODE BUTTON
+========================================================== */
 
 #dark-mode-toggle{
 
     position:fixed;
 
-    top:20px;
+    top:90px;
 
     right:20px;
 
-    width:55px;
+    width:56px;
 
-    height:55px;
+    height:56px;
 
     border:none;
 
     border-radius:50%;
 
-    background:var(--surface);
+    background:rgba(255,255,255,.95);
 
     color:var(--primary);
 
-    font-size:22px;
+    font-size:24px;
 
     cursor:pointer;
+
+    backdrop-filter:blur(10px);
 
     box-shadow:var(--shadow-md);
 
     transition:all .35s ease;
 
-    z-index:1000;
+    z-index:1100;
 
 }
 
 #dark-mode-toggle:hover{
 
     transform:rotate(15deg) scale(1.08);
+
+}
+
+/* ==========================================================
+   DARK MODE
+========================================================== */
+
+body.dark-mode{
+
+    --background:#101715;
+
+    --surface:#18201d;
+
+    --surface-light:#202b26;
+
+    --text:#f3f3f3;
+
+    --text-light:#c7c7c7;
+
+    --border:#2b3632;
+
+    background:var(--background);
+
+    color:var(--text);
+
+}
+
+/* Background */
+
+body.dark-mode::before{
+
+    background-image:
+
+    radial-gradient(
+
+        rgba(255,255,255,.05) 1px,
+
+        transparent 1px
+
+    );
+
+}
+
+/* Navbar */
+
+body.dark-mode .navbar{
+
+    background:rgba(18,24,21,.94);
+
+}
+
+/* Navigation */
+
+body.dark-mode .nav-links a{
+
+    color:#f3f3f3;
+
+}
+
+body.dark-mode .nav-links a:hover{
+
+    color:var(--accent);
+
+}
+
+/* Hero */
+
+body.dark-mode header{
+
+    background:
+
+    linear-gradient(
+
+        135deg,
+
+        #18231d,
+
+        #2b3b32
+
+    );
+
+}
+
+/* Logo */
+
+body.dark-mode .logo{
+
+    color:#ffffff;
+
+}
+
+/* Titres accordéons */
+
+body.dark-mode .accordion-btn{
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    border-left-color:var(--accent);
+
+}
+
+/* Contenu accordéons */
+
+body.dark-mode .accordion-content{
+
+    background:var(--surface);
+
+    color:var(--text);
+
+}
+
+/* Cartes */
+
+body.dark-mode .experience-card,
+body.dark-mode .publication-card,
+body.dark-mode .project-card{
+
+    background:var(--surface);
+
+    color:var(--text);
+
+}
+
+/* Skills */
+
+body.dark-mode #skills li{
+
+    background:var(--surface);
+
+    color:var(--text);
+
+}
+
+/* Languages */
+
+body.dark-mode #languages li{
+
+    background:var(--surface);
+
+    color:var(--text);
+
+}
+
+/* Passions */
+
+body.dark-mode #passions p{
+
+    background:var(--surface);
+
+    color:var(--text);
+
+}
+
+/* Associative */
+
+body.dark-mode #associative-life p{
+
+    background:var(--surface);
+
+    color:var(--text);
+
+}
+
+/* Boutons */
+
+body.dark-mode .btn{
+
+    background:#2c3733;
+
+    color:#ffffff;
+
+}
+
+body.dark-mode .btn:hover{
+
+    background:var(--accent);
+
+    color:#ffffff;
+
+}
+
+/* Dark button */
+
+body.dark-mode #dark-mode-toggle{
+
+    background:#2a3430;
+
+    color:#ffffff;
+
+}
+
+/* Scroll button */
+
+body.dark-mode #scroll-top{
+
+    background:var(--accent);
+
+}
+
+body.dark-mode #scroll-top:hover{
+
+    background:#d8b886;
+
+}
+
+/* Footer */
+
+body.dark-mode footer{
+
+    background:#0d1210;
+
+    color:var(--text-light);
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+/* Liens */
+
+body.dark-mode a{
+
+    color:#e4c78e;
+
+}
+
+body.dark-mode a:hover{
+
+    color:#ffffff;
+
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#ececec;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--primary);
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--secondary);
+
+}
+
+body.dark-mode::-webkit-scrollbar-track{
+
+    background:#121816;
+
+}
+
+body.dark-mode::-webkit-scrollbar-thumb{
+
+    background:var(--primary);
+
+}
+
+/* ==========================================================
+   ANIMATION
+========================================================== */
+
+@keyframes float{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-10px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width:992px){
+
+    h1{
+
+        font-size:3rem;
+
+    }
+
+    .container{
+
+        width:94%;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    header{
+
+        min-height:auto;
+
+        padding:120px 0 80px;
+
+    }
+
+    .navbar .container{
+
+        flex-direction:column;
+
+        gap:15px;
+
+    }
+
+    .nav-links{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:18px;
+
+    }
+
+    .photo-profil{
+
+        width:150px;
+
+        height:150px;
+
+    }
+
+    h1{
+
+        font-size:2.5rem;
+
+    }
+
+    .subtitle{
+
+        font-size:1.2rem;
+
+    }
+
+    .description{
+
+        font-size:1rem;
+
+    }
+
+    .btn{
+
+        display:block;
+
+        width:90%;
+
+        margin:12px auto;
+
+        text-align:center;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    h1{
+
+        font-size:2rem;
+
+    }
+
+    .photo-profil{
+
+        width:120px;
+
+        height:120px;
+
+    }
+
+    .accordion-btn{
+
+        font-size:1.15rem;
+
+        padding:18px;
+
+    }
+
+    #dark-mode-toggle,
+    #scroll-top{
+
+        width:48px;
+
+        height:48px;
+
+        font-size:20px;
+
+    }
+
+}
+
+/* ==========================================================
+   ACCESSIBILITY
+========================================================== */
+
+button:focus,
+a:focus,
+.accordion-btn:focus{
+
+    outline:3px solid var(--accent);
+
+    outline-offset:3px;
+
+}
+
+/* ==========================================================
+   TEXT SELECTION
+========================================================== */
+
+::selection{
+
+    background:var(--primary);
+
+    color:#ffffff;
+
+}
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (prefers-reduced-motion:reduce){
+
+    *{
+
+        animation:none !important;
+
+        transition:none !important;
+
+        scroll-behavior:auto !important;
+
+    }
 
 }
